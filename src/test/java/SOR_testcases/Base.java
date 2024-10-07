@@ -41,29 +41,10 @@ public class Base {
 		@SuppressWarnings("resource")
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		sheet = wb.getSheetAt(2);
-		
-		/*
-		
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		
-		for (StackTraceElement element : stackTrace) 
-        {
-            String className = element.getClassName();
-           
-            if (className.contains("LoginTestCase"))
-            {
-            	sheet = wb.getSheetAt(0);
-                break;
-            }
-            
-        }*/
-
-    	//sheet = wb.getSheetAt(1);
-        
-
 	}
 
-	public WebDriver launchBrowser() throws Exception {
+	public WebDriver launchBrowser() throws Exception 
+	{
 
 		ReadExcel();
 

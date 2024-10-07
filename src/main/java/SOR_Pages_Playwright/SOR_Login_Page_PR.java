@@ -1,11 +1,18 @@
 package SOR_Pages_Playwright;
 
 import com.microsoft.playwright.Page;
+import SOR_resources_Playwright.Utility_PR.ConsoleColor;
 import org.testng.Assert;
 
-public class SOR_Login_Page_PR {
+public class SOR_Login_Page_PR 
+ {
+	Page page;
 
-    Page page;
+	public SOR_Login_Page_PR(Page page) 
+    {
+        this.page = page;
+    }
+	
 
     // Locators
     private final String txtusername = "//input[@id='txtUserName']";
@@ -15,12 +22,9 @@ public class SOR_Login_Page_PR {
     private final String lblblankUsername = "//span[@id='RequiredFieldValidator5']"; // Please enter UserName
     private final String lblblankPwd = "//label[@id='lblErrorMsg']"; // Login failed
 
-    public SOR_Login_Page_PR(Page page) 
+    
+    public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException 
     {
-        this.page = page;
-    }
-
-    public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException {
         page.locator(txtusername).clear();
         Thread.sleep(500);
         page.locator(txtusername).fill(UserName);
@@ -34,10 +38,13 @@ public class SOR_Login_Page_PR {
         
         if (page.locator(LeftMenu).isVisible()) 
         {
-            System.out.println("Login Successful With Username :- " + UserName);
+        	ConsoleColor.printColored("Login Successful With Username :- " + UserName,ConsoleColor.GREEN);
+        	//System.out.println("Login Successful With Username :- " + UserName);
             Assert.assertTrue(true);
-        } else {
-            System.out.println("Login Failed");
+        } else 
+        {
+        	ConsoleColor.printColored("Login Failed",ConsoleColor.RED);
+        	//  System.out.println("Login Failed");
             Assert.fail("Login failed");
         }
 }

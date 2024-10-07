@@ -1,6 +1,5 @@
 package SOR_testcases;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,40 +11,52 @@ public class SOR_LoginTestCase extends Base
 
 	SOR_Login_Page login_page;
 	//CV_SendEmailViaSMTP CVs;
-	WebDriver driver;
+	//WebDriver driver;
 
 	@BeforeMethod
 	public void initalization() throws Exception 
 	{
-		driver = launchBrowser();
+		launchBrowser();
 		login_page = new SOR_Login_Page(driver);
 		//CVs =new CV_SendEmailViaSMTP();
-		 
 	}
 	
-	
-	//@Test(priority = 1) // ,groups = "smoke"
-	public void Check_Valid_Credentials()
+	@Test(priority = 1) // ,groups = "smoke"
+	public void Check_Valid_Credentials() throws InterruptedException
 
 	{
 		login_page.Check_Valid_Credentials(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
 	}
 	
-	//@Test(priority = 2)
-	public void check_Blank_Username()
+	@Test(priority = 2)
+	public void check_Blank_Username() throws InterruptedException
 
 	{
-		login_page.Balnk_UserName(sheet.getRow(3).getCell(3).getStringCellValue()); 
+		login_page.Balnk_UserName(sheet.getRow(3).getCell(3).getStringCellValue());
 	}
 	
 	@Test(priority = 3)
-	public void check_Blank_Password()
+	public void check_Blank_Password() throws InterruptedException
 
 	{
 		login_page.Balnk_Password(sheet.getRow(3).getCell(1).getStringCellValue());
 	}
 
 
+	@Test(priority = 4) // , groups = "smoke"
+	public void check_InValid_Password() throws InterruptedException
+
+	{
+		login_page.Invalid_Username(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
+	}
+	
+	@Test(priority = 5) // , groups = "smoke"
+	public void check_InValid_User_Name() throws InterruptedException
+
+	{
+		login_page.Invalid_Password(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
+	}
+	
 	@AfterMethod
 	public void tearDown() 
 	{
@@ -77,7 +88,8 @@ public class SOR_LoginTestCase extends Base
 
 	{
 		login_page.Invalid_Password(sheet.getRow(5).getCell(3).getStringCellValue(),
-				sheet.getRow(5).getCell(7).getStringCellValue(), sheet.getRow(1).getCell(7).getStringCellValue());
+		sheet.getRow(5).getCell(7).getStringCellValue(), 
+		sheet.getRow(1).getCell(7).getStringCellValue());
 	}
 
 	

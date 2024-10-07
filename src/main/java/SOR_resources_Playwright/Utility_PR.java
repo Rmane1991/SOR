@@ -1,19 +1,24 @@
 package SOR_resources_Playwright;
 
 
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.MouseButton;
+import com.microsoft.playwright.options.SelectOption;
+import com.microsoft.playwright.options.WaitForSelectorState;
+
 public class Utility_PR {
 
     Page page;
 
-    public Utility_PR(Page page) {
+    public Utility_PR(Page page)
+    {
         this.page = page;
     }
 
@@ -153,4 +158,28 @@ public class Utility_PR {
         File[] files = downloadPath.listFiles();
         return files != null ? files.length : 0;
     }
+    
+    
+    public static class ConsoleColor {
+		// ANSI escape codes
+		public static final String RESET = "\033[0m"; // Text Reset
+
+		// Regular Colors
+		public static final String BLACK = "\033[0;30m"; // BLACK
+		public static final String RED = "\033[0;31m"; // RED
+		public static final String GREEN = "\033[0;32m"; // GREEN
+		public static final String YELLOW = "\033[0;33m"; // YELLOW
+		public static final String BLUE = "\033[0;34m"; // BLUE
+		public static final String PURPLE = "\033[0;35m"; // PURPLE
+		public static final String CYAN = "\033[0;36m"; // CYAN
+		public static final String WHITE = "\033[0;37m"; // WHITE
+
+		public static void printColored(String message, String color) 
+		{
+			System.out.println(color + message + RESET);
+			System.out.println(color +"-->>"+ RESET);
+		}
+	}
+    
+    
 }

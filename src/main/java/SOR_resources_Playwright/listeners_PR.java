@@ -5,6 +5,9 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.ScreenshotType;
+
+import SOR_resources_Playwright.Utility_PR.ConsoleColor;
+
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -23,15 +26,18 @@ public class listeners_PR implements ITestListener
     ExtentReports reports = ex_Report.getReportObject();
 
     @Override
-    public void onTestStart(ITestResult result) {
-        System.out.println("Test case start = " + result.getMethod().getMethodName());
+    public void onTestStart(ITestResult result) 
+    {
+    	ConsoleColor.printColored("Test case start = " + result.getMethod().getMethodName(), ConsoleColor.GREEN);
+       // System.out.println("Test case start = " + result.getMethod().getMethodName());
         test = reports.createTest(result.getMethod().getMethodName());
     }
 
     @Override
     public void onTestSuccess(ITestResult result) 
     {
-    	System.out.println("Test case Pass = " + result.getMethod().getMethodName());
+    	ConsoleColor.printColored("Test case Pass = " + result.getMethod().getMethodName(), ConsoleColor.GREEN);
+    	//System.out.println("Test case Pass = " + result.getMethod().getMethodName());
         test.log(Status.PASS, "Test Case PASS");
     }
 
@@ -41,7 +47,7 @@ public class listeners_PR implements ITestListener
         	
             Page page = (Page) result.getTestClass().getRealClass().getField("page").get(result.getInstance());
             
-            String screenshotPath = "screenshots/" + result.getMethod().getMethodName() + ".png";
+            String screenshotPath = "D://Workspace//SOR//screenshots//" + result.getMethod().getMethodName() + ".png";
             page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get(screenshotPath)).setType(ScreenshotType.PNG));
             test.addScreenCaptureFromPath(screenshotPath);
             test.log(Status.FAIL, "Test Case Fail");
@@ -57,7 +63,9 @@ public class listeners_PR implements ITestListener
         {
             e.printStackTrace();
         }
-        System.out.println("Test Case Fail = " + result.getName());
+        
+        ConsoleColor.printColored("Test Case Fail = " + result.getName(), ConsoleColor.RED);
+        //System.out.println("Test Case Fail = " + result.getName());
     }
 
     // Helper method to capture console logs
@@ -74,7 +82,8 @@ public class listeners_PR implements ITestListener
     @Override
     public void onTestSkipped(ITestResult result) 
     {
-        System.out.println("Test Case Skip = " + result.getName());
+    	ConsoleColor.printColored("Test Case Skip = " + result.getName(), ConsoleColor.BLUE);
+       // System.out.println("Test Case Skip = " + result.getName());
     }
 
     @Override
