@@ -1,184 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="9" passed="9" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-10-03T16:17:14 IST" name="Suite" finished-at="2024-10-03T16:18:17 IST" duration-ms="63062">
+  <suite started-at="2024-10-07T13:06:19 IST" name="Default suite" finished-at="2024-10-07T13:07:21 IST" duration-ms="62322">
     <groups>
     </groups>
-    <test started-at="2024-10-03T16:17:14 IST" name="Test" finished-at="2024-10-03T16:18:17 IST" duration-ms="63062">
-      <class name="SOR_testcases_Playwright.SOR_LoginTestCase_PR">
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:14 IST" name="browsers" finished-at="2024-10-03T16:17:14 IST" duration-ms="2" status="PASS">
+    <test started-at="2024-10-07T13:06:19 IST" name="Default test" finished-at="2024-10-07T13:07:21 IST" duration-ms="62322">
+      <class name="SOR_testcases.SOR_Rule_ConfigurationTestCase">
+        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Rule_ConfigurationTestCase@1530c739]" started-at="2024-10-07T13:06:19 IST" name="initalization" finished-at="2024-10-07T13:06:23 IST" duration-ms="4189" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method signature="Check_Valid_Credentials(java.lang.String)[pri:1, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:14 IST" name="Check_Valid_Credentials" data-provider="browsers" finished-at="2024-10-03T16:17:34 IST" duration-ms="19692" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- initalization -->
+        <test-method signature="AddGroup()[pri:0, instance:SOR_testcases.SOR_Rule_ConfigurationTestCase@1530c739]" started-at="2024-10-07T13:06:23 IST" name="AddGroup" finished-at="2024-10-07T13:07:21 IST" duration-ms="58084" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Check_Valid_Credentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:34 IST" name="tearDown" finished-at="2024-10-03T16:17:34 IST" duration-ms="255" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:34 IST" name="browsers" finished-at="2024-10-03T16:17:34 IST" duration-ms="1" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method signature="Check_Valid_Credentials(java.lang.String)[pri:1, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:34 IST" name="Check_Valid_Credentials" data-provider="browsers" finished-at="2024-10-03T16:17:43 IST" duration-ms="8927" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[firefox]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Check_Valid_Credentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:43 IST" name="tearDown" finished-at="2024-10-03T16:17:44 IST" duration-ms="1280" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:44 IST" name="browsers" finished-at="2024-10-03T16:17:44 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method signature="Check_Valid_Credentials(java.lang.String)[pri:1, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:44 IST" name="Check_Valid_Credentials" data-provider="browsers" finished-at="2024-10-03T16:17:51 IST" duration-ms="7060" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[edge]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Check_Valid_Credentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:51 IST" name="tearDown" finished-at="2024-10-03T16:17:52 IST" duration-ms="516" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:52 IST" name="browsers" finished-at="2024-10-03T16:17:52 IST" duration-ms="1" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method signature="check_Blank_Username(java.lang.String)[pri:2, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:52 IST" name="check_Blank_Username" data-provider="browsers" finished-at="2024-10-03T16:17:54 IST" duration-ms="2697" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- check_Blank_Username -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:54 IST" name="tearDown" finished-at="2024-10-03T16:17:55 IST" duration-ms="254" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method signature="check_Blank_Username(java.lang.String)[pri:2, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:55 IST" name="check_Blank_Username" data-provider="browsers" finished-at="2024-10-03T16:17:59 IST" duration-ms="4786" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[firefox]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- check_Blank_Username -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:55 IST" name="browsers" finished-at="2024-10-03T16:17:55 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:17:59 IST" name="tearDown" finished-at="2024-10-03T16:18:01 IST" duration-ms="1313" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method signature="check_Blank_Username(java.lang.String)[pri:2, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:01 IST" name="check_Blank_Username" data-provider="browsers" finished-at="2024-10-03T16:18:03 IST" duration-ms="2851" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[edge]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- check_Blank_Username -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:01 IST" name="browsers" finished-at="2024-10-03T16:18:01 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:03 IST" name="tearDown" finished-at="2024-10-03T16:18:04 IST" duration-ms="480" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:04 IST" name="browsers" finished-at="2024-10-03T16:18:04 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method signature="check_Blank_Password(java.lang.String)[pri:3, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:04 IST" name="check_Blank_Password" data-provider="browsers" finished-at="2024-10-03T16:18:07 IST" duration-ms="2892" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- check_Blank_Password -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:07 IST" name="tearDown" finished-at="2024-10-03T16:18:07 IST" duration-ms="253" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method signature="check_Blank_Password(java.lang.String)[pri:3, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:07 IST" name="check_Blank_Password" data-provider="browsers" finished-at="2024-10-03T16:18:12 IST" duration-ms="5005" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[firefox]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- check_Blank_Password -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:07 IST" name="browsers" finished-at="2024-10-03T16:18:07 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:12 IST" name="tearDown" finished-at="2024-10-03T16:18:13 IST" duration-ms="1307" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="browsers()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:13 IST" name="browsers" finished-at="2024-10-03T16:18:13 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- browsers -->
-        <test-method signature="check_Blank_Password(java.lang.String)[pri:3, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:13 IST" name="check_Blank_Password" data-provider="browsers" finished-at="2024-10-03T16:18:16 IST" duration-ms="3031" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[edge]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- check_Blank_Password -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases_Playwright.SOR_LoginTestCase_PR@3feb2dda]" started-at="2024-10-03T16:18:16 IST" name="tearDown" finished-at="2024-10-03T16:18:17 IST" duration-ms="381" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- SOR_testcases_Playwright.SOR_LoginTestCase_PR -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+        </test-method> <!-- AddGroup -->
+      </class> <!-- SOR_testcases.SOR_Rule_ConfigurationTestCase -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

@@ -7,9 +7,15 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class GetscreenShot_PR 
+public class GetscreenShot_PR extends Utility_PR
 {
-    public static String takescreenshots(Page page, String testname) throws IOException
+	//Page page;
+    public GetscreenShot_PR(Page page) 
+    {
+    	super(page);
+	}
+
+	public static String takescreenshots(Page page, String testname) throws IOException
     {
         // Get the current timestamp
         String timestamp = new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss").format(new Date());

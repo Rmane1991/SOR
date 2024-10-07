@@ -15,23 +15,28 @@ public class Rule_Configuration_PR
     private final String lblRunConfiguration = "//div[@id='subPagess3']//span[text()=' Rule Configuration']";
     private final String lblSwitchConfiguration = "//div[@id='subPagess3']//span[text()='Switch Configuration']";
 
-    public Rule_Configuration_PR(Page page) {
+    
+    
+    public Rule_Configuration_PR(Page page) 
+    {
         this.page = page;
     }
 
     // You can add Playwright interaction methods here. For example:
 
-    public void clickRunManagement() {
+    public void clickRunManagement() 
+    {
         page.locator(lblRunManagement).click();
     }
 
-    public void clickRunConfiguration() {
+    public void clickRunConfiguration() 
+    {
         page.locator(lblRunConfiguration).click();
     }
 
-    public void clickSwitchConfiguration() {
+    public void clickSwitchConfiguration() 
+    {
         page.locator(lblSwitchConfiguration).click();
     }
 
-    // Add other interactions with locators as needed
 }

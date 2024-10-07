@@ -38,14 +38,14 @@ public class SOR_Login_Page extends Utility
 		PageFactory.initElements(driver, this);
 	}
 
-	public void Check_Valid_Credentials(String UserName, String Password) 
+	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException 
 	{
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
 		txtPWd.sendKeys(Password);
 		btnsubmit.click();
-		
+		Thread.sleep(2000);
 		if(LeftMenu.isDisplayed()==true)
 		{
 			System.out.println("Login Sucessfull With Username :- "+UserName);
@@ -59,14 +59,15 @@ public class SOR_Login_Page extends Utility
 		}
 	}
 	
-	public void Balnk_UserName(String Password)
+	public void Balnk_UserName(String Password) throws InterruptedException
 	{
 		txtusername.clear();
 		txtPWd.clear();
+		txtPWd.sendKeys(Password);
 		btnsubmit.click();
-		
+		Thread.sleep(2000);
 		//System.out.println(lblblankUsername.getText());
-		if ((lblblankUsername.getText()).contains("Please enter UserName")) 
+		if ((lblblankUsername.getText()).contains("Please Enter Username")) 
 		{
 			Assert.assertTrue(true);
 		} else 
@@ -76,14 +77,15 @@ public class SOR_Login_Page extends Utility
 		}
 	}
 	
-	public void Balnk_Password(String UserName)
+	public void Balnk_Password(String UserName) throws InterruptedException
 	{
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
 		btnsubmit.click();
+		Thread.sleep(2000);
 		//System.out.println(lblblankPwd.getText());
-		if ((lblblankPwd.getText()).contains("Login failed")) 
+		if ((lblblankPwd.getText()).contains("Please Enter Password")) 
 		{
 			Assert.assertTrue(true);
 		} else 
@@ -91,6 +93,41 @@ public class SOR_Login_Page extends Utility
 		{
 			Assert.assertTrue(false);
 		}
+	}
+
+	public void Invalid_Password(String UserName, String password) throws InterruptedException 
+	{
+		txtusername.clear();
+		txtusername.sendKeys(UserName);
+		txtPWd.clear();
+		txtPWd.sendKeys(password+"1");
+		btnsubmit.click();
+		Thread.sleep(2000);
+		if(lblblankPwd.getText().contains("Incorrect Username or Password"))
+		{
+			Assert.assertTrue(true);
+		} else 
+			
+		{
+			Assert.assertTrue(false);
+		}
+	}
+		public void Invalid_Username(String UserName, String password) throws InterruptedException 
+		{
+			txtusername.clear();
+			txtusername.sendKeys(UserName+"1");
+			txtPWd.clear();
+			txtPWd.sendKeys(password);
+			btnsubmit.click();
+			Thread.sleep(2000);
+			if(lblblankPwd.getText().contains("Incorrect Username or Password"))
+			{
+				Assert.assertTrue(true);
+			} else 
+				
+			{
+				Assert.assertTrue(false);
+			}
 	}
 	
 	
