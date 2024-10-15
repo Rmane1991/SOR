@@ -5,34 +5,29 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_Login_Page;
-import SOR_Pages.SOR_Rule_Configuration_Page;
+import SOR_Pages.SOR_Switch_Configuration_Page;
 
 
-public class SOR_Rule_ConfigurationTestCase extends Base 
+public class SOR_Switch_ConfigurationTestCase extends Base
 {
 	SOR_Login_Page SORLp;	
-	SOR_Rule_Configuration_Page SORRCp;
+	SOR_Switch_Configuration_Page SORwCp;
 	
 	@BeforeMethod
 	public void initalization() throws Exception
 	{
 		 launchBrowser();
 		 SORLp = new SOR_Login_Page(driver);
-		 SORRCp = new SOR_Rule_Configuration_Page(driver);
+		 SORwCp = new SOR_Switch_Configuration_Page(driver);
 	}
 	
-	//@Test
-	public void AddGroup() throws InterruptedException 
-	{
-		SORLp.Check_Valid_Credentials(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
-		SORRCp.AddGrp(sheet.getRow(6).getCell(1).getStringCellValue(),sheet.getRow(6).getCell(3).getStringCellValue());
-	}
+	
 	
 	@Test
-	public void AddRule() throws InterruptedException 
+	public void AddSwitch() throws InterruptedException 
 	{
 		SORLp.Check_Valid_Credentials(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
-		SORRCp.addRule("Yes");
+		SORwCp.addSwitch(sheet.getRow(9).getCell(1).getStringCellValue() ,sheet.getRow(9).getCell(3).getStringCellValue(),(int) sheet.getRow(9).getCell(5).getNumericCellValue());
 	}
 	
 	@AfterMethod
@@ -42,4 +37,5 @@ public class SOR_Rule_ConfigurationTestCase extends Base
 		System.out.println("Webdriver Closed ");
 	}
 	
+
 }

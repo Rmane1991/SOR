@@ -61,6 +61,7 @@ public class SOR_LoginTestCase extends Base
 	public void tearDown() 
 	{
 		driver.quit();
+		System.out.println("Webdriver Closed ");
 	}
 
 	/*
