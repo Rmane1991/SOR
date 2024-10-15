@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_LoginTestCase">
+      <class name="SOR_testcases.SOR_Switch_ConfigurationTestCase">
         <methods>
+          <include name="AddRule"/>
           <include name="initalization"/>
           <include name="tearDown"/>
-          <include name="check_InValid_Password"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_LoginTestCase -->
+      </class> <!-- SOR_testcases.SOR_Switch_ConfigurationTestCase -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

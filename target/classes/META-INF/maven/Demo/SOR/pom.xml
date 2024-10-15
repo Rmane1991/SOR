@@ -24,6 +24,12 @@
 			<version>3.0.0-beta2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>8.2.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/ch.randelshofer/org.monte.media -->
 		<dependency>
 			<groupId>ch.randelshofer</groupId>

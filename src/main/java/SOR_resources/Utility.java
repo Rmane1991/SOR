@@ -118,7 +118,7 @@ public class Utility {
 		} catch (Exception e)
 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return isDisplayed;
@@ -135,7 +135,7 @@ public class Utility {
 		} catch (Exception e)
 
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return isDisplayed;
@@ -191,9 +191,9 @@ public class Utility {
 					}
 
 				} catch (MalformedURLException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				} catch (IOException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 			continue;
@@ -271,11 +271,12 @@ public class Utility {
 	public boolean isClicked(WebElement element) 
 	{
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 			element.click();
 			return true;
-		} catch (Exception e) {
+		} catch (Exception e) 
+		{
 			return false;
 		}
 	}
