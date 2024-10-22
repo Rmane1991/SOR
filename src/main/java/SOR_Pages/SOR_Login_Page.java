@@ -1,5 +1,7 @@
 package SOR_Pages;
 
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,28 +40,55 @@ public class SOR_Login_Page extends Utility
 		PageFactory.initElements(driver, this);
 	}
 
-	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException 
+	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException, IOException 
 	{
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
 		txtPWd.sendKeys(Password);
 		btnsubmit.click();
-		Thread.sleep(2000);
-		if(LeftMenu.isDisplayed()==true)
+		Thread.sleep(1000);
+		/*
+		if(isDisaplyedW(LeftMenu, 10)==true)
 		{
 			System.out.println("Login Sucessfull With Username :- "+UserName);
 			Assert.assertTrue(true);
+			writeResultToExcel("Pass",2,5);
 		}
 		
 		else
 		{
 			System.out.println("Login Fail");
-			Assert.assertTrue(false);
+			Assert.assertFalse(false);
+			if(isDisaplyedW(lblblankPwd, 5)==true)
+			{
+				writeResultToExcel(lblblankPwd.getText(),2,7);
+			}
+			writeResultToExcel("Fail",2,5);
+		}*/
+		
+		boolean loginSuccess = false;
+		try 
+		{
+			loginSuccess = isDisaplyedW(LeftMenu, 2);
+			Assert.assertTrue(loginSuccess, "Login failed: LeftMenu is not displayed");
+			ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
+		} finally 
+		{
+			if (loginSuccess) {
+				writeResultToExcel("Pass", 2, 5);
+			} else {
+				ConsoleColor.printColored("Login Failed", ConsoleColor.RED);
+				writeResultToExcel("Fail", 2, 5);
+
+				if (isDisaplyedW(lblblankPwd, 5)) {
+					writeResultToExcel(lblblankPwd.getText(), 2, 7);
+				}
+			}
 		}
 	}
 	
-	public void Balnk_UserName(String Password) throws InterruptedException
+	public void Blank_UserName(String Password) throws InterruptedException, IOException
 	{
 		txtusername.clear();
 		txtPWd.clear();
@@ -70,14 +99,16 @@ public class SOR_Login_Page extends Utility
 		if ((lblblankUsername.getText()).contains("Please Enter Username")) 
 		{
 			Assert.assertTrue(true);
+			writeResultToExcel("Pass", 5, 5);
 		} else 
 			
 		{
-			Assert.assertTrue(false);
+			writeResultToExcel("Fail", 5, 5);
+			Assert.assertFalse(true);
 		}
 	}
 	
-	public void Balnk_Password(String UserName) throws InterruptedException
+	public void Blank_Password(String UserName) throws InterruptedException, IOException
 	{
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
@@ -88,6 +119,7 @@ public class SOR_Login_Page extends Utility
 		if ((lblblankPwd.getText()).contains("Please Enter Password")) 
 		{
 			Assert.assertTrue(true);
+			writeResultToExcel("Pass", 5, 5);
 		} else 
 			
 		{
@@ -95,7 +127,7 @@ public class SOR_Login_Page extends Utility
 		}
 	}
 
-	public void Invalid_Password(String UserName, String password) throws InterruptedException 
+	public void Invalid_Password(String UserName, String password) throws InterruptedException, IOException 
 	{
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
@@ -106,13 +138,14 @@ public class SOR_Login_Page extends Utility
 		if(lblblankPwd.getText().contains("Incorrect Username or Password"))
 		{
 			Assert.assertTrue(true);
+			writeResultToExcel("Pass", 4, 5);
 		} else 
-			
+		
 		{
 			Assert.assertTrue(false);
 		}
 	}
-		public void Invalid_Username(String UserName, String password) throws InterruptedException 
+		public void Invalid_Username(String UserName, String password) throws InterruptedException, IOException 
 		{
 			txtusername.clear();
 			txtusername.sendKeys(UserName+"1");
@@ -120,9 +153,11 @@ public class SOR_Login_Page extends Utility
 			txtPWd.sendKeys(password);
 			btnsubmit.click();
 			Thread.sleep(2000);
+			
 			if(lblblankPwd.getText().contains("Incorrect Username or Password"))
 			{
 				Assert.assertTrue(true);
+				writeResultToExcel("Pass", 3, 5);
 			} else 
 				
 			{

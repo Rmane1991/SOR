@@ -1,5 +1,7 @@
 package SOR_testcases;
 
+import java.io.IOException;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,39 +24,40 @@ public class SOR_LoginTestCase extends Base
 	}
 	
 	@Test(priority = 1) // ,groups = "smoke"
-	public void Check_Valid_Credentials() throws InterruptedException
+	public void Check_Valid_Credentials() throws InterruptedException, IOException
 
 	{
-		login_page.Check_Valid_Credentials(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
+		login_page.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+										  ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
 	}
 	
 	@Test(priority = 2)
-	public void check_Blank_Username() throws InterruptedException
+	public void check_Blank_Username() throws InterruptedException, IOException
 
 	{
-		login_page.Balnk_UserName(sheet.getRow(3).getCell(3).getStringCellValue());
+		login_page.Blank_UserName(getCellValueAsString(sheet.getRow(3).getCell(3)));
 	}
 	
 	@Test(priority = 3)
-	public void check_Blank_Password() throws InterruptedException
+	public void check_Blank_Password() throws InterruptedException, IOException
 
 	{
-		login_page.Balnk_Password(sheet.getRow(3).getCell(1).getStringCellValue());
+		login_page.Blank_Password(getCellValueAsString(sheet.getRow(3).getCell(1)));
 	}
 
 
 	@Test(priority = 4) // , groups = "smoke"
-	public void check_InValid_Password() throws InterruptedException
+	public void check_InValid_Password() throws InterruptedException, IOException
 
 	{
-		login_page.Invalid_Username(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
+		login_page.Invalid_Username(getCellValueAsString(sheet.getRow(3).getCell(1)),getCellValueAsString(sheet.getRow(3).getCell(3)));
 	}
 	
 	@Test(priority = 5) // , groups = "smoke"
-	public void check_InValid_User_Name() throws InterruptedException
+	public void check_InValid_User_Name() throws InterruptedException, IOException
 
 	{
-		login_page.Invalid_Password(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
+		login_page.Invalid_Password(getCellValueAsString(sheet.getRow(3).getCell(1)),getCellValueAsString(sheet.getRow(3).getCell(3)));
 	}
 	
 	@AfterMethod

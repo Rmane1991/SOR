@@ -18,6 +18,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +37,8 @@ public class Base {
 	Sheet sheet;
 	public WebDriver driver;
 
-	public void ReadExcel() throws IOException {
+	public void ReadExcel() throws IOException 
+	{
 		FileInputStream fis = new FileInputStream((System.getProperty("user.dir") + "\\src\\main\\java\\SOR_resources\\Test_Data.xlsx"));
 		
 		@SuppressWarnings("resource")
@@ -83,6 +86,7 @@ public class Base {
 		return driver;
 	}
 
+	
 	public void sendEmailWithReport() {
         // Your Gmail credentials
         String from = "cmsautomation0@gmail.com";
@@ -150,8 +154,32 @@ public class Base {
         }
     }
 	
+	public String getCellValueAsString(Cell cell) {
+	    if (cell == null) {
+	        return ""; 
+	    }
+	    
+	    switch (cell.getCellType()) 
+	    {
+	        case STRING:
+	            return cell.getStringCellValue();
+	        case NUMERIC:
+	            if (DateUtil.isCellDateFormatted(cell)) {
+	               
+	                return cell.getDateCellValue().toString(); 
+	            } else {
+	                
+	                return String.valueOf((long) cell.getNumericCellValue());
+	            }
+	        case BOOLEAN:
+	            return String.valueOf(cell.getBooleanCellValue());
+	        case FORMULA:
+	            return cell.getCellFormula(); 
+	        default:
+	            return ""; 
+	    }
 	
-	
+	}
 	private File getLatestFile(String folderPath) {
         File folder = new File(folderPath);
         File[] files = folder.listFiles();
