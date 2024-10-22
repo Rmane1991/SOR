@@ -1,5 +1,7 @@
 package SOR_testcases;
 
+import java.io.IOException;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -21,18 +23,20 @@ public class SOR_Rule_ConfigurationTestCase extends Base
 		 SORRCp = new SOR_Rule_Configuration_Page(driver);
 	}
 	
-	//@Test
-	public void AddGroup() throws InterruptedException 
+	@Test
+	public void AddGroup() throws InterruptedException, IOException 
 	{
-		SORLp.Check_Valid_Credentials(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
-		SORRCp.AddGrp(sheet.getRow(6).getCell(1).getStringCellValue(),sheet.getRow(6).getCell(3).getStringCellValue());
+		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+								     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		SORRCp.AddGrp(getCellValueAsString(sheet.getRow(6).getCell(1)),getCellValueAsString(sheet.getRow(6).getCell(3)));
 	}
 	
 	@Test
-	public void AddRule() throws InterruptedException 
+	public void AddRule() throws InterruptedException, IOException 
 	{
-		SORLp.Check_Valid_Credentials(sheet.getRow(3).getCell(1).getStringCellValue(),sheet.getRow(3).getCell(3).getStringCellValue());
-		SORRCp.addRule("Yes");
+		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+			                         ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		SORRCp.addRule("Yes",getCellValueAsString(sheet.getRow(6).getCell(1)));
 	}
 	
 	@AfterMethod

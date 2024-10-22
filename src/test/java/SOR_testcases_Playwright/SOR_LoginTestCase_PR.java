@@ -10,7 +10,7 @@ import SOR_Pages_Playwright.SOR_Login_Page_PR;
 
 public class SOR_LoginTestCase_PR extends Base_PR {
 
-    SOR_Login_Page_PR login_page;
+   SOR_Login_Page_PR login_page;
 
     @BeforeMethod
     @DataProvider(name = "browsers")

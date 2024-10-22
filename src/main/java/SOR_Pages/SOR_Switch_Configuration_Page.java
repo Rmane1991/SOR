@@ -29,7 +29,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 	@FindBy(xpath = "//button[@id='BtnSubb3']//h5[@class='sidebar-headings']")
 	WebElement lblRuleManagement;
 
-	@FindBy(partialLinkText = "Switch Configuration")
+	@FindBy(xpath = "//li[@id='submm8']")
 	WebElement lblSwitchConfiguration;
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_btnAddSwitch']")
@@ -80,7 +80,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 	@FindBy(xpath = "//input[contains(@id, 'btnUpdate')]")
 	List<WebElement> updateButtons;
 
-	public void addSwitch(String SwitchName, String SwitchDesc, int per) {
+	public void addSwitch(String SwitchName, String SwitchDesc, String per) {
 		lblRuleManagement.click();
 		lblSwitchConfiguration.click();
 		BtnAddSwitch.click();
@@ -108,7 +108,8 @@ public class SOR_Switch_Configuration_Page extends Utility
 
 			if (highestValue > 30) 
 			{
-				int newValue = highestValue - per;
+				int perValue = Integer.parseInt(per);
+				int newValue = highestValue - perValue;
 				WebElement highestInputField = percentageFields.get(indexOfHighestValue);
 				highestInputField.clear();
 				highestInputField.sendKeys(String.valueOf(newValue));

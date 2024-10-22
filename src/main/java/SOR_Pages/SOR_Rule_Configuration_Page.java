@@ -2,6 +2,7 @@ package SOR_Pages;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -136,6 +137,25 @@ public class SOR_Rule_Configuration_Page extends Utility
 	  
 	  
 	
+	  @FindBy(xpath = "//span[@id='select2-CPHMasterMain_ddlGroupName-container']")
+		WebElement Click_TO_Select_GRPname;
+		
+		@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlGroupName-results']")
+		WebElement txt_search_area_GrpName;
+		
+		
+		public void select_GRpName(String GRpName) throws InterruptedException 
+		{
+			Thread.sleep(500);
+			Click_TO_Select_GRPname.click();
+			Thread.sleep(500);
+			//txt_search_area_GrpName.sendKeys(GRpName);
+			String dynamicXpath = "//ul[@id='select2-CPHMasterMain_ddlGroupName-results']/li[text()='" + GRpName + "']";
+			WebElement districtElement = driver.findElement(By.xpath(dynamicXpath));
+			districtElement.click();
+		}
+	  
+	  
   
 	  @FindBy(xpath = "//label[@for='RuleName']")
 	  WebElement lblRuleConfiguration;
@@ -164,7 +184,7 @@ public class SOR_Rule_Configuration_Page extends Utility
 	}
 
 
-	public void addRule(String Count) 
+	public void addRule(String Count,String GRp_Name) throws InterruptedException 
 	{
 		if (isDisaplyedW(Btnaddrule, 5) == false) 
 		{
@@ -177,22 +197,30 @@ public class SOR_Rule_Configuration_Page extends Utility
 			System.out.println("Btn Add rule all ready displayed");
 		}
 		Btnaddrule.click();
-		DD_Select_Group_Name.click();
-		txtgrpname.click();
+		
+		//DD_Select_Group_Name.click();
+		//txtgrpname.click();
+		select_GRpName(GRp_Name);
+		
 		txtRule_Name.sendKeys("Automation");
 		txtRule_Desc.sendKeys("Done By Automation");
+		
 		DdAggregator.click();
 		ChkAggselect.click();
 		lblRuleConfiguration.click();
+		
 		ddIIN.click();
 		ChkIINselect.click();
 		lblRuleConfiguration.click();
+		
 		ddChannel.click();
 		txtChannelname.click();
 		lblRuleConfiguration.click();
+		
 		ddTxn_TYpe.click();
 		chkSelectTXnType.click();
 		lblRuleConfiguration.click();
+		
 		ddSwitch.click();
 		selectswitch.click();
 		lblRuleConfiguration.click();
@@ -200,7 +228,6 @@ public class SOR_Rule_Configuration_Page extends Utility
 		if(Count.contains("Yes"))
 		{
 			isClicked(togglebtnToConvertCount);
-			//togglebtnToConvertCount.click();
 			txtcount.sendKeys("200");
 		}
 		else 

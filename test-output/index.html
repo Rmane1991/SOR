@@ -51,7 +51,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\rajendra.mane\AppData\Local\Temp\testng-eclipse--1149281557\testng-customsuite.xml</span>
+                    <span>C:\Users\rajendra.mane\AppData\Local\Temp\testng-eclipse-1871958264\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -93,7 +93,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">3 methods,   3 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -104,7 +104,17 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="SOR_testcases.SOR_Switch_ConfigurationTestCase" class="method navigator-link" hash-for-method="AddSwitch">AddSwitch</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="SOR_testcases.SOR_Aggregator_Management_Testcase" class="method navigator-link" hash-for-method="Add_Agg">Add_Agg</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="SOR_testcases.SOR_Aggregator_Management_Testcase" class="method navigator-link" hash-for-method="Agg_Verification">Agg_Verification</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Default_suite" title="SOR_testcases.SOR_Aggregator_Management_Testcase" class="method navigator-link" hash-for-method="On_Board_Agg_Status">On_Board_Agg_Status</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -122,14 +132,28 @@
           <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">SOR_testcases.SOR_Switch_ConfigurationTestCase</span>
+              <span class="class-name">SOR_testcases.SOR_Aggregator_Management_Testcase</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="AddSwitch">
-                  </a> <!-- AddSwitch -->
-                  <span class="method-name">AddSwitch</span>
+                  <a name="Add_Agg">
+                  </a> <!-- Add_Agg -->
+                  <span class="method-name">Add_Agg</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="Agg_Verification">
+                  </a> <!-- Agg_Verification -->
+                  <span class="method-name">Agg_Verification</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="On_Board_Agg_Status">
+                  </a> <!-- On_Board_Agg_Status -->
+                  <span class="method-name">On_Board_Agg_Status</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -137,7 +161,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\rajendra.mane\AppData\Local\Temp\testng-eclipse--1149281557\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\rajendra.mane\AppData\Local\Temp\testng-eclipse-1871958264\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -146,7 +170,7 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;SOR_testcases.SOR_Switch_ConfigurationTestCase&quot;/&gt;
+      &lt;class name=&quot;SOR_testcases.SOR_Aggregator_Management_Testcase&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -186,16 +210,24 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'AddSwitch')
-data.setCell(0, 2, 'SOR_testcases.SOR_Switch_ConfigurationTestCase')
-data.setCell(0, 3, 6510);
+data.setCell(0, 1, 'On_Board_Agg_Status')
+data.setCell(0, 2, 'SOR_testcases.SOR_Aggregator_Management_Testcase')
+data.setCell(0, 3, 194405);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'Agg_Verification')
+data.setCell(1, 2, 'SOR_testcases.SOR_Aggregator_Management_Testcase')
+data.setCell(1, 3, 86662);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'Add_Agg')
+data.setCell(2, 2, 'SOR_testcases.SOR_Aggregator_Management_Testcase')
+data.setCell(2, 3, 70183);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 6 seconds</span>
+              <span class="suite-total-time">Total running time: 5 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -221,18 +253,42 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">SOR_testcases.SOR_Switch_ConfigurationTestCase</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">SOR_testcases.SOR_Aggregator_Management_Testcase</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">initalization</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">AddSwitch</span>
-                <span class="method-start">4111 ms</span>
+                <span class="method-name">Add_Agg</span>
+                <span class="method-start">9283 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">10623 ms</span>
+                <span class="method-start">79475 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">initalization</span>
+                <span class="method-start">79924 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">Agg_Verification</span>
+                <span class="method-start">82218 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">168884 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">initalization</span>
+                <span class="method-start">169478 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">On_Board_Agg_Status</span>
+                <span class="method-start">171772 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">366183 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
