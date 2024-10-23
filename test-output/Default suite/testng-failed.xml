@@ -3,15 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_BC_Management_TestCase">
+      <class name="SOR_testcases.SOR_Aggregator_Management_Testcase">
         <methods>
-          <include name="BC_Verification"/>
-          <include name="On_Board_BC_Status"/>
+          <include name="On_Board_Agg_Status"/>
           <include name="initalization"/>
           <include name="tearDown"/>
-          <include name="Add_BC"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_BC_Management_TestCase -->
+      </class> <!-- SOR_testcases.SOR_Aggregator_Management_Testcase -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

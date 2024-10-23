@@ -13,6 +13,8 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -343,4 +345,130 @@ public class Utility {
 			System.out.println(color +"-->>"+ RESET);
 		}
 	}
+	
+	//For generate randam data
+	
+	public static String generateRandomMobileNumber() 
+	{
+        Random random = new Random();
+        int firstDigit = 6 + random.nextInt(4); 
+        StringBuilder mobileNumber = new StringBuilder(String.valueOf(firstDigit));
+        for (int i = 0; i < 9; i++) 
+        {
+            mobileNumber.append(random.nextInt(10)); 
+        }
+        return mobileNumber.toString();
+    }
+
+    // Method to generate a random name
+    public static String generateRandomName() 
+    {
+        String[] names = {"John", "Alice", "Bob", "Emma", "Raj", "Priya", "Alex", "Sara"};
+        Random random = new Random();
+        return names[random.nextInt(names.length)] + "" + names[random.nextInt(names.length)];
+    }
+
+    // Method to generate a random PAN number (format: ABCDE1234F)
+    public static String generateRandomPAN() {
+        Random random = new Random();
+        StringBuilder pan = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            pan.append((char) ('A' + random.nextInt(26))); 
+        }
+        for (int i = 0; i < 4; i++) {
+            pan.append(random.nextInt(10)); 
+        }
+        pan.append((char) ('A' + random.nextInt(26))); 
+        return pan.toString();
+    }
+
+    // Method to generate a random Aadhar number (12 digits)
+    public static String generateRandomAadhar() {
+        Random random = new Random();
+        StringBuilder aadhar = new StringBuilder();
+        for (int i = 0; i < 12; i++) {
+            aadhar.append(random.nextInt(10)); 
+        }
+        return aadhar.toString();
+    }
+
+ // Method to generate a random email ID based on the name
+    public static String generateRandomEmail() {
+        String[] domains = {"example.com", "test.com", "demo.com"};
+        String randomName = generateRandomName(); // Generate random name
+        Random random = new Random();
+        return randomName.toLowerCase().replace(" ", ".") + random.nextInt(100) + "@" + domains[random.nextInt(domains.length)];
+    }
+    
+ 
+ // Write the random name to a specific cell in an existing Excel file
+    public static void writeNameToExcel(int rowNum, int cellNum, String name) 
+    {
+    	String filePath = "D:\\Workspace\\SOR\\src\\main\\java\\SOR_resources\\Test_Data.xlsx";
+    	
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = new XSSFWorkbook(fis)) 
+        {
+
+            Sheet sheet = workbook.getSheet("SOR_Login");
+            if (sheet == null) {
+                System.out.println("Sheet not found.");
+                return;
+            }
+
+            Row row = sheet.getRow(rowNum);
+            if (row == null) {
+                row = sheet.createRow(rowNum); // Create a new row if it doesn't exist
+            }
+
+            Cell cell = row.createCell(cellNum);
+            cell.setCellValue(name); // Write the random name to the specified cell
+
+            // Write the changes to the Excel file
+            try (FileOutputStream fos = new FileOutputStream(filePath)) {
+                workbook.write(fos);
+                System.out.println("Random name written to cell (" + rowNum + ", " + cellNum + "): " + name);
+            }
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    // Method to generate alphanumeric codes that start with a letter and are 4 characters long
+        public static String generateCode() {
+            String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Define uppercase letters
+            String alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Define letters and digits
+
+            Random random = new Random();
+            
+            // First character should be a letter
+            char firstChar = letters.charAt(random.nextInt(letters.length()));
+            
+            // Generate the remaining 3 characters (letters or digits)
+            StringBuilder code = new StringBuilder();
+            code.append(firstChar); // Append the first character (letter)
+            for (int i = 0; i < 3; i++) 
+            {
+                code.append(alphanumeric.charAt(random.nextInt(alphanumeric.length())));
+            }
+
+            return code.toString(); // Return the final 4-character code
+        }
+        
+        // Define fixed values for population groups
+            private static final String[] POPULATION_GROUPS = {"Rural", "Urban", "Semi-Urban", "Metropolitan"};
+
+            // Method to randomly select a population group
+            public static String getRandomPopulationGroup() {
+                Random random = new Random();
+                
+                // Select a random index between 0 and the length of the POPULATION_GROUPS array
+                int randomIndex = random.nextInt(POPULATION_GROUPS.length);
+                
+                // Return the population group at the random index
+                return POPULATION_GROUPS[randomIndex];
+            }
+    
+    
 }
