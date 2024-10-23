@@ -379,31 +379,36 @@ public class SOR_Aggregator_Management_Page extends Utility
 	public void Add_Agg(String BCName,String Agg_Name, String PanNO, String AddharNo, String Qualification, String AccountNo, String IFSC,
 			String addres, String Pincode, String State, String District, String City, String EmailID, String ContactNo) throws InterruptedException 
 	{
-		
+		String Agg_Name_Randam=generateRandomName();
 		lblAgg_Mgmt.click();
 		lbl_Registration_Agg.click();
 		btnaddnew_Agg_Registration.click();
 		selectBC(BCName);
 		Thread.sleep(1000);
 		chk_AEPS.click();
-		txt_Agg_Name.sendKeys(Agg_Name);
-		txt_Pan_No_Agg.sendKeys(PanNO);
-		txt_Aadhaar_NO_Agg.sendKeys(AddharNo);
+		txt_Agg_Name.sendKeys(Agg_Name_Randam);
+		writeNameToExcel(15,1,Agg_Name_Randam);
+		Thread.sleep(1000);
+		txt_Pan_No_Agg.sendKeys(generateRandomPAN());
+		txt_Aadhaar_NO_Agg.sendKeys(generateRandomAadhar());
 		selectQulification(Qualification);
 		txt_account_No_Agg.sendKeys(AccountNo);
 		txt_Ifsc_Agg.sendKeys(IFSC);
 		txt_Registred_Area_Agg.sendKeys(addres);
 		txt_Pincode.sendKeys(Pincode);
 		clickOnPinCodeLBl.click();
-		
+		Thread.sleep(1000);
+		/*
 		Thread.sleep(100);
 		selectState(State);
 		Thread.sleep(100);
 		selectDistrict(District);
 		Thread.sleep(100);
 		selectCity(City);
-		txt_EmailID_Agg.sendKeys(EmailID);
-		txt_ContactNo_Agg.sendKeys(ContactNo);
+		*/
+		txt_EmailID_Agg.clear();
+		txt_EmailID_Agg.sendKeys(generateRandomEmail());
+		txt_ContactNo_Agg.sendKeys(generateRandomMobileNumber());
 		btn_Submit_Agg.click();
 		
 		if (isAlertPresent(driver) == true) 
@@ -444,8 +449,9 @@ public class SOR_Aggregator_Management_Page extends Utility
 			lblAgg_Mgmt.click();
 		}
 		lbl_Verification_Agg.click();
+		Thread.sleep(1000);
 		Agg_Name_Verify(Agg_Name);
-		
+		Thread.sleep(1000);
 		if (isDisaplyedW(verificationWin, 5) == true) 
 		{
 			ConsoleColor.printColored("Windows Displayed", ConsoleColor.GREEN);
@@ -453,7 +459,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 			if (txtnameofBCAtVerification.getAttribute("value").contains(Agg_Name)) 
 			{
 				ConsoleColor.printColored("Correct Windows Opened of :- "+Agg_Name, ConsoleColor.GREEN);
-				Thread.sleep(3000);
+				Thread.sleep(2000);
 				chkApproveButton.click();
 				txtremark_BCVerification.sendKeys("This is Approved By Automation");
 				btnSubmitVerification.click();

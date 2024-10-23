@@ -49,7 +49,7 @@ public class SOR_BC_Management_TestCase extends Base
 		
 	}
 	
-	@Test(priority = 2 ,dependsOnMethods = "Add_BC")
+	@Test(priority = 2)//,dependsOnMethods = "Add_BC"
 	public void BC_Verification() throws InterruptedException, IOException 
 	{
 		//Login InPortal
@@ -60,7 +60,7 @@ public class SOR_BC_Management_TestCase extends Base
 	}
 	
 	
-	@Test(priority = 3)
+	@Test(priority = 3,dependsOnMethods = "Add_BC")
 	public void On_Board_BC_Status() throws InterruptedException, IOException 
 	{
 		//Login InPortal

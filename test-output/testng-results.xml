@@ -2,44 +2,44 @@
 <testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-10-22T14:22:20 IST" name="Default suite" finished-at="2024-10-22T14:28:27 IST" duration-ms="366701">
+  <suite started-at="2024-10-23T18:04:11 IST" name="Default suite" finished-at="2024-10-23T18:05:11 IST" duration-ms="59889">
     <groups>
     </groups>
-    <test started-at="2024-10-22T14:22:20 IST" name="Default test" finished-at="2024-10-22T14:28:27 IST" duration-ms="366701">
+    <test started-at="2024-10-23T18:04:11 IST" name="Default test" finished-at="2024-10-23T18:05:11 IST" duration-ms="59889">
       <class name="SOR_testcases.SOR_Aggregator_Management_Testcase">
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:22:20 IST" name="initalization" finished-at="2024-10-22T14:22:30 IST" duration-ms="9281" status="PASS">
+        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:11 IST" name="initalization" finished-at="2024-10-23T18:04:15 IST" duration-ms="4064" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initalization -->
-        <test-method signature="Add_Agg()[pri:1, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:22:30 IST" name="Add_Agg" finished-at="2024-10-22T14:23:40 IST" duration-ms="70183" status="PASS">
+        <test-method signature="Add_Agg()[pri:1, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:15 IST" name="Add_Agg" finished-at="2024-10-23T18:04:38 IST" duration-ms="22970" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Add_Agg -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:23:40 IST" name="tearDown" finished-at="2024-10-22T14:23:40 IST" duration-ms="444" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:38 IST" name="tearDown" finished-at="2024-10-23T18:04:38 IST" duration-ms="425" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:23:40 IST" name="initalization" finished-at="2024-10-22T14:23:43 IST" duration-ms="2294" status="PASS">
+        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:38 IST" name="initalization" finished-at="2024-10-23T18:04:40 IST" duration-ms="1919" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initalization -->
-        <test-method signature="Agg_Verification()[pri:2, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:23:43 IST" name="Agg_Verification" finished-at="2024-10-22T14:25:09 IST" depends-on-methods="SOR_testcases.SOR_Aggregator_Management_Testcase.Add_Agg" duration-ms="86662" status="PASS">
+        <test-method signature="Agg_Verification()[pri:2, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:40 IST" name="Agg_Verification" finished-at="2024-10-23T18:04:53 IST" depends-on-methods="SOR_testcases.SOR_Aggregator_Management_Testcase.Add_Agg" duration-ms="13247" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Agg_Verification -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:25:09 IST" name="tearDown" finished-at="2024-10-22T14:25:10 IST" duration-ms="593" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:53 IST" name="tearDown" finished-at="2024-10-23T18:04:55 IST" duration-ms="2050" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:25:10 IST" name="initalization" finished-at="2024-10-22T14:25:12 IST" duration-ms="2294" status="PASS">
+        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:55 IST" name="initalization" finished-at="2024-10-23T18:04:57 IST" duration-ms="1909" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initalization -->
-        <test-method signature="On_Board_Agg_Status()[pri:3, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:25:12 IST" name="On_Board_Agg_Status" finished-at="2024-10-22T14:28:26 IST" duration-ms="194405" status="PASS">
+        <test-method signature="On_Board_Agg_Status()[pri:3, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:04:57 IST" name="On_Board_Agg_Status" finished-at="2024-10-23T18:05:10 IST" duration-ms="12790" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- On_Board_Agg_Status -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@54422e18]" started-at="2024-10-22T14:28:26 IST" name="tearDown" finished-at="2024-10-22T14:28:27 IST" duration-ms="477" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@130d63be]" started-at="2024-10-23T18:05:10 IST" name="tearDown" finished-at="2024-10-23T18:05:11 IST" duration-ms="457" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

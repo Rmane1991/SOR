@@ -3,6 +3,7 @@ package SOR_Pages;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -310,7 +311,25 @@ public class SOR_BC_Management_Page extends Utility
 			return "Not Found";
 		}
 	}
+	
+	private WebElement getNextPageLink() 
+	{
+	    try 
+	    {
+	        WebElement nextPageLink = driver.findElement(By.xpath("//a[contains(@href, 'Page$') and not(contains(@class, 'disabled'))]"));
+	        return nextPageLink;
+	    } catch (NoSuchElementException e) 
+	    {
+	        return null;
+	    } catch (Exception e) 
+	    {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	
 
+	/*
 	private WebElement getNextPageLink() {
 		try {
 			return driver.findElement(By.xpath("//a[contains(@href, 'Page$')]"));
@@ -319,7 +338,7 @@ public class SOR_BC_Management_Page extends Utility
 			return null;
 		}
 	}
-	
+	*/
 	
 	//For verification purpose
 	
@@ -379,30 +398,45 @@ public class SOR_BC_Management_Page extends Utility
 	public void BC_Registraction(String BCName, String PanNO, String AddharNo, String AccountNo, String IFSC,
 			String addres, String Pincode, String State, String District, String City, String EmailID, String ContactNo)
 			throws InterruptedException {
+		
 		try {
+			
+			String BC_Name_Randam=generateRandomName();
 			btnBCManagement.click();
 			BtnBCRegistration.click();
 			BtnAddNewBC.click();
 			ChkAEPS.click();
-			txtFirstname_BCRegistration.sendKeys(BCName);
-			txtPANno_BCRegistration.sendKeys(PanNO);
-			txtAadharno_BCRegistration.sendKeys(AddharNo);
+			txtFirstname_BCRegistration.sendKeys(BC_Name_Randam);
+			writeNameToExcel(12,1,BC_Name_Randam);
+			Thread.sleep(1000);
+			txtPANno_BCRegistration.sendKeys(generateRandomPAN());
+			txtAadharno_BCRegistration.sendKeys(generateRandomAadhar());
 			txtAccountno_BCRegistration.sendKeys(AccountNo);
 			txtIFSCcode_BCRegistration.sendKeys(IFSC);
 			txtRegisteredAddress.sendKeys(addres);
 			txtPinCode.sendKeys(Pincode);
+			
 			clickOnPinCodeLBl.click();
+			Thread.sleep(3000);
+			
+			/*
 			Thread.sleep(100);
 			selectState(State);
 			Thread.sleep(100);
 			selectDistrict(District);
 			Thread.sleep(100);
 			selectCity(City);
-			txtMaildID.sendKeys(EmailID);
-			txtContactNo.sendKeys(ContactNo);
+			*/
+			
+			txtMaildID.clear();
+			txtMaildID.sendKeys(generateRandomEmail());
+			txtContactNo.sendKeys(generateRandomMobileNumber());
+			Thread.sleep(2000);
 			btnsubmit.click();
 
-			if (isAlertPresent(driver) == true) {
+			Thread.sleep(3000);
+			if (isAlertPresent(driver) == true) 
+			{
 				driver.switchTo().alert().accept();
 			}
 
@@ -416,22 +450,28 @@ public class SOR_BC_Management_Page extends Utility
 			SelectFileSignatureProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
 			BtnSubmitProof.click();
 			Thread.sleep(500);
-			if (isAlertPresent(driver) == true) {
+			if (isAlertPresent(driver) == true) 
+			{
 				driver.switchTo().alert().accept();
 			}
 
 			chkbuttonforConfirmatiuon.click();
+			Thread.sleep(500);
 			moveToElementAndClick(BtnSubmitFinal_BC);
 
-			Thread.sleep(500);
-			if (isAlertPresent(driver) == true) {
+			Thread.sleep(1000);
+			if (isAlertPresent(driver) == true) 
+			{
 				driver.switchTo().alert().accept();
 			}
 			Thread.sleep(2000);
-		} catch (Exception e) {
-			if (isAlertPresent(driver) == true) {
+		} catch (Exception e) 
+		{
+			if (isAlertPresent(driver) == true) 
+			{
 				System.out.println(driver.switchTo().alert().getText());
 			}
+			Assert.fail("Test case failed due to an error: " + e.getMessage());
 		}
 
 	}
@@ -439,38 +479,46 @@ public class SOR_BC_Management_Page extends Utility
 	public void BC_Verification(String BCName) throws InterruptedException 
 	{
 		Thread.sleep(6000);
-		if (BtnVerification.isDisplayed() == false) 
+		try 
 		{
-			btnBCManagement.click();
-		}
-		BtnVerification.click();
-		BC_Name_Verify(BCName);
-		
-		if (isDisaplyedW(verificationWin, 5) == true) 
-		{
-			ConsoleColor.printColored("Correct Windows Opened of :- "+BCName, ConsoleColor.GREEN);
-			//System.out.println("Windows Displayed");
-
-			if (txtnameofBCAtVerification.getAttribute("value").contains(BCName)) 
+			if (BtnVerification.isDisplayed() == false) 
+			{
+				btnBCManagement.click();
+			}
+			BtnVerification.click();
+			Thread.sleep(1000);
+			BC_Name_Verify(BCName);
+			Thread.sleep(1000);
+			if (isDisaplyedW(verificationWin, 5) == true) 
 			{
 				ConsoleColor.printColored("Correct Windows Opened of :- "+BCName, ConsoleColor.GREEN);
-				//System.out.println("Correct Windows Opened");
-				Thread.sleep(3000);
-				chkApproveButton.click();
-				txtremark_BCVerification.sendKeys("This is Approved By Automation");
-				btnSubmitVerification.click();
-			}
-			else 
-			{
-				ConsoleColor.printColored("Aggregator name missmatch :-"+ BCName, ConsoleColor.RED);
-			}
-			
+				//System.out.println("Windows Displayed");
 
-			if (isAlertPresent(driver) == true) 
-			{
-				driver.switchTo().alert().accept();
+				if (txtnameofBCAtVerification.getAttribute("value").contains(BCName)) 
+				{
+					ConsoleColor.printColored("Correct Windows Opened of :- "+BCName, ConsoleColor.GREEN);
+					//System.out.println("Correct Windows Opened");
+					Thread.sleep(2000);
+					chkApproveButton.click();
+					txtremark_BCVerification.sendKeys("This is Approved By Automation");
+					btnSubmitVerification.click();
+				}
+				else 
+				{
+					ConsoleColor.printColored("BC name missmatch :-"+ BCName, ConsoleColor.RED);
+				}
+				
+
+				if (isAlertPresent(driver) == true) 
+				{
+					driver.switchTo().alert().accept();
+				}
 			}
+		} catch (Exception e) 
+		{
+			ConsoleColor.printColored("BC name Not Fount :-"+ BCName, ConsoleColor.RED);
 		}
+		
 
 	}
 	
