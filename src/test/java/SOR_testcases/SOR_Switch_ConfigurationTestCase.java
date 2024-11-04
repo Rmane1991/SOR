@@ -15,6 +15,7 @@ public class SOR_Switch_ConfigurationTestCase extends Base
 	SOR_Login_Page SORLp;	
 	SOR_Switch_Configuration_Page SORwCp;
 	
+	
 	@BeforeMethod
 	public void initalization() throws Exception
 	{

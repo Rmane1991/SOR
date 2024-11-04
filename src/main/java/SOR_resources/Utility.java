@@ -381,6 +381,39 @@ public class Utility {
         pan.append((char) ('A' + random.nextInt(26))); 
         return pan.toString();
     }
+    
+    
+    
+	public static String generateRandomPAN_Third_P() 
+	{
+        Random random = new Random();
+        StringBuilder pan = new StringBuilder();
+
+        // Start with 'A' as the first character
+        pan.append('A');
+
+        // Generate the second and third random uppercase letters
+        for (int i = 0; i < 2; i++) {
+            pan.append((char) ('A' + random.nextInt(26)));
+        }
+
+        // Append 'P' as the fourth character
+        pan.append('P');
+
+        // Generate the fifth random uppercase letter
+        pan.append((char) ('A' + random.nextInt(26)));
+
+        // Generate the next four random digits
+        for (int i = 0; i < 4; i++) {
+            pan.append(random.nextInt(10));
+        }
+
+        // Append the final random uppercase letter
+        pan.append((char) ('A' + random.nextInt(26)));
+
+        return pan.toString();
+    }
+
 
     // Method to generate a random Aadhar number (12 digits)
     public static String generateRandomAadhar() {

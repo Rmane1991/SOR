@@ -2,8 +2,6 @@ package SOR_testcases;
 
 import java.io.IOException;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_Aggregator_Management_Page;
@@ -14,7 +12,7 @@ public class SOR_Aggregator_Management_Testcase extends Base
 	SOR_Login_Page SOR_Lp;
 	SOR_Aggregator_Management_Page SOR_Amp;
 
-	@BeforeMethod
+	@Test(priority = 0)
 	public void initalization() throws Exception 
 	{
 		launchBrowser();
@@ -53,9 +51,11 @@ public class SOR_Aggregator_Management_Testcase extends Base
 	
 	{
 		//Login InPortal
-		SOR_Lp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-									 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		//SOR_Lp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+		//							 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
 		//Agg Verification
+		ReadExcel();
+		Thread.sleep(5000);
 		SOR_Amp.Agg_Verification(getCellValueAsString(sheet.getRow(15).getCell(1)));//Agg_name
 	}
 	
@@ -64,13 +64,13 @@ public class SOR_Aggregator_Management_Testcase extends Base
 	public void On_Board_Agg_Status() throws InterruptedException, IOException 
 	{
 		//Login InPortal
-		SOR_Lp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-									  ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		//SOR_Lp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+			//						  ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
 	
 		SOR_Amp.On_Board_Agg_Status(getCellValueAsString(sheet.getRow(15).getCell(1))); //Agg_name
 	}
 	
-	@AfterMethod
+	@Test(priority = 4)
 	public void tearDown() 
 	{
 		driver.quit();

@@ -1,7 +1,8 @@
 package SOR_Pages_Playwright;
 
 import com.microsoft.playwright.Page;
-import com.PageFactory.utility.ConsoleColor;
+
+import SOR_resources_Playwright.Utility_PR.ConsoleColor;
 
 public class SOR_Rule_Configuration_PR {
 

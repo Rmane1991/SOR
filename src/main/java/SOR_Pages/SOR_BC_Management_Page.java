@@ -21,13 +21,13 @@ public class SOR_BC_Management_Page extends Utility
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 	}
 
 	@FindBy(xpath = "//button[@id='BtnSubb4']")
 	WebElement btnBCManagement;
 
-	@FindBy(xpath = "//li[@id='submm9']")
+	@FindBy(xpath = "//*[@id='submm9']/a/div/span[2]")
 	WebElement BtnBCRegistration;
 
 	@FindBy(xpath = "//li[@id='submm12']")
@@ -69,7 +69,8 @@ public class SOR_BC_Management_Page extends Utility
 	@FindBy(xpath = "//span[@id='select2-CPHMasterMain_ddlState-container']")
 	WebElement txtStatename;
 
-	public void selectState(String StateName) throws InterruptedException {
+	public void selectState(String StateName) throws InterruptedException 
+	{
 		Thread.sleep(500);
 		txtStatename.click();
 		Thread.sleep(500);
@@ -135,7 +136,8 @@ public class SOR_BC_Management_Page extends Utility
 	@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlIdentityProof-results']")
 	WebElement ID_Proof_SearchArea;
 
-	public void selectIDProof(String IDname) throws InterruptedException {
+	public void selectIDProof(String IDname) throws InterruptedException 
+	{
 		Thread.sleep(500);
 		SelectIdentityProof.click();
 		Thread.sleep(500);
@@ -240,16 +242,12 @@ public class SOR_BC_Management_Page extends Utility
 	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[17]")).getText();
 
 	        ConsoleColor.printColored(">> BC Name: " + bcName, ConsoleColor.GREEN);
-	        //System.out.println(">> BC Name: " + bcName);
 	        
 	        ConsoleColor.printColored(">> Virefication By: " + vireficationBy, ConsoleColor.GREEN);
-	        // System.out.println(">> Virefication By: " + vireficationBy);
 	        
 	        ConsoleColor.printColored(">> Virefication On: " + vireficationOn, ConsoleColor.GREEN);
-	        // System.out.println(">> Virefication On: " + vireficationOn);
 	      
 	        ConsoleColor.printColored(">> Virefication Remarks: " + vireficationRemarks, ConsoleColor.GREEN);
-	       // System.out.println(">> Virefication Remarks: " + vireficationRemarks);
 	    } else 
 	    {
 	        System.out.println("BC Name: " + bcName + " not found on this page or any other pages.");
@@ -267,8 +265,6 @@ public class SOR_BC_Management_Page extends Utility
 	    }
 	}
 
-	
-	
 	public String fetchStatusByBCName(String bcName) 
 	{
 		String status = searchOnPage(bcName);
@@ -298,6 +294,7 @@ public class SOR_BC_Management_Page extends Utility
 
 		return status;
 	}
+	
 
 	// Method to search for the bc_name on the current page
 	private String searchOnPage(String bcName) 
@@ -312,6 +309,36 @@ public class SOR_BC_Management_Page extends Utility
 		}
 	}
 	
+	
+	
+	private WebElement getNextPageLink() {
+	    try {
+	        // Locate the next page link that is not disabled
+	        WebElement nextPageLink = driver.findElement(By.xpath("//a[contains(@href, 'Page$') and not(contains(@class, 'disabled'))]"));
+	        
+	        // Check if link leads to a new page (e.g., href contains the next page number)
+	        String currentPage = driver.getCurrentUrl();
+	        String nextPageHref = nextPageLink.getAttribute("href");
+	        
+	        // If the href attribute contains the next page link, return the element
+	        if (!currentPage.equals(nextPageHref)) {
+	            return nextPageLink;
+	        } else {
+	            return null; // No further pages
+	        }
+	    } catch (NoSuchElementException e) {
+	        return null; // No further pages or link is disabled
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	
+	
+	
+	
+	
+	/*
 	private WebElement getNextPageLink() 
 	{
 	    try 
@@ -327,7 +354,7 @@ public class SOR_BC_Management_Page extends Utility
 	        return null;
 	    }
 	}
-	
+	*/
 
 	/*
 	private WebElement getNextPageLink() {
@@ -402,13 +429,25 @@ public class SOR_BC_Management_Page extends Utility
 		try {
 			
 			String BC_Name_Randam=generateRandomName();
+			System.out.println(BC_Name_Randam);
 			btnBCManagement.click();
+			
 			BtnBCRegistration.click();
-			BtnAddNewBC.click();
+			Thread.sleep(2000);
+			//BtnAddNewBC.click();
+			if(isClicked(BtnAddNewBC)==true)
+			{
+				ConsoleColor.printColored("Ad new BC button Click", ConsoleColor.GREEN);
+			}
+			else 
+			
+			{
+				ConsoleColor.printColored("Ad new BC button not Click", ConsoleColor.RED);
+			}
 			ChkAEPS.click();
 			txtFirstname_BCRegistration.sendKeys(BC_Name_Randam);
 			writeNameToExcel(12,1,BC_Name_Randam);
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			txtPANno_BCRegistration.sendKeys(generateRandomPAN());
 			txtAadharno_BCRegistration.sendKeys(generateRandomAadhar());
 			txtAccountno_BCRegistration.sendKeys(AccountNo);
@@ -444,10 +483,13 @@ public class SOR_BC_Management_Page extends Utility
 
 			selectIDProof("Pancard");
 			SelectFileIDProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+			Thread.sleep(2000);
 			SelectAddressProof("Passport");
 			SelectFileAddressProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+			Thread.sleep(2000);
 			SelectSignatureProof("Pancard");
 			SelectFileSignatureProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+			Thread.sleep(2000);
 			BtnSubmitProof.click();
 			Thread.sleep(500);
 			if (isAlertPresent(driver) == true) 
@@ -474,6 +516,15 @@ public class SOR_BC_Management_Page extends Utility
 			Assert.fail("Test case failed due to an error: " + e.getMessage());
 		}
 
+	}
+	
+	
+	public String readNameFromExcel(int row, int column) {
+	    String name = ""; // Initialize a variable to hold the name
+	    // Implement the logic to read the name from the specified Excel cell
+	    // For example:
+	    // name = excelSheet.getRow(row).getCell(column).getStringCellValue();
+	    return name; // Return the read value
 	}
 
 	public void BC_Verification(String BCName) throws InterruptedException 
@@ -516,7 +567,13 @@ public class SOR_BC_Management_Page extends Utility
 			}
 		} catch (Exception e) 
 		{
-			ConsoleColor.printColored("BC name Not Fount :-"+ BCName, ConsoleColor.RED);
+			 ConsoleColor.printColored("BC name Not Found: " + BCName, ConsoleColor.RED);
+			 if (isAlertPresent(driver) == true) 
+			 {
+				 ConsoleColor.printColored(driver.switchTo().alert().getText(), ConsoleColor.RED);
+			}
+			 
+			 Assert.fail("BC name not found: " + BCName);
 		}
 		
 

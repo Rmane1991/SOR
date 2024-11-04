@@ -161,8 +161,10 @@ public class SOR_Switch_Configuration_Page extends Utility
 			}
 		}
 
-		txtSwitchname.sendKeys(SwitchName);
-		txtSwitchDesc.sendKeys(SwitchDesc);
+		String Switch_Name=generateRandomName();
+		txtSwitchname.sendKeys(Switch_Name);
+		writeNameToExcel(9, 1, Switch_Name);
+		txtSwitchDesc.sendKeys(Switch_Name);
 		String percent = Integer.toString(100 - totalPercentage);
 		txtpercentage.sendKeys(percent);
 		moveToElementAndClick(btnSubmitSwitch);

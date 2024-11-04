@@ -2,8 +2,6 @@ package SOR_testcases;
 
 import java.io.IOException;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_BC_Management_Page;
@@ -15,7 +13,7 @@ public class SOR_BC_Management_TestCase extends Base
 	SOR_Login_Page SORLp;
 	SOR_BC_Management_Page Sbmp;
 
-	@BeforeMethod
+	@Test(priority = 0)
 	public void initalization() throws Exception 
 	{
 		launchBrowser();
@@ -53,9 +51,11 @@ public class SOR_BC_Management_TestCase extends Base
 	public void BC_Verification() throws InterruptedException, IOException 
 	{
 		//Login InPortal
-		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-									 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		//SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+							 //,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		Thread.sleep(5000);
 		//BC Verification
+		ReadExcel();
 		Sbmp.BC_Verification(getCellValueAsString(sheet.getRow(12).getCell(1)));
 	}
 	
@@ -64,13 +64,13 @@ public class SOR_BC_Management_TestCase extends Base
 	public void On_Board_BC_Status() throws InterruptedException, IOException 
 	{
 		//Login InPortal
-		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-									 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
-	
+		//SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+									 //,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+	Thread.sleep(5000);
 		Sbmp.On_Board_BC_Status(getCellValueAsString(sheet.getRow(12).getCell(1)));
 	}
 	
-	@AfterMethod
+	@Test(priority = 4)
 	public void tearDown() 
 	{
 		driver.quit();

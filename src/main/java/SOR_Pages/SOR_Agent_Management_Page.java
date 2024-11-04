@@ -1,13 +1,17 @@
 package SOR_Pages;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import SOR_resources.Utility;
@@ -50,6 +54,9 @@ public class SOR_Agent_Management_Page extends Utility
 	@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlaggregatorCode-results']")
 	WebElement txtsearchareaSelectAgg;
 	
+	@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlGender-results']")
+	WebElement txtsearchareaSelect_Gender;
+	
 	public void selectAgg(String AggName) throws InterruptedException 
 	{
 		Thread.sleep(500);
@@ -69,19 +76,31 @@ public class SOR_Agent_Management_Page extends Utility
 	WebElement txtSearch_On_Gender;
 	
 	
-	public void select_Gender(String Gender) throws InterruptedException 
-	{
-		Thread.sleep(500);
-		Click_On_Gender.click();
-		Thread.sleep(500);
-		txtsearchareaSelectAgg.sendKeys(Gender);
-		String dynamicXpath = "//ul[@id='select2-CPHMasterMain_ddlGender-results']/li[text()='" + Gender + "']";
-		WebElement districtElement = driver.findElement(By.xpath(dynamicXpath));
-		districtElement.click();
-		Thread.sleep(1000);
+	public void select_Gender(String gender) {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    int attempts = 0; 
+	    
+	    while (attempts < 3) 
+	    { 
+	        try 
+	        {
+	            WebElement genderDropdown = wait.until(ExpectedConditions.elementToBeClickable(Click_On_Gender));
+	            genderDropdown.click();
+	            String dynamicXpath = "//ul[@id='select2-CPHMasterMain_ddlGender-results']/li[text()='" + gender + "']";
+	            WebElement genderElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(dynamicXpath)));
+	            genderElement.click();
+	            break; 
+	        } catch (StaleElementReferenceException e) 
+	        {
+	            System.out.println("Encountered StaleElementReferenceException. Retrying...");
+	            attempts++;
+	        }
+	    }
+	    if (attempts == 3) 
+	    {
+	        throw new AssertionError("Test case failed due to StaleElementReferenceException on selecting gender after multiple attempts.");
+	    }
 	}
-	
-	
 	
 	@FindBy(xpath = "//button[@id='BtnSubb6']")
 	WebElement lbl_Agent_Mgmt;
@@ -109,7 +128,7 @@ public class SOR_Agent_Management_Page extends Utility
 	WebElement ChkMicroATM;
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_txtFirstName']")
-	WebElement txtFirstname_BCRegistration;
+	WebElement txtFirstname_Agent_Registration;
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_txtPANNo']")
 	WebElement txtPANno_BCRegistration;
@@ -269,15 +288,15 @@ public class SOR_Agent_Management_Page extends Utility
 	@FindBy(xpath = "//div[@id='divDownloadDocgrid']")
 	WebElement verificationWin;
 
-	public void Agent_Name_Verify(String automationName) 
+	public void Agent_Name_Verify(String Agent_Name) 
 	{
-		String xpath = "//td[text()='" + automationName + "']/preceding-sibling::td/input[@title='Click here to verify']";
+		String xpath = "//tr[td[contains(text(),'" + Agent_Name + "')]]//input[@title='Click here to verify']";
 		WebElement verifyButton = driver.findElement(By.xpath(xpath));
 		verifyButton.click();
 	}
 
-	@FindBy(xpath = "//input[@id='CPHMasterMain_txtBCName']")
-	WebElement txtnameofBCAtVerification;
+	@FindBy(xpath = "//input[@id='CPHMasterMain_txtAgentName']")
+	WebElement txtnameof_Agent_At_Verification;
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_rdbtnApproveDecline_0']")
 	WebElement chkApproveButton;
@@ -324,7 +343,7 @@ public class SOR_Agent_Management_Page extends Utility
 	{
 	    try {
 	    	
-	        WebElement rowElement = driver.findElement(By.xpath("//tr[td[text()='" + Agent_Name + "']]"));
+	        WebElement rowElement = driver.findElement(By.xpath("//tr[td[contains(text(),'" + Agent_Name + "')]]"));
 	        return rowElement;
 	    } catch (Exception e) {
 	        return null;
@@ -364,10 +383,10 @@ public class SOR_Agent_Management_Page extends Utility
 	}
 
 	// Method to search for the bc_name on the current page
-	private String searchOnPage(String bcName) 
+	private String searchOnPage(String Agent_Name) 
 	{
 		try {
-			WebElement rowElement = driver.findElement(By.xpath("//tr[td[text()='" + bcName + "']]"));
+			WebElement rowElement = driver.findElement(By.xpath("//tr[td[contains(text(),'" + Agent_Name + "')]]"));
 			WebElement statusElement = rowElement.findElement(By.xpath("./td[14]"));
 			return statusElement.getText();
 		} catch (Exception e) 
@@ -440,6 +459,10 @@ public class SOR_Agent_Management_Page extends Utility
 		}
 	}
 	 */
+	@FindBy(xpath = "//input[@id='CPHMasterMain_txtdob']")
+	WebElement datepikker;
+	
+	
 	
 	public static void selectDate(WebDriver driver, String DDMMYYYY)
 {
@@ -496,22 +519,30 @@ public class SOR_Agent_Management_Page extends Utility
 	{
 		try {
 			String Agent_Name_Randam=generateRandomName();
+			writeNameToExcel(18,1,Agent_Name_Randam);
+			Thread.sleep(1000);
 			lbl_Agent_Mgmt.click();
 			lbl_Agent_Registration.click();
+			Thread.sleep(2000);
 			btn_add_Agent.click();
 			selectBC(BCName);
 			Thread.sleep(1000);
 			selectAgg(Agg_Name);
 			ChkAEPS.click();
-			txtFirstname_BCRegistration.sendKeys(Agent_Name_Randam);
-			
-			writeNameToExcel(18,1,Agent_Name_Randam);
+			txtFirstname_Agent_Registration.sendKeys(Agent_Name_Randam);
+			txtPANno_BCRegistration.sendKeys(generateRandomPAN_Third_P());
 			Thread.sleep(1000);
+			//txtFirstname_BCRegistration.click();
+			//txtFirstname_Agent_Registration.clear();
+			//txtFirstname_Agent_Registration.sendKeys("AlexBob");
 			
-			txtPANno_BCRegistration.sendKeys(generateRandomPAN());
-			select_Gender(Gender);
+			
+			Thread.sleep(3000);
+			
+			select_Gender("Female");
 			txtAadharno_BCRegistration.sendKeys(generateRandomAadhar());
-			selectDate(driver,DateFormat);
+			datepikker.sendKeys(DateFormat);
+			//selectDate(driver,DateFormat);
 			txtAccountno_BCRegistration.sendKeys(AccountNo);
 			txtIFSCcode_BCRegistration.sendKeys(IFSC);
 			txt_Agent_device_Code.sendKeys(generateCode());
@@ -520,6 +551,7 @@ public class SOR_Agent_Management_Page extends Utility
 			txt_terminal_id.sendKeys(generateCode());
 			txt_Latitude.sendKeys(Latitude);
 			txt_Longitude.sendKeys(Longitude);
+			moveToElement(btnsubmit);
 			txtRegisteredAddress.sendKeys(addres);
 			txtPinCode.sendKeys(Pincode);
 			clickOnPinCodeLBl.click();
@@ -531,10 +563,13 @@ public class SOR_Agent_Management_Page extends Utility
 			Thread.sleep(100);
 			selectCity(City);
 			*/
+			Thread.sleep(2000);
 			txtMaildID.sendKeys(generateRandomEmail());
 			txtContactNo.sendKeys(generateRandomMobileNumber());
 			chk_Btn_Shop_details_Same.click();
-			btnsubmit.click();
+			Thread.sleep(1000);
+			moveToElementAndClick(btnsubmit);
+			//btnsubmit.click();
 
 			if (isAlertPresent(driver) == true) 
 			{
@@ -545,17 +580,21 @@ public class SOR_Agent_Management_Page extends Utility
 
 			selectIDProof("Pancard");
 			SelectFileIDProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+			Thread.sleep(2000);
 			SelectAddressProof("Passport");
 			SelectFileAddressProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+			Thread.sleep(2000);
 			SelectSignatureProof("Pancard");
 			SelectFileSignatureProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+			Thread.sleep(2000);
 			BtnSubmitProof.click();
 			Thread.sleep(500);
-			if (isAlertPresent(driver) == true) {
+			if (isAlertPresent(driver) == true) 
+			{
 				driver.switchTo().alert().accept();
 			}
-
-			chkbuttonforConfirmatiuon.click();
+			Thread.sleep(1500);
+			moveToElementAndClick(chkbuttonforConfirmatiuon);
 			moveToElementAndClick(BtnSubmitFinal_BC);
 
 			Thread.sleep(500);
@@ -564,9 +603,15 @@ public class SOR_Agent_Management_Page extends Utility
 			}
 			Thread.sleep(2000);
 		} catch (Exception e) {
-			if (isAlertPresent(driver) == true) {
+			if (isAlertPresent(driver) == true) 
+			{
 				System.out.println(driver.switchTo().alert().getText());
+				throw new AssertionError("Test case failed due to alert presence: " + driver.switchTo().alert().getText());
 			}
+			else 
+			{
+		        throw new AssertionError("Test case failed due to an exception: " + e.getMessage(), e);
+		    }
 		}
 
 	}
@@ -588,7 +633,7 @@ public class SOR_Agent_Management_Page extends Utility
 			ConsoleColor.printColored("Correct Windows Opened of :- "+Agent_Name, ConsoleColor.GREEN);
 			//System.out.println("Windows Displayed");
 
-			if (txtnameofBCAtVerification.getAttribute("value").contains(Agent_Name)) 
+			if (txtnameof_Agent_At_Verification.getAttribute("value").contains(Agent_Name)) 
 			{
 				ConsoleColor.printColored("Correct Windows Opened of :- "+Agent_Name, ConsoleColor.GREEN);
 				//System.out.println("Correct Windows Opened");
@@ -623,6 +668,7 @@ public class SOR_Agent_Management_Page extends Utility
 		Thread.sleep(2000);
 		String return_Value = fetchStatusBy_Agent_Name(Agent_Name);
 		Thread.sleep(1000);
+		System.out.println(return_Value);
 		
 		if(return_Value.contains("Approved"))
 		{
@@ -635,7 +681,7 @@ public class SOR_Agent_Management_Page extends Utility
 			ConsoleColor.printColored(Bc_Name+" this BC gets :- " +return_Value, ConsoleColor.RED);
 		}
 		*/
-		Assert.assertTrue(return_Value.contains("Approved"), Agent_Name + " this BC status is not Approved. Actual status: " + return_Value);
+		Assert.assertTrue(return_Value.contains("Approved"), Agent_Name + " this Agent status is not Approved. Actual status: " + return_Value);
 		
 		
 		System.out.println(return_Value);

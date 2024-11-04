@@ -2,7 +2,7 @@ package SOR_Pages_Playwright;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Locator;
-import com.PageFactory.utility.ConsoleColor;
+import SOR_resources_Playwright.Utility_PR.ConsoleColor;
 
 public class SOR_Switch_Configuration_Page_PR {
 

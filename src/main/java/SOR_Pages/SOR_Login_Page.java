@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import SOR_resources.ExtentReportNG;
 import SOR_resources.Utility;
 
 public class SOR_Login_Page extends Utility
@@ -33,7 +34,10 @@ public class SOR_Login_Page extends Utility
 	@FindBy(xpath = "//label[@id='lblErrorMsg']")
 	WebElement lblblankPwd; //Login failed
 	
-	public SOR_Login_Page(WebDriver driver) 
+
+	
+	
+	public SOR_Login_Page(WebDriver driver ) 
 	{
 		super(driver);
 		this.driver = driver;
@@ -42,6 +46,7 @@ public class SOR_Login_Page extends Utility
 
 	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException, IOException 
 	{
+		
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
@@ -73,6 +78,7 @@ public class SOR_Login_Page extends Utility
 			loginSuccess = isDisaplyedW(LeftMenu, 2);
 			Assert.assertTrue(loginSuccess, "Login failed: LeftMenu is not displayed");
 			ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
+			ExtentReportNG.logMessage("Login Successful With Username :- " + UserName);
 		} finally 
 		{
 			if (loginSuccess) {
@@ -96,7 +102,7 @@ public class SOR_Login_Page extends Utility
 		btnsubmit.click();
 		Thread.sleep(2000);
 		//System.out.println(lblblankUsername.getText());
-		if ((lblblankUsername.getText()).contains("Please Enter Username")) 
+		if ((lblblankPwd.getText()).contains("Please Enter Username")) 
 		{
 			Assert.assertTrue(true);
 			writeResultToExcel("Pass", 5, 5);
