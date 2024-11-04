@@ -24,19 +24,19 @@ public class SOR_Aggregator_Management_Page extends Utility
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 	}
 
-	@FindBy(xpath = "//button[@id='BtnSubb5']")
+	@FindBy(xpath = "//*[@id='BtnSubb5']/div/h5")
 	WebElement lblAgg_Mgmt;
 	
-	@FindBy(xpath = "//li[@id='submm14']")
+	@FindBy(xpath = "//*[@id='submm14']/a/div/span[2]")
 	WebElement lbl_Registration_Agg;
 	
-	@FindBy(xpath = "//li[@id='submm15']")
+	@FindBy(xpath = "//*[@id='submm15']/a/div/span[2]")
 	WebElement lbl_Verification_Agg;
 
-	@FindBy(xpath = "//li[@id='submm16']")
+	@FindBy(xpath = "//*[@id='submm16']/a/div/span[2]")
 	WebElement lbl_Onboard_Agg;
 
-	@FindBy(xpath = "//li[@id='submm17']")
+	@FindBy(xpath = "//*[@id='submm17']/a/div/span[2]")
 	WebElement lbl_Overall_Agg;
 	
 	@FindBy(xpath = "//input[@id='CPHMasterMain_btnAddnew']")
@@ -388,7 +388,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 		chk_AEPS.click();
 		txt_Agg_Name.sendKeys(Agg_Name_Randam);
 		writeNameToExcel(15,1,Agg_Name_Randam);
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		txt_Pan_No_Agg.sendKeys(generateRandomPAN());
 		txt_Aadhaar_NO_Agg.sendKeys(generateRandomAadhar());
 		selectQulification(Qualification);
@@ -418,10 +418,13 @@ public class SOR_Aggregator_Management_Page extends Utility
 		Thread.sleep(2000);
 		selectIDProof("Pancard");
 		SelectFileIDProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+		Thread.sleep(2000);
 		SelectAddressProof("Passport");
 		SelectFileAddressProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+		Thread.sleep(2000);
 		SelectSignatureProof("Pancard");
 		SelectFileSignatureProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
+		Thread.sleep(2000);
 		BtnSubmitProof.click();
 		Thread.sleep(500);
 		if (isAlertPresent(driver) == true) 

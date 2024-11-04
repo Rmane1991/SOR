@@ -154,8 +154,10 @@ public class Base {
         }
     }
 	
-	public String getCellValueAsString(Cell cell) {
-	    if (cell == null) {
+	public String getCellValueAsString(Cell cell) 
+	{
+	    if (cell == null) 
+	    {
 	        return ""; 
 	    }
 	    
@@ -164,8 +166,8 @@ public class Base {
 	        case STRING:
 	            return cell.getStringCellValue();
 	        case NUMERIC:
-	            if (DateUtil.isCellDateFormatted(cell)) {
-	               
+	            if (DateUtil.isCellDateFormatted(cell)) 
+	            {
 	                return cell.getDateCellValue().toString(); 
 	            } else {
 	                

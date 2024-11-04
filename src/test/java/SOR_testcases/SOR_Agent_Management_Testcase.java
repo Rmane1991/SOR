@@ -2,8 +2,6 @@ package SOR_testcases;
 
 import java.io.IOException;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_Agent_Management_Page;
@@ -14,7 +12,8 @@ public class SOR_Agent_Management_Testcase extends Base
 	SOR_Login_Page SORLp;
 	SOR_Agent_Management_Page SOR_Amp;
 
-	@BeforeMethod
+	//@BeforeMethod
+	@Test(priority = 0)
 	public void initalization() throws Exception 
 	{
 		launchBrowser();
@@ -24,7 +23,7 @@ public class SOR_Agent_Management_Testcase extends Base
 	
 	
 	@Test(priority = 1)
-	public void Add_BC() throws InterruptedException, IOException 
+	public void Add_Agent() throws InterruptedException, IOException 
 	{
 		//Login InPortal
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
@@ -61,31 +60,32 @@ public class SOR_Agent_Management_Testcase extends Base
 	}
 	
 	
-	@Test(priority = 2 ,dependsOnMethods = "Add_BC")
-	public void BC_Verification() throws InterruptedException, IOException 
+	@Test(priority = 2 ,dependsOnMethods = "Add_Agent")
+	public void Agent_Verification() throws InterruptedException, IOException 
 	{
 		//Login InPortal
-		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-									 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		//SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+			//						 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
 		//BC Verification
-		SOR_Amp.Agent_Verification(getCellValueAsString(sheet.getRow(12).getCell(1)));
+		ReadExcel();
+		SOR_Amp.Agent_Verification(getCellValueAsString(sheet.getRow(18).getCell(1)));
 	}
 	
 	
 	@Test(priority = 3)
-	public void On_Board_BC_Status() throws InterruptedException, IOException 
+	public void On_Board_Agent_Status() throws InterruptedException, IOException 
 	{
 		//Login InPortal
-		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-									 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
-	
-		SOR_Amp.On_Board_Agent_Status(getCellValueAsString(sheet.getRow(12).getCell(1)));
+		//SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
+		//							 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+		ReadExcel();
+		SOR_Amp.On_Board_Agent_Status(getCellValueAsString(sheet.getRow(18).getCell(1)));
 	}
 	
 	
 	
 	
-	@AfterMethod
+	@Test(priority = 4)
 	public void tearDown() 
 	{
 		driver.quit();

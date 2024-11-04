@@ -6,13 +6,18 @@
   </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_LoginTestCase">
+      <class name="SOR_testcases.SOR_Aggregator_Management_Testcase">
         <methods>
-          <include name="check_Blank_Username"/>
-          <include name="initalization"/>
-          <include name="tearDown"/>
+          <include name="On_Board_Agg_Status"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_LoginTestCase -->
+      </class> <!-- SOR_testcases.SOR_Aggregator_Management_Testcase -->
+      <class name="SOR_testcases.SOR_Agent_Management_Testcase">
+        <methods>
+          <include name="On_Board_Agent_Status"/>
+          <include name="Agent_Verification"/>
+          <include name="Add_Agent"/>
+        </methods>
+      </class> <!-- SOR_testcases.SOR_Agent_Management_Testcase -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
