@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import SOR_resources.ExtentReportNG;
 import SOR_resources.Utility;
 
 public class SOR_Login_Page extends Utility
@@ -78,7 +77,7 @@ public class SOR_Login_Page extends Utility
 			loginSuccess = isDisaplyedW(LeftMenu, 2);
 			Assert.assertTrue(loginSuccess, "Login failed: LeftMenu is not displayed");
 			ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
-			ExtentReportNG.logMessage("Login Successful With Username :- " + UserName);
+			//ExtentReportNG.logMessage("Login Successful With Username :- " + UserName);
 		} finally 
 		{
 			if (loginSuccess) {

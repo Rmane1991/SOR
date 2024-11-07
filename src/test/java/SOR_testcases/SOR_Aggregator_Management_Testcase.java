@@ -2,22 +2,27 @@ package SOR_testcases;
 
 import java.io.IOException;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_Aggregator_Management_Page;
 import SOR_Pages.SOR_Login_Page;
+import SOR_resources.Utility.TextFileLogger;
 
 public class SOR_Aggregator_Management_Testcase extends Base
 {
 	SOR_Login_Page SOR_Lp;
 	SOR_Aggregator_Management_Page SOR_Amp;
 
-	@Test(priority = 0)
+	@BeforeClass
+	//@Test(priority = 0)
 	public void initalization() throws Exception 
 	{
 		launchBrowser();
 		SOR_Lp = new SOR_Login_Page(driver);
 		SOR_Amp = new SOR_Aggregator_Management_Page(driver);
+		TextFileLogger.initializeLogger("SOR_Aggregator_Management_Testcase");
 	}
 
 	@Test(priority = 1)
@@ -70,11 +75,15 @@ public class SOR_Aggregator_Management_Testcase extends Base
 		SOR_Amp.On_Board_Agg_Status(getCellValueAsString(sheet.getRow(15).getCell(1))); //Agg_name
 	}
 	
-	@Test(priority = 4)
-	public void tearDown() 
+	@AfterClass
+	//@Test(priority = 4)
+	public void tearDown() throws IOException 
 	{
-		driver.quit();
-		System.out.println("Webdriver Closed ");
+		 if (driver != null) {
+	            driver.quit();
+	            System.out.println("WebDriver Closed");
+	            TextFileLogger.closeLogger();
+	        }
 	}
 	
 }

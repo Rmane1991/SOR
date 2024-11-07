@@ -17,7 +17,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -37,6 +36,7 @@ public class Base {
 	Sheet sheet;
 	public WebDriver driver;
 
+	
 	public void ReadExcel() throws IOException 
 	{
 		FileInputStream fis = new FileInputStream((System.getProperty("user.dir") + "\\src\\main\\java\\SOR_resources\\Test_Data.xlsx"));
@@ -46,6 +46,7 @@ public class Base {
 		sheet = wb.getSheetAt(2);
 	}
 
+	
 	public WebDriver launchBrowser() throws Exception 
 	{
 
@@ -194,5 +195,6 @@ public class Base {
             return null; // No files found
         }
     } 
+	
 	
 }
