@@ -2,23 +2,27 @@ package SOR_testcases;
 
 import java.io.IOException;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_Agent_Management_Page;
 import SOR_Pages.SOR_Login_Page;
+import SOR_resources.Utility.TextFileLogger;
 
 public class SOR_Agent_Management_Testcase extends Base
 {
 	SOR_Login_Page SORLp;
 	SOR_Agent_Management_Page SOR_Amp;
 
-	//@BeforeMethod
-	@Test(priority = 0)
+	@BeforeClass
+	//@Test(priority = 0)
 	public void initalization() throws Exception 
 	{
 		launchBrowser();
 		SORLp = new SOR_Login_Page(driver);
 		SOR_Amp = new SOR_Agent_Management_Page(driver);
+		TextFileLogger.initializeLogger("SOR_Agent_Management_Testcase");
 	}
 	
 	
@@ -84,12 +88,15 @@ public class SOR_Agent_Management_Testcase extends Base
 	
 	
 	
-	
-	@Test(priority = 4)
-	public void tearDown() 
+	@AfterClass
+	//@Test(priority = 4)
+	public void tearDown() throws IOException 
 	{
-		driver.quit();
-		System.out.println("Webdriver Closed ");
+		 if (driver != null) {
+	            driver.quit();
+	            System.out.println("WebDriver Closed");
+	            TextFileLogger.closeLogger();
+	        }
 	}
 	
 }

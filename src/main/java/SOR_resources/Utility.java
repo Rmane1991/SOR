@@ -3,13 +3,14 @@ package SOR_resources;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-//import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
@@ -31,7 +35,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.testng.ITestResult;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -502,6 +506,46 @@ public class Utility {
                 // Return the population group at the random index
                 return POPULATION_GROUPS[randomIndex];
             }
+            
+            
+            public class TextFileLogger {
+
+                private static XWPFDocument document;
+                private static FileOutputStream out;
+
+                // Initialize the Word document
+                public static void initializeLogger(String testCaseName) throws IOException 
+                {
+                	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
+                    String dateTime = dtf.format(LocalDateTime.now());
+                	String filePath=System.getProperty("user.dir")+"//Logs//" + testCaseName +"_"+ dateTime + ".docx";
+                    document = new XWPFDocument();
+                    out = new FileOutputStream(filePath);
+                }
+
+                // Log a message to the Word document
+                public static void logMessage(String message) 
+                {
+                    XWPFParagraph paragraph = document.createParagraph();
+                    XWPFRun run = paragraph.createRun();
+
+                    // Add timestamp and log message
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+                    run.setText("[" + dtf.format(now) + "] " + message);
+                }
+
+                // Save and close the Word document
+                public static void closeLogger() throws IOException {
+                    document.write(out);
+                    out.close();
+                    document.close();
+                }
+            }
     
-    
+            public void testCasename(ITestResult result) 
+            {
+				String r=result.getMethod().getMethodName();
+				System.out.println(r);
+			}
 }

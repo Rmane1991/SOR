@@ -2,10 +2,13 @@ package SOR_testcases;
 
 import java.io.IOException;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_BC_Management_Page;
 import SOR_Pages.SOR_Login_Page;
+import SOR_resources.Utility.TextFileLogger;
 
 public class SOR_BC_Management_TestCase extends Base
 {
@@ -13,12 +16,14 @@ public class SOR_BC_Management_TestCase extends Base
 	SOR_Login_Page SORLp;
 	SOR_BC_Management_Page Sbmp;
 
-	@Test(priority = 0)
+	@BeforeClass
+	//@Test(priority = 0)
 	public void initalization() throws Exception 
 	{
 		launchBrowser();
 		SORLp = new SOR_Login_Page(driver);
 		Sbmp = new SOR_BC_Management_Page(driver);
+		TextFileLogger.initializeLogger("SOR_BC_Management_TestCase");
 	}
 	
 	@Test(priority = 1)
@@ -70,11 +75,15 @@ public class SOR_BC_Management_TestCase extends Base
 		Sbmp.On_Board_BC_Status(getCellValueAsString(sheet.getRow(12).getCell(1)));
 	}
 	
-	@Test(priority = 4)
-	public void tearDown() 
+	@AfterClass
+	//@Test(priority = 4)
+	public void tearDown() throws IOException 
 	{
-		driver.quit();
-		System.out.println("Webdriver Closed ");
+		 if (driver != null) {
+	            driver.quit();
+	            System.out.println("WebDriver Closed");
+	            TextFileLogger.closeLogger();
+	        }
 	}
 	
 	

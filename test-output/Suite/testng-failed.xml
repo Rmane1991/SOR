@@ -6,16 +6,20 @@
   </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_Aggregator_Management_Testcase">
+      <class name="SOR_testcases.SOR_Rule_ConfigurationTestCase">
         <methods>
-          <include name="On_Board_Agg_Status"/>
+          <include name="tearDown"/>
+          <include name="initalization"/>
+          <include name="AddRule"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_Aggregator_Management_Testcase -->
+      </class> <!-- SOR_testcases.SOR_Rule_ConfigurationTestCase -->
       <class name="SOR_testcases.SOR_Agent_Management_Testcase">
         <methods>
           <include name="On_Board_Agent_Status"/>
           <include name="Agent_Verification"/>
+          <include name="tearDown"/>
           <include name="Add_Agent"/>
+          <include name="initalization"/>
         </methods>
       </class> <!-- SOR_testcases.SOR_Agent_Management_Testcase -->
     </classes>

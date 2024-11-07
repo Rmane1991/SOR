@@ -522,8 +522,9 @@ public class SOR_Agent_Management_Page extends Utility
 			writeNameToExcel(18,1,Agent_Name_Randam);
 			Thread.sleep(1000);
 			lbl_Agent_Mgmt.click();
+			Thread.sleep(1000);
 			lbl_Agent_Registration.click();
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 			btn_add_Agent.click();
 			selectBC(BCName);
 			Thread.sleep(1000);

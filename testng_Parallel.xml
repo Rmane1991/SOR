@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="classes" thread-count="5">
+
+  
+	<listeners>
+		<listener class-name="SOR_resources.listeners" />
+	</listeners>
+
+    <parameter name="baseUrl" value="http://localhost:8065"/>
+
+    <test name="Test">
+        <classes>
+            <class name="SOR_testcases.SOR_LoginTestCase" />
+            <class name="SOR_testcases.SOR_Switch_ConfigurationTestCase" />
+            <class name="SOR_testcases.SOR_Rule_ConfigurationTestCase" />
+            <class name="SOR_testcases.SOR_BC_Management_TestCase" />
+            <class name="SOR_testcases.SOR_Aggregator_Management_Testcase" />
+            <class name="SOR_testcases.SOR_Agent_Management_Testcase" />
+        </classes>
+    </test> 
+</suite>

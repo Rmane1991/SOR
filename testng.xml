@@ -15,7 +15,5 @@
 			<class name="SOR_testcases.SOR_Aggregator_Management_Testcase" />
 			<class name="SOR_testcases.SOR_Agent_Management_Testcase" />
 		</classes>
-	</test> <!--
-	Test -->
-</suite> <!--
-Suite -->
+	</test> 
+</suite> 
