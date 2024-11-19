@@ -24,15 +24,13 @@ public class SOR_Rule_ConfigurationTestCase extends Base
 		 SORLp = new SOR_Login_Page(driver);
 		 SORRCp = new SOR_Rule_Configuration_Page(driver);
 		 TextFileLogger.initializeLogger("SOR_Rule_ConfigurationTestCase");
-		 
-		
 	}
 	
 	@Test(priority = 2)
 	public void AddGroup() throws InterruptedException, IOException
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-								     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
+						     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
 		SORRCp.AddGrp(getCellValueAsString(sheet.getRow(6).getCell(1)),getCellValueAsString(sheet.getRow(6).getCell(3)));
 		
 	}

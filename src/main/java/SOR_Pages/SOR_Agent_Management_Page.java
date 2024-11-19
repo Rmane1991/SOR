@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -101,6 +102,7 @@ public class SOR_Agent_Management_Page extends Utility
 	        throw new AssertionError("Test case failed due to StaleElementReferenceException on selecting gender after multiple attempts.");
 	    }
 	}
+	
 	
 	@FindBy(xpath = "//button[@id='BtnSubb6']")
 	WebElement lbl_Agent_Mgmt;
@@ -288,11 +290,13 @@ public class SOR_Agent_Management_Page extends Utility
 	@FindBy(xpath = "//div[@id='divDownloadDocgrid']")
 	WebElement verificationWin;
 
-	public void Agent_Name_Verify(String Agent_Name) 
+	public void Agent_Name_Verify(String Agent_Name) throws InterruptedException 
 	{
 		String xpath = "//tr[td[contains(text(),'" + Agent_Name + "')]]//input[@title='Click here to verify']";
 		WebElement verifyButton = driver.findElement(By.xpath(xpath));
+		Thread.sleep(500);
 		verifyButton.click();
+		Thread.sleep(2000);
 	}
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_txtAgentName']")
@@ -318,9 +322,9 @@ public class SOR_Agent_Management_Page extends Utility
 	    
 	    if (rowElement != null) 
 	    {
-	        String vireficationBy = rowElement.findElement(By.xpath("./td[15]")).getText();
-	        String vireficationOn = rowElement.findElement(By.xpath("./td[16]")).getText();
-	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[17]")).getText();
+	        String vireficationBy = rowElement.findElement(By.xpath("./td[17]")).getText();
+	        String vireficationOn = rowElement.findElement(By.xpath("./td[18]")).getText();
+	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[19]")).getText();
 
 	        ConsoleColor.printColored(">> BC Name: " + Agent_Name, ConsoleColor.GREEN);
 	        //System.out.println(">> BC Name: " + bcName);
@@ -387,7 +391,7 @@ public class SOR_Agent_Management_Page extends Utility
 	{
 		try {
 			WebElement rowElement = driver.findElement(By.xpath("//tr[td[contains(text(),'" + Agent_Name + "')]]"));
-			WebElement statusElement = rowElement.findElement(By.xpath("./td[14]"));
+			WebElement statusElement = rowElement.findElement(By.xpath("./td[16]"));
 			return statusElement.getText();
 		} catch (Exception e) 
 		{
@@ -459,11 +463,18 @@ public class SOR_Agent_Management_Page extends Utility
 		}
 	}
 	 */
+	
 	@FindBy(xpath = "//input[@id='CPHMasterMain_txtdob']")
 	WebElement datepikker;
+	/*
+	@FindBy(xpath = "//*[@id='collapseSummaryOne']/div/div[2]/div[5]/span")
+	WebElement click_dd_Gender;
 	
+	@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlGender-results']")
+	WebElement txtsearch_dd_Gender;
+	*/
 	
-	
+
 	public static void selectDate(WebDriver driver, String DDMMYYYY)
 {
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -496,6 +507,20 @@ public class SOR_Agent_Management_Page extends Utility
 		districtElement.click();
 	}
 	
+	
+	public void selectFromDropdown(WebElement dropdownContainerElement, WebElement txtsercharea, String searchTerm) throws InterruptedException 
+	   {
+	        dropdownContainerElement.click();
+	        Thread.sleep(2000); 
+	        txtsercharea.clear();
+	        txtsercharea.sendKeys(searchTerm);
+	        Thread.sleep(1000); 
+	        txtsercharea.sendKeys(Keys.ENTER);
+	        Thread.sleep(1000);
+	    }
+	
+
+	
 	@FindBy(xpath = "//input[@id='CPHMasterMain_txtagentId']")
 	WebElement txt_Agent_Code;
 	
@@ -524,7 +549,7 @@ public class SOR_Agent_Management_Page extends Utility
 			lbl_Agent_Mgmt.click();
 			Thread.sleep(1000);
 			lbl_Agent_Registration.click();
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			btn_add_Agent.click();
 			selectBC(BCName);
 			Thread.sleep(1000);
@@ -538,12 +563,17 @@ public class SOR_Agent_Management_Page extends Utility
 			//txtFirstname_Agent_Registration.sendKeys("AlexBob");
 			
 			
-			Thread.sleep(3000);
-			
+			//Thread.sleep(3000);
+			//selectGender("Female");
+			//selectFromDropdown(click_dd_Gender,txtsearch_dd_Gender,"Female");
 			select_Gender("Female");
+			Thread.sleep(2000);
+			txtAadharno_BCRegistration.clear();
 			txtAadharno_BCRegistration.sendKeys(generateRandomAadhar());
+			Thread.sleep(2000);
 			datepikker.sendKeys(DateFormat);
 			//selectDate(driver,DateFormat);
+			Thread.sleep(1000);
 			txtAccountno_BCRegistration.sendKeys(AccountNo);
 			txtIFSCcode_BCRegistration.sendKeys(IFSC);
 			txt_Agent_device_Code.sendKeys(generateCode());
@@ -570,14 +600,16 @@ public class SOR_Agent_Management_Page extends Utility
 			chk_Btn_Shop_details_Same.click();
 			Thread.sleep(1000);
 			moveToElementAndClick(btnsubmit);
+			Thread.sleep(2000);
 			//btnsubmit.click();
 
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
+				System.out.println(driver.switchTo().alert().getText());
 				driver.switchTo().alert().accept();
 			}
 			
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 
 			selectIDProof("Pancard");
 			SelectFileIDProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
@@ -587,10 +619,10 @@ public class SOR_Agent_Management_Page extends Utility
 			Thread.sleep(2000);
 			SelectSignatureProof("Pancard");
 			SelectFileSignatureProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 			BtnSubmitProof.click();
-			Thread.sleep(500);
-			if (isAlertPresent(driver) == true) 
+			Thread.sleep(1000);
+			if (isAlertPresent() == true) 
 			{
 				driver.switchTo().alert().accept();
 			}
@@ -599,12 +631,12 @@ public class SOR_Agent_Management_Page extends Utility
 			moveToElementAndClick(BtnSubmitFinal_BC);
 
 			Thread.sleep(500);
-			if (isAlertPresent(driver) == true) {
+			if (isAlertPresent() == true) {
 				driver.switchTo().alert().accept();
 			}
 			Thread.sleep(2000);
 		} catch (Exception e) {
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
 				System.out.println(driver.switchTo().alert().getText());
 				throw new AssertionError("Test case failed due to alert presence: " + driver.switchTo().alert().getText());
@@ -640,8 +672,11 @@ public class SOR_Agent_Management_Page extends Utility
 				//System.out.println("Correct Windows Opened");
 				Thread.sleep(3000);
 				chkApproveButton.click();
+				Thread.sleep(500);
 				txtremark_BCVerification.sendKeys("This is Approved By Automation");
+				Thread.sleep(500);
 				btnSubmitVerification.click();
+				Thread.sleep(2000);
 			}
 			else 
 			{
@@ -649,8 +684,9 @@ public class SOR_Agent_Management_Page extends Utility
 			}
 			
 
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
+				//System.out.println(driver.switchTo().alert().getText());
 				driver.switchTo().alert().accept();
 			}
 		}

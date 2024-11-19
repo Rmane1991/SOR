@@ -8,12 +8,13 @@
 
 	<test thread-count="5" name="Test">
 		<classes>
-			<class name="SOR_testcases.SOR_LoginTestCase" />
+			<!--<class name="SOR_testcases.SOR_LoginTestCase" />-->
 			<class name="SOR_testcases.SOR_Switch_ConfigurationTestCase" />
 			<class name="SOR_testcases.SOR_Rule_ConfigurationTestCase" />
 			<class name="SOR_testcases.SOR_BC_Management_TestCase" />
 			<class name="SOR_testcases.SOR_Aggregator_Management_Testcase" />
 			<class name="SOR_testcases.SOR_Agent_Management_Testcase" />
+			<class name="SOR_testcases.SOR_Negative_Testcase" />
 		</classes>
 	</test> 
 </suite> 

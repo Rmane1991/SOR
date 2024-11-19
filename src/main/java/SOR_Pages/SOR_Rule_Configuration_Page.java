@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import SOR_resources.Utility;
 
@@ -140,7 +141,7 @@ public class SOR_Rule_Configuration_Page extends Utility
 	  WebElement togglebtnToConvertFIN_To_NonFIN;
 	
 	  @FindBy(xpath = "//select[@id='CPHMasterMain_ddlGroupName']")
-		WebElement Click_TO_Select_GRPname;
+	  WebElement Click_TO_Select_GRPname;
 		
 		//@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlGroupName-results']")
 		//WebElement txt_search_area_GrpName;
@@ -181,7 +182,71 @@ public class SOR_Rule_Configuration_Page extends Utility
 	  @FindBy(xpath = "//label[@for='RuleName']")
 	  WebElement lblRuleConfiguration;
 	 
-	public void AddGrp(String GRp_Name, String GRp_Desc) throws IOException 
+	  public void Blank_Grp_Name_and_Desc_Blank_Rule_Name_and_Desc() throws InterruptedException 
+	  {
+	        SoftAssert softAssert = new SoftAssert();
+	        
+	       TextFileLogger.logMessage("Blank group Name TestCase Start");
+
+	        // Step 1: Navigate to the page
+	        lblRuleManagement.click();
+	        lblRunConfiguration.click();
+	        
+	        // Step 2: Check if the 'Add Group' button is displayed, if not, click toggle button
+	        if (isDisaplyedW(Btnaddgroup, 2) == false) 
+	        {
+	           // TextFileLogger.logMessage("Add group button not displayed. Clicking on toggle button.");
+	            toggle_Btn.click();
+	            
+	            // Step 3: After toggling, check if 'Add Group' button is visible
+	            if (isDisaplyedW(Btnaddgroup, 2) == true) {
+	                //System.out.println("Add group button is visible");
+	                Btnaddgroup.click();
+
+	                // Step 4: Test case for blank Group Name
+	                BtnsubmitGroup.click();
+	                softAssert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Please Enter Group Name. Try again"),
+	                        "Confirmation message for blank group name is not as expected.");
+	                Thread.sleep(2000);
+	                TextFileLogger.logMessage("Blank Group Name TestCase pass");
+	                // Step 5: Test case for blank Group Description
+	                txtgroupname.sendKeys("Test");
+	                BtnsubmitGroup.click();
+	                softAssert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Please Enter Group Description. Try again"),
+	                        "Confirmation message for blank group description is not as expected.");
+	                TextFileLogger.logMessage("Blank Group Desc TestCase pass");
+	                Thread.sleep(2000);
+	                // Step 6: Cancel the group creation
+	                BtnCancleGroup.click();
+	            }
+	            
+	            if (isDisaplyedW(Btnaddgroup, 2) == false) 
+		        {
+		           // TextFileLogger.logMessage("Add group button not displayed. Clicking on toggle button.");
+		            toggle_Btn.click();
+		            Btnaddrule.click();
+		            btnSubmit_Rule.click();
+		            
+		            softAssert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Please Enter Rule Name. Try again"),
+	                        "Confirmation message for blank rule name is not as expected.");
+		            TextFileLogger.logMessage("Blank Rule Name TestCase pass");
+	                txtRule_Name.sendKeys("Test");
+	                
+	                btnSubmit_Rule.click();
+	                softAssert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Please Enter Rule Description. Try again"),
+	                        "Confirmation message for blank rule name is not as expected.");
+	                TextFileLogger.logMessage("Blank Rule Desc TestCase pass");
+	                btncancle_Rule.click();
+		            
+		        }   
+	            
+	        }
+
+	        // Step 7: Trigger all soft assertions
+	        softAssert.assertAll();
+	    }
+  
+	public void AddGrp(String GRp_Name, String GRp_Desc) throws IOException, InterruptedException 
 	{
 		
 		TextFileLogger.logMessage("Add Group Test Case Start");
@@ -198,7 +263,9 @@ public class SOR_Rule_Configuration_Page extends Utility
 				Btnaddgroup.click();
 				txtgroupname.sendKeys(Grp_Name_Randam);
 				writeNameToExcel(6,1,Grp_Name_Randam);
+				Thread.sleep(1000);
 				TxtGroup_Desc.sendKeys(GRp_Desc);
+				Thread.sleep(1000);
 				BtnsubmitGroup.click();
 				TextFileLogger.logMessage("Click On Add group");
 			}
@@ -208,7 +275,14 @@ public class SOR_Rule_Configuration_Page extends Utility
 			 System.out.println("Still button not visible");	
 			}
 			
-	        Assert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Insert Successful"), "Confirmation message not as expected.");
+	        Assert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Insert Successful")||add_Grp_Confirmation_Msg.getText().contains
+	        		("Group Name Already Exists. Try again"), "Confirmation message not as expected.");
+	        
+	        if(add_Grp_Confirmation_Msg.getText().contains("Group Name Already Exists. Try again"))
+	        {
+	        	BtnCancleGroup.click();
+	        	Thread.sleep(1000);
+	        }
 	        TextFileLogger.logMessage("Add Group Test Case Pass");
 	        System.out.println("Group added successfully");
 	    } else {

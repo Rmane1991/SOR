@@ -411,7 +411,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 		txt_ContactNo_Agg.sendKeys(generateRandomMobileNumber());
 		btn_Submit_Agg.click();
 		
-		if (isAlertPresent(driver) == true) 
+		if (isAlertPresent() == true) 
 		{
 			driver.switchTo().alert().accept();
 		}
@@ -427,7 +427,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 		Thread.sleep(2000);
 		BtnSubmitProof.click();
 		Thread.sleep(500);
-		if (isAlertPresent(driver) == true) 
+		if (isAlertPresent() == true) 
 		{
 			driver.switchTo().alert().accept();
 		}
@@ -436,7 +436,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 		moveToElementAndClick(BtnSubmitFinal_BC);
 
 		Thread.sleep(500);
-		if (isAlertPresent(driver) == true) 
+		if (isAlertPresent() == true) 
 		{
 			driver.switchTo().alert().accept();
 		}
@@ -472,7 +472,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 				ConsoleColor.printColored("Aggregator name missmatch :-"+ Agg_Name, ConsoleColor.RED);
 			}
 
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
 				driver.switchTo().alert().accept();
 			}

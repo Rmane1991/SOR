@@ -1,139 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="17" passed="17" failed="0" skipped="0">
+<testng-results ignored="0" total="5" passed="4" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-11-07T12:12:52 IST" name="Suite" finished-at="2024-11-07T12:18:05 IST" duration-ms="312360">
+  <suite started-at="2024-11-16T16:20:17 IST" name="Suite" finished-at="2024-11-16T16:20:55 IST" duration-ms="37515">
     <groups>
     </groups>
-    <test started-at="2024-11-07T12:12:52 IST" name="Test" finished-at="2024-11-07T12:18:05 IST" duration-ms="312360">
-      <class name="SOR_testcases.SOR_Rule_ConfigurationTestCase">
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Rule_ConfigurationTestCase@78452606]" started-at="2024-11-07T12:13:42 IST" name="initalization" finished-at="2024-11-07T12:13:44 IST" duration-ms="1868" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- initalization -->
-        <test-method signature="AddGroup()[pri:2, instance:SOR_testcases.SOR_Rule_ConfigurationTestCase@78452606]" started-at="2024-11-07T12:13:44 IST" name="AddGroup" finished-at="2024-11-07T12:13:52 IST" duration-ms="8650" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AddGroup -->
-        <test-method signature="AddRule()[pri:3, instance:SOR_testcases.SOR_Rule_ConfigurationTestCase@78452606]" started-at="2024-11-07T12:13:52 IST" name="AddRule" finished-at="2024-11-07T12:14:10 IST" duration-ms="18230" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AddRule -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Rule_ConfigurationTestCase@78452606]" started-at="2024-11-07T12:14:10 IST" name="tearDown" finished-at="2024-11-07T12:14:11 IST" duration-ms="471" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- SOR_testcases.SOR_Rule_ConfigurationTestCase -->
-      <class name="SOR_testcases.SOR_Aggregator_Management_Testcase">
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@15d49048]" started-at="2024-11-07T12:15:28 IST" name="initalization" finished-at="2024-11-07T12:15:30 IST" duration-ms="1749" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- initalization -->
-        <test-method signature="Add_Agg()[pri:1, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@15d49048]" started-at="2024-11-07T12:15:30 IST" name="Add_Agg" finished-at="2024-11-07T12:16:07 IST" duration-ms="36804" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Add_Agg -->
-        <test-method signature="Agg_Verification()[pri:2, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@15d49048]" started-at="2024-11-07T12:16:07 IST" name="Agg_Verification" finished-at="2024-11-07T12:16:23 IST" depends-on-methods="SOR_testcases.SOR_Aggregator_Management_Testcase.Add_Agg" duration-ms="16169" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Agg_Verification -->
-        <test-method signature="On_Board_Agg_Status()[pri:3, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@15d49048]" started-at="2024-11-07T12:16:23 IST" name="On_Board_Agg_Status" finished-at="2024-11-07T12:16:33 IST" duration-ms="9804" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- On_Board_Agg_Status -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Aggregator_Management_Testcase@15d49048]" started-at="2024-11-07T12:16:33 IST" name="tearDown" finished-at="2024-11-07T12:16:33 IST" duration-ms="397" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- SOR_testcases.SOR_Aggregator_Management_Testcase -->
-      <class name="SOR_testcases.SOR_BC_Management_TestCase">
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_BC_Management_TestCase@4470fbd6]" started-at="2024-11-07T12:14:11 IST" name="initalization" finished-at="2024-11-07T12:14:13 IST" duration-ms="1756" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- initalization -->
-        <test-method signature="Add_BC()[pri:1, instance:SOR_testcases.SOR_BC_Management_TestCase@4470fbd6]" started-at="2024-11-07T12:14:13 IST" name="Add_BC" finished-at="2024-11-07T12:14:53 IST" duration-ms="40321" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Add_BC -->
-        <test-method signature="BC_Verification()[pri:2, instance:SOR_testcases.SOR_BC_Management_TestCase@4470fbd6]" started-at="2024-11-07T12:14:53 IST" name="BC_Verification" finished-at="2024-11-07T12:15:14 IST" duration-ms="20919" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- BC_Verification -->
-        <test-method signature="On_Board_BC_Status()[pri:3, instance:SOR_testcases.SOR_BC_Management_TestCase@4470fbd6]" started-at="2024-11-07T12:15:14 IST" name="On_Board_BC_Status" finished-at="2024-11-07T12:15:28 IST" depends-on-methods="SOR_testcases.SOR_BC_Management_TestCase.Add_BC" duration-ms="13831" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- On_Board_BC_Status -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_BC_Management_TestCase@4470fbd6]" started-at="2024-11-07T12:15:28 IST" name="tearDown" finished-at="2024-11-07T12:15:28 IST" duration-ms="492" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- SOR_testcases.SOR_BC_Management_TestCase -->
-      <class name="SOR_testcases.SOR_Agent_Management_Testcase">
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Agent_Management_Testcase@7098b907]" started-at="2024-11-07T12:16:33 IST" name="initalization" finished-at="2024-11-07T12:16:35 IST" duration-ms="1939" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- initalization -->
-        <test-method signature="Add_Agent()[pri:1, instance:SOR_testcases.SOR_Agent_Management_Testcase@7098b907]" started-at="2024-11-07T12:16:35 IST" name="Add_Agent" finished-at="2024-11-07T12:17:24 IST" duration-ms="48603" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Add_Agent -->
-        <test-method signature="Agent_Verification()[pri:2, instance:SOR_testcases.SOR_Agent_Management_Testcase@7098b907]" started-at="2024-11-07T12:17:24 IST" name="Agent_Verification" finished-at="2024-11-07T12:17:50 IST" depends-on-methods="SOR_testcases.SOR_Agent_Management_Testcase.Add_Agent" duration-ms="26119" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Agent_Verification -->
-        <test-method signature="On_Board_Agent_Status()[pri:3, instance:SOR_testcases.SOR_Agent_Management_Testcase@7098b907]" started-at="2024-11-07T12:17:50 IST" name="On_Board_Agent_Status" finished-at="2024-11-07T12:18:04 IST" duration-ms="14145" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- On_Board_Agent_Status -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Agent_Management_Testcase@7098b907]" started-at="2024-11-07T12:18:04 IST" name="tearDown" finished-at="2024-11-07T12:18:05 IST" duration-ms="443" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- SOR_testcases.SOR_Agent_Management_Testcase -->
+    <test started-at="2024-11-16T16:20:17 IST" name="Test" finished-at="2024-11-16T16:20:55 IST" duration-ms="37515">
       <class name="SOR_testcases.SOR_LoginTestCase">
-        <test-method is-config="true" signature="Initalization()[pri:0, instance:SOR_testcases.SOR_LoginTestCase@2fb0623e]" started-at="2024-11-07T12:12:52 IST" name="Initalization" finished-at="2024-11-07T12:13:05 IST" duration-ms="13133" status="PASS">
+        <test-method is-config="true" signature="Initalization()[pri:0, instance:SOR_testcases.SOR_LoginTestCase@660acfb]" started-at="2024-11-16T16:20:17 IST" name="Initalization" finished-at="2024-11-16T16:20:21 IST" duration-ms="3934" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Initalization -->
-        <test-method signature="Check_InValid_User_Name()[pri:1, instance:SOR_testcases.SOR_LoginTestCase@2fb0623e]" started-at="2024-11-07T12:13:05 IST" name="Check_InValid_User_Name" finished-at="2024-11-07T12:13:10 IST" duration-ms="4895" status="PASS">
+        <test-method signature="Check_InValid_User_Name()[pri:1, instance:SOR_testcases.SOR_LoginTestCase@660acfb]" started-at="2024-11-16T16:20:21 IST" name="Check_InValid_User_Name" finished-at="2024-11-16T16:20:24 IST" duration-ms="3216" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Check_InValid_User_Name -->
-        <test-method signature="Check_Blank_Username()[pri:2, instance:SOR_testcases.SOR_LoginTestCase@2fb0623e]" started-at="2024-11-07T12:13:10 IST" name="Check_Blank_Username" finished-at="2024-11-07T12:13:13 IST" duration-ms="2489" status="PASS">
+        <test-method signature="Check_Blank_Username()[pri:2, instance:SOR_testcases.SOR_LoginTestCase@660acfb]" started-at="2024-11-16T16:20:24 IST" name="Check_Blank_Username" finished-at="2024-11-16T16:20:27 IST" duration-ms="2410" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Check_Blank_Username -->
-        <test-method signature="Check_Blank_Password()[pri:3, instance:SOR_testcases.SOR_LoginTestCase@2fb0623e]" started-at="2024-11-07T12:13:13 IST" name="Check_Blank_Password" finished-at="2024-11-07T12:13:15 IST" duration-ms="2448" status="PASS">
+        <test-method signature="Check_Blank_Password()[pri:3, instance:SOR_testcases.SOR_LoginTestCase@660acfb]" started-at="2024-11-16T16:20:27 IST" name="Check_Blank_Password" finished-at="2024-11-16T16:20:29 IST" duration-ms="2486" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Check_Blank_Password -->
-        <test-method signature="Check_InValid_Password()[pri:4, instance:SOR_testcases.SOR_LoginTestCase@2fb0623e]" started-at="2024-11-07T12:13:15 IST" name="Check_InValid_Password" finished-at="2024-11-07T12:13:18 IST" duration-ms="2521" status="PASS">
+        <test-method signature="Check_InValid_Password()[pri:4, instance:SOR_testcases.SOR_LoginTestCase@660acfb]" started-at="2024-11-16T16:20:29 IST" name="Check_InValid_Password" finished-at="2024-11-16T16:20:32 IST" duration-ms="2679" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Check_InValid_Password -->
-        <test-method signature="Check_Valid_Credentials()[pri:5, instance:SOR_testcases.SOR_LoginTestCase@2fb0623e]" started-at="2024-11-07T12:13:18 IST" name="Check_Valid_Credentials" finished-at="2024-11-07T12:13:26 IST" duration-ms="8336" status="PASS">
+        <test-method signature="Check_Valid_Credentials()[pri:5, instance:SOR_testcases.SOR_LoginTestCase@660acfb]" started-at="2024-11-16T16:20:32 IST" name="Check_Valid_Credentials" finished-at="2024-11-16T16:20:54 IST" duration-ms="21661" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Login failed: LeftMenu is not displayed expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Login failed: LeftMenu is not displayed expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:99)
+at org.testng.Assert.failNotEquals(Assert.java:1037)
+at org.testng.Assert.assertTrue(Assert.java:45)
+at SOR_Pages.SOR_Login_Page.Check_Valid_Credentials(SOR_Login_Page.java:79)
+at SOR_testcases.SOR_LoginTestCase.Check_Valid_Credentials(SOR_LoginTestCase.java:35)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:794)
+at org.testng.TestRunner.run(TestRunner.java:596)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+at org.testng.TestNG.runSuites(TestNG.java:1063)
+at org.testng.TestNG.run(TestNG.java:1031)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Check_Valid_Credentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_LoginTestCase@2fb0623e]" started-at="2024-11-07T12:13:26 IST" name="tearDown" finished-at="2024-11-07T12:13:27 IST" duration-ms="499" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_LoginTestCase@660acfb]" started-at="2024-11-16T16:20:54 IST" name="tearDown" finished-at="2024-11-16T16:20:55 IST" duration-ms="338" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- SOR_testcases.SOR_LoginTestCase -->
-      <class name="SOR_testcases.SOR_Switch_ConfigurationTestCase">
-        <test-method is-config="true" signature="initalization()[pri:0, instance:SOR_testcases.SOR_Switch_ConfigurationTestCase@4f49f6af]" started-at="2024-11-07T12:13:27 IST" name="initalization" finished-at="2024-11-07T12:13:28 IST" duration-ms="1807" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- initalization -->
-        <test-method signature="AddSwitch()[pri:0, instance:SOR_testcases.SOR_Switch_ConfigurationTestCase@4f49f6af]" started-at="2024-11-07T12:13:28 IST" name="AddSwitch" finished-at="2024-11-07T12:13:41 IST" duration-ms="12995" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AddSwitch -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:SOR_testcases.SOR_Switch_ConfigurationTestCase@4f49f6af]" started-at="2024-11-07T12:13:41 IST" name="tearDown" finished-at="2024-11-07T12:13:42 IST" duration-ms="378" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- SOR_testcases.SOR_Switch_ConfigurationTestCase -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>
