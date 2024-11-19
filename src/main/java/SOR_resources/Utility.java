@@ -111,22 +111,21 @@ public class Utility {
 
 	}
 
-	public boolean isInvisible(WebElement Element, long tm) {
+	public boolean isInvisible(WebElement Element, long tm) 
+	{
 		boolean isDisplayed = false;
 
-		try {
-
-			WebDriverWait wt = new WebDriverWait(driver, Duration.ofMinutes(tm));
-			wt.until(ExpectedConditions.invisibilityOf(Element));
-			isDisplayed = true;
-		} catch (Exception e)
-
+		try 
 		{
-			// e.printStackTrace();
+		    WebDriverWait wt = new WebDriverWait(driver, Duration.ofSeconds(tm));
+		    wt.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(Element)));
+		    isDisplayed = true;
+		} catch (Exception e) 
+		{
+		    // e.printStackTrace();
 		}
 
 		return isDisplayed;
-
 	}
 
 
@@ -193,7 +192,8 @@ public class Utility {
 	}
 
 	// Print Message
-	public static void print(WebElement Print, String cat, Integer no) {
+	public static void print(WebElement Print, String cat, Integer no) 
+	{
 		String text = Print.getText();
 		System.out.println(no + " : " + cat + " " + text);
 	}
@@ -307,9 +307,9 @@ public class Utility {
 		}
 	}
 
-	public boolean isAlertPresent(WebDriver wd) {
+	public boolean isAlertPresent() {
 		try {
-			wd.switchTo().alert();
+			driver.switchTo().alert();
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -350,11 +350,12 @@ public class Utility {
 		}
 	}
 	
-	//For generate randam data
+	 //For generate randam data
+	static Random random = new Random();
 	
 	public static String generateRandomMobileNumber() 
 	{
-        Random random = new Random();
+        
         int firstDigit = 6 + random.nextInt(4); 
         StringBuilder mobileNumber = new StringBuilder(String.valueOf(firstDigit));
         for (int i = 0; i < 9; i++) 
@@ -368,13 +369,13 @@ public class Utility {
     public static String generateRandomName() 
     {
         String[] names = {"John", "Alice", "Bob", "Emma", "Raj", "Priya", "Alex", "Sara"};
-        Random random = new Random();
+        //Random random = new Random();
         return names[random.nextInt(names.length)] + "" + names[random.nextInt(names.length)];
     }
 
     // Method to generate a random PAN number (format: ABCDE1234F)
     public static String generateRandomPAN() {
-        Random random = new Random();
+        //Random random = new Random();
         StringBuilder pan = new StringBuilder();
         for (int i = 0; i < 5; i++) {
             pan.append((char) ('A' + random.nextInt(26))); 
@@ -390,7 +391,7 @@ public class Utility {
     
 	public static String generateRandomPAN_Third_P() 
 	{
-        Random random = new Random();
+        //Random random = new Random();
         StringBuilder pan = new StringBuilder();
 
         // Start with 'A' as the first character
@@ -421,7 +422,7 @@ public class Utility {
 
     // Method to generate a random Aadhar number (12 digits)
     public static String generateRandomAadhar() {
-        Random random = new Random();
+       // Random random = new Random();
         StringBuilder aadhar = new StringBuilder();
         for (int i = 0; i < 12; i++) {
             aadhar.append(random.nextInt(10)); 
@@ -433,7 +434,7 @@ public class Utility {
     public static String generateRandomEmail() {
         String[] domains = {"example.com", "test.com", "demo.com"};
         String randomName = generateRandomName(); // Generate random name
-        Random random = new Random();
+       // Random random = new Random();
         return randomName.toLowerCase().replace(" ", ".") + random.nextInt(100) + "@" + domains[random.nextInt(domains.length)];
     }
     
@@ -477,7 +478,7 @@ public class Utility {
             String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Define uppercase letters
             String alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Define letters and digits
 
-            Random random = new Random();
+           // Random random = new Random();
             
             // First character should be a letter
             char firstChar = letters.charAt(random.nextInt(letters.length()));
@@ -498,7 +499,7 @@ public class Utility {
 
             // Method to randomly select a population group
             public static String getRandomPopulationGroup() {
-                Random random = new Random();
+               // Random random = new Random();
                 
                 // Select a random index between 0 and the length of the POPULATION_GROUPS array
                 int randomIndex = random.nextInt(POPULATION_GROUPS.length);
@@ -508,7 +509,8 @@ public class Utility {
             }
             
             
-            public class TextFileLogger {
+            public class TextFileLogger 
+            {
 
                 private static XWPFDocument document;
                 private static FileOutputStream out;

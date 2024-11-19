@@ -45,7 +45,7 @@ public class SOR_Login_Page extends Utility
 
 	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException, IOException 
 	{
-		
+		TextFileLogger.logMessage("Check_Valid_Credentials TestCase Start");
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
@@ -77,6 +77,7 @@ public class SOR_Login_Page extends Utility
 			loginSuccess = isDisaplyedW(LeftMenu, 2);
 			Assert.assertTrue(loginSuccess, "Login failed: LeftMenu is not displayed");
 			ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
+			TextFileLogger.logMessage("Check_Valid_Credentials TestCase Pass");
 			//ExtentReportNG.logMessage("Login Successful With Username :- " + UserName);
 		} finally 
 		{

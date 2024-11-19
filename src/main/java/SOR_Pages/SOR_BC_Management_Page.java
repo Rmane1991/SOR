@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import SOR_resources.Utility;
 
@@ -21,7 +22,10 @@ public class SOR_BC_Management_Page extends Utility
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		if (driver.manage().timeouts().getImplicitWaitTimeout().isZero()) 
+		{
+	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); 
+	    }
 	}
 
 	@FindBy(xpath = "//button[@id='BtnSubb4']")
@@ -199,6 +203,9 @@ public class SOR_BC_Management_Page extends Utility
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_downloadPass']")
 	WebElement BtnSubmitFinal_BC;
+	
+	@FindBy(xpath = "//div[@class='toast-message']")
+	WebElement Confirmation_Msg; 
 
 	// Verification
 
@@ -474,7 +481,7 @@ public class SOR_BC_Management_Page extends Utility
 			btnsubmit.click();
 
 			Thread.sleep(3000);
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
 				driver.switchTo().alert().accept();
 			}
@@ -492,7 +499,7 @@ public class SOR_BC_Management_Page extends Utility
 			Thread.sleep(2000);
 			BtnSubmitProof.click();
 			Thread.sleep(500);
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
 				driver.switchTo().alert().accept();
 			}
@@ -502,14 +509,14 @@ public class SOR_BC_Management_Page extends Utility
 			moveToElementAndClick(BtnSubmitFinal_BC);
 
 			Thread.sleep(1000);
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
 				driver.switchTo().alert().accept();
 			}
 			Thread.sleep(2000);
 		} catch (Exception e) 
 		{
-			if (isAlertPresent(driver) == true) 
+			if (isAlertPresent() == true) 
 			{
 				System.out.println(driver.switchTo().alert().getText());
 			}
@@ -560,7 +567,7 @@ public class SOR_BC_Management_Page extends Utility
 				}
 				
 
-				if (isAlertPresent(driver) == true) 
+				if (isAlertPresent() == true) 
 				{
 					driver.switchTo().alert().accept();
 				}
@@ -568,7 +575,7 @@ public class SOR_BC_Management_Page extends Utility
 		} catch (Exception e) 
 		{
 			 ConsoleColor.printColored("BC name Not Found: " + BCName, ConsoleColor.RED);
-			 if (isAlertPresent(driver) == true) 
+			 if (isAlertPresent() == true) 
 			 {
 				 ConsoleColor.printColored(driver.switchTo().alert().getText(), ConsoleColor.RED);
 			}
@@ -607,6 +614,352 @@ public class SOR_BC_Management_Page extends Utility
 		
 		
 		System.out.println(return_Value);
+
+	}
+	
+	public void Blank_Data_BC_Registration() throws InterruptedException 
+	{
+		SoftAssert softAssert = new SoftAssert();
+
+		btnBCManagement.click();
+
+		BtnBCRegistration.click();
+		Thread.sleep(2000);
+		if (isClicked(BtnAddNewBC) == true) {
+			ConsoleColor.printColored("Ad new BC button Click", ConsoleColor.GREEN);
+		}
+
+		// For all Field Blank
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter first name")
+							&& driver.switchTo().alert().getText().contains("Please enter pan no")
+							&& driver.switchTo().alert().getText().contains("Please enter Aadhaarcard no")
+							&& driver.switchTo().alert().getText().contains("Please enter Account Number")
+							&& driver.switchTo().alert().getText().contains("Please enter IFSC Code")
+							&& driver.switchTo().alert().getText().contains("Please enter registered address")
+							&& driver.switchTo().alert().getText().contains("Please enter pincode")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration all field Blank test Case Pass");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration all field Blank test Case Fail");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When ENter First Name
+		txtFirstname_BCRegistration.sendKeys("TestExtraNNEW");
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter pan no")
+							&& driver.switchTo().alert().getText().contains("Please enter Aadhaarcard no")
+							&& driver.switchTo().alert().getText().contains("Please enter Account Number")
+							&& driver.switchTo().alert().getText().contains("Please enter IFSC Code")
+							&& driver.switchTo().alert().getText().contains("Please enter registered address")
+							&& driver.switchTo().alert().getText().contains("Please enter pincode")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Fail Except Name");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter PanCard no
+		txtPANno_BCRegistration.sendKeys("CCAPM5696E");
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter Aadhaarcard no")
+							&& driver.switchTo().alert().getText().contains("Please enter Account Number")
+							&& driver.switchTo().alert().getText().contains("Please enter IFSC Code")
+							&& driver.switchTo().alert().getText().contains("Please enter registered address")
+							&& driver.switchTo().alert().getText().contains("Please enter pincode")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name and PanNo");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Fail Except Name and PanNo");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter Addhar No
+		txtAadharno_BCRegistration.sendKeys("611181463158");
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter Account Number")
+							&& driver.switchTo().alert().getText().contains("Please enter IFSC Code")
+							&& driver.switchTo().alert().getText().contains("Please enter registered address")
+							&& driver.switchTo().alert().getText().contains("Please enter pincode")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name ,PanNo and Adhar No");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Fail Except Name ,PanNo and Adhar No");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter Account No
+		txtAccountno_BCRegistration.sendKeys("223456987");
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter IFSC Code")
+							&& driver.switchTo().alert().getText().contains("Please enter registered address")
+							&& driver.switchTo().alert().getText().contains("Please enter pincode")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name ,PanNo Adhar No and Account No");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Fail Except Name ,PanNo Adhar No and Account No");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter IFSC Code
+		txtIFSCcode_BCRegistration.sendKeys("HDFC0000002");
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter registered address")
+							&& driver.switchTo().alert().getText().contains("Please enter pincode")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name ,PanNo Adhar No ,Account No And IFSC Code");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Fail Except Name ,PanNo Adhar No ,Account No And IFSC Code");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter Registered Address
+		txtRegisteredAddress.sendKeys("Thane Maharashtra");
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter pincode")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name ,PanNo Adhar No ,Account No ,IFSC Code And Address");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case fail Except Name ,PanNo Adhar No ,Account No ,IFSC Code And Address");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter Pincode
+		txtPinCode.sendKeys("400701");
+		clickOnPinCodeLBl.click();
+		Thread.sleep(1000);
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name ,PanNo Adhar No ,Account No ,IFSC Code, Address and Pincode");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Fail Except Name ,PanNo Adhar No ,Account No ,IFSC Code, Address and Pincode");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter wrong Email-ID
+		txtMaildID.sendKeys("rmane5655@@gmail.com");
+		Thread.sleep(1000);
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter valid Personal email id")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name ,PanNo Adhar No ,Account No ,IFSC Code, Address ,Pincode,invalid Email ID");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case fail Except Name ,PanNo Adhar No ,Account No ,IFSC Code, Address ,Pincode,invalid Email ID");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter Email-ID
+		txtMaildID.clear();
+		txtMaildID.sendKeys("rmane556@gmail.com");
+		Thread.sleep(1000);
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				if (isAlertPresent() == true) {
+					if (driver.switchTo().alert().getText()
+							.contains("You must enter or select a value in the following fields:")
+							&& driver.switchTo().alert().getText().contains("Please enter contact no")) {
+						softAssert.assertTrue(true, "All required fields are present in the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case Pass Except Name ,PanNo Adhar No ,Account No ,IFSC Code, Address ,Pincode,valid Email ID");
+					} else {
+						softAssert.fail("One or more required fields are missing from the alert message.");
+						TextFileLogger.logMessage("BC registration field Blank test Case fail Except Name ,PanNo Adhar No ,Account No ,IFSC Code, Address ,Pincode,valid Email ID");
+					}
+
+					driver.switchTo().alert().accept();
+				}
+
+			}
+
+		}
+
+		// When Enter Contact no
+		txtContactNo.sendKeys("8275380047");
+		Thread.sleep(1000);
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				Thread.sleep(1000);
+				softAssert.assertTrue(Confirmation_Msg.getText().contains("Please Select Atleast One Service"),
+						"Confirmation message for Select service is not as expected.");
+				TextFileLogger.logMessage("BC registration to select Service test case Pass");
+				// Thread.sleep(1000);
+			}
+		}
+
+		// When Select Service
+		ChkAEPS.click();
+		// Thread.sleep(3000);
+		isInvisible(Confirmation_Msg, 8);
+		btnsubmit.click();
+		Thread.sleep(500);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("Are You Sure You Want To Save Data?")) {
+				driver.switchTo().alert().accept();
+				System.out.println(Confirmation_Msg.getText());
+				if (isDisaplyedW(Confirmation_Msg, 5) == true) {
+					System.out.println(Confirmation_Msg.getText());
+					softAssert.assertTrue(Confirmation_Msg.getText().contains("Request Processed for Document Upload."),
+							"Confirmation message for Upload Documment as expected.");
+					TextFileLogger.logMessage("BC registration to Submit Form and Upload document");
+				} else {
+					System.out.println("Toast Message Element not visible");
+				}
+			}
+		}
+
+		softAssert.assertAll();
 
 	}
 

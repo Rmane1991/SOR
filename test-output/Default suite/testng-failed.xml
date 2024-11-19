@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_LoginTestCase">
+      <class name="SOR_testcases.SOR_Negative_Testcase">
         <methods>
-          <include name="testCasename"/>
-          <include name="Initalization"/>
+          <include name="Negative_Test_Case_Rule_Mgmt_Page"/>
           <include name="tearDown"/>
+          <include name="initalization"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_LoginTestCase -->
+      </class> <!-- SOR_testcases.SOR_Negative_Testcase -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
