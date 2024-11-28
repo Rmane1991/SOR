@@ -325,7 +325,7 @@ public class SOR_BC_Management_Page extends Utility
 	        
 	        // Check if link leads to a new page (e.g., href contains the next page number)
 	        String currentPage = driver.getCurrentUrl();
-	        String nextPageHref = nextPageLink.getAttribute("href");
+	        String nextPageHref = nextPageLink.getDomAttribute("href");
 	        
 	        // If the href attribute contains the next page link, return the element
 	        if (!currentPage.equals(nextPageHref)) {
@@ -457,7 +457,7 @@ public class SOR_BC_Management_Page extends Utility
 			Thread.sleep(2000);
 			txtPANno_BCRegistration.sendKeys(generateRandomPAN());
 			txtAadharno_BCRegistration.sendKeys(generateRandomAadhar());
-			txtAccountno_BCRegistration.sendKeys(AccountNo);
+			txtAccountno_BCRegistration.sendKeys(generateRandomAccountNo());
 			txtIFSCcode_BCRegistration.sendKeys(IFSC);
 			txtRegisteredAddress.sendKeys(addres);
 			txtPinCode.sendKeys(Pincode);
@@ -552,7 +552,7 @@ public class SOR_BC_Management_Page extends Utility
 				ConsoleColor.printColored("Correct Windows Opened of :- "+BCName, ConsoleColor.GREEN);
 				//System.out.println("Windows Displayed");
 
-				if (txtnameofBCAtVerification.getAttribute("value").contains(BCName)) 
+				if (txtnameofBCAtVerification.getDomProperty("value").contains(BCName)) 
 				{
 					ConsoleColor.printColored("Correct Windows Opened of :- "+BCName, ConsoleColor.GREEN);
 					//System.out.println("Correct Windows Opened");

@@ -122,7 +122,6 @@ public class SOR_Agent_Management_Page extends Utility
 	@FindBy(xpath = "//input[@id='CPHMasterMain_btnAddnew']")
 	WebElement btn_add_Agent;
 
-
 	@FindBy(xpath = "//input[@id='CPHMasterMain_chkAEPS']")
 	WebElement ChkAEPS;
 
@@ -574,7 +573,7 @@ public class SOR_Agent_Management_Page extends Utility
 			datepikker.sendKeys(DateFormat);
 			//selectDate(driver,DateFormat);
 			Thread.sleep(1000);
-			txtAccountno_BCRegistration.sendKeys(AccountNo);
+			txtAccountno_BCRegistration.sendKeys(generateRandomAccountNo());
 			txtIFSCcode_BCRegistration.sendKeys(IFSC);
 			txt_Agent_device_Code.sendKeys(generateCode());
 			select_Population_Grp(getRandomPopulationGroup());
@@ -666,7 +665,7 @@ public class SOR_Agent_Management_Page extends Utility
 			ConsoleColor.printColored("Correct Windows Opened of :- "+Agent_Name, ConsoleColor.GREEN);
 			//System.out.println("Windows Displayed");
 
-			if (txtnameof_Agent_At_Verification.getAttribute("value").contains(Agent_Name)) 
+			if (txtnameof_Agent_At_Verification.getDomProperty("value").contains(Agent_Name)) 
 			{
 				ConsoleColor.printColored("Correct Windows Opened of :- "+Agent_Name, ConsoleColor.GREEN);
 				//System.out.println("Correct Windows Opened");

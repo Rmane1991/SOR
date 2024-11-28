@@ -6,13 +6,55 @@
   </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_LoginTestCase">
+      <class name="SOR_testcases.SOR_Rule_ConfigurationTestCase">
         <methods>
-          <include name="Initalization"/>
           <include name="tearDown"/>
-          <include name="Check_Valid_Credentials"/>
+          <include name="AddGroup"/>
+          <include name="initalization"/>
+          <include name="AddRule"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_LoginTestCase -->
+      </class> <!-- SOR_testcases.SOR_Rule_ConfigurationTestCase -->
+      <class name="SOR_testcases.SOR_BC_Management_TestCase">
+        <methods>
+          <include name="BC_Verification"/>
+          <include name="On_Board_BC_Status"/>
+          <include name="initalization"/>
+          <include name="tearDown"/>
+          <include name="Add_BC"/>
+        </methods>
+      </class> <!-- SOR_testcases.SOR_BC_Management_TestCase -->
+      <class name="SOR_testcases.SOR_Switch_ConfigurationTestCase">
+        <methods>
+          <include name="initalization"/>
+          <include name="AddSwitch"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- SOR_testcases.SOR_Switch_ConfigurationTestCase -->
+      <class name="SOR_testcases.SOR_Aggregator_Management_Testcase">
+        <methods>
+          <include name="Add_Agg"/>
+          <include name="On_Board_Agg_Status"/>
+          <include name="Agg_Verification"/>
+          <include name="initalization"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- SOR_testcases.SOR_Aggregator_Management_Testcase -->
+      <class name="SOR_testcases.SOR_Negative_Testcase">
+        <methods>
+          <include name="Negative_Test_Case_Rule_Mgmt_Page"/>
+          <include name="tearDown"/>
+          <include name="initalization"/>
+        </methods>
+      </class> <!-- SOR_testcases.SOR_Negative_Testcase -->
+      <class name="SOR_testcases.SOR_Agent_Management_Testcase">
+        <methods>
+          <include name="On_Board_Agent_Status"/>
+          <include name="Agent_Verification"/>
+          <include name="tearDown"/>
+          <include name="Add_Agent"/>
+          <include name="initalization"/>
+        </methods>
+      </class> <!-- SOR_testcases.SOR_Agent_Management_Testcase -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

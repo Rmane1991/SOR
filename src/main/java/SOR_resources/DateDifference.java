@@ -9,7 +9,7 @@ public class DateDifference
 	{
 		//LocalDate startDate = LocalDate.of(2024, 11, 25);
 		LocalDate startDate = LocalDate.now();
-		LocalDate endDate = LocalDate.of(2025, 1, 10);
+		LocalDate endDate = LocalDate.of(2025, 1, 9);
 
 		long daysDifference = ChronoUnit.DAYS.between(startDate, endDate);
 

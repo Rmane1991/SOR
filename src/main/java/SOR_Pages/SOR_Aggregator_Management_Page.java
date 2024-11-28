@@ -392,7 +392,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 		txt_Pan_No_Agg.sendKeys(generateRandomPAN());
 		txt_Aadhaar_NO_Agg.sendKeys(generateRandomAadhar());
 		selectQulification(Qualification);
-		txt_account_No_Agg.sendKeys(AccountNo);
+		txt_account_No_Agg.sendKeys(generateRandomAccountNo());
 		txt_Ifsc_Agg.sendKeys(IFSC);
 		txt_Registred_Area_Agg.sendKeys(addres);
 		txt_Pincode.sendKeys(Pincode);
@@ -459,7 +459,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 		{
 			ConsoleColor.printColored("Windows Displayed", ConsoleColor.GREEN);
 
-			if (txtnameofBCAtVerification.getAttribute("value").contains(Agg_Name)) 
+			if (txtnameofBCAtVerification.getDomProperty("value").contains(Agg_Name)) 
 			{
 				ConsoleColor.printColored("Correct Windows Opened of :- "+Agg_Name, ConsoleColor.GREEN);
 				Thread.sleep(2000);

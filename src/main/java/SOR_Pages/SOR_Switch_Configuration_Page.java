@@ -145,7 +145,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 		WebElement correspondingUpdateButton = null;
 		int indexOfHighestValue = -1;
 		for (int i = 0; i < percentageFields.size(); i++) {
-			String value = percentageFields.get(i).getAttribute("value");
+			String value = percentageFields.get(i).getDomAttribute("value");
 
 			int percentageValue = Integer.parseInt(value);
 
@@ -206,7 +206,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 
 		for (WebElement field : percentageFields) {
 			try {
-				String valueString = field.getAttribute("value");
+				String valueString = field.getDomAttribute("value");
 
 				int value = Integer.parseInt(valueString);
 				totalPercentage += value;
@@ -266,7 +266,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 		int indexOfHighestValue = -1;
 
 		for (int i = 0; i < percentageFields.size(); i++) {
-			String value = percentageFields.get(i).getAttribute("value");
+			String value = percentageFields.get(i).getDomAttribute("value");
 
 			int percentageValue = Integer.parseInt(value);
 
@@ -327,7 +327,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 
 		for (WebElement field : percentageFields) {
 			try {
-				String valueString = field.getAttribute("value");
+				String valueString = field.getDomAttribute("value");
 
 				int value = Integer.parseInt(valueString);
 				totalPercentage += value;
@@ -336,7 +336,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 			}
 		}
 
-		String Switch_Name="Maximus";//generateRandomName()
+		String Switch_Name=generateRandomName();//
 		txtSwitchname.sendKeys(Switch_Name);
 		writeNameToExcel(9, 1, Switch_Name);
 		txtSwitchDesc.sendKeys(Switch_Name);

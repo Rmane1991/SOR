@@ -32,10 +32,7 @@ public class SOR_Login_Page extends Utility
 	
 	@FindBy(xpath = "//label[@id='lblErrorMsg']")
 	WebElement lblblankPwd; //Login failed
-	
 
-	
-	
 	public SOR_Login_Page(WebDriver driver ) 
 	{
 		super(driver);
@@ -52,6 +49,7 @@ public class SOR_Login_Page extends Utility
 		txtPWd.sendKeys(Password);
 		btnsubmit.click();
 		Thread.sleep(1000);
+		
 		/*
 		if(isDisaplyedW(LeftMenu, 10)==true)
 		{
@@ -130,6 +128,7 @@ public class SOR_Login_Page extends Utility
 			
 		{
 			Assert.assertTrue(false);
+			writeResultToExcel("Fail", 5, 5);
 		}
 	}
 
