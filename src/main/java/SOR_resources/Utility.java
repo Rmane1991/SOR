@@ -353,7 +353,7 @@ public class Utility {
 	 //For generate randam data
 	static Random random = new Random();
 	
-	public static String generateRandomMobileNumber() 
+	public  String generateRandomMobileNumber() 
 	{
         
         int firstDigit = 6 + random.nextInt(4); 
@@ -365,8 +365,26 @@ public class Utility {
         return mobileNumber.toString();
     }
 
+	
+	public String generateRandomAccountNo() 
+	{
+
+		StringBuilder accountNo = new StringBuilder();
+
+        // Ensure the first digit is non-zero
+        accountNo.append(random.nextInt(9) + 1);
+
+        // Generate the remaining 18 digits
+        for (int i = 0; i < 18; i++) {
+            accountNo.append(random.nextInt(10)); // Random digit between 0-9
+        }
+
+        return accountNo.toString();
+    }
+	
+	
     // Method to generate a random name
-    public static String generateRandomName() 
+    public String generateRandomName() 
     {
         String[] names = {"John", "Alice", "Bob", "Emma", "Raj", "Priya", "Alex", "Sara"};
         //Random random = new Random();
@@ -389,7 +407,7 @@ public class Utility {
     
     
     
-	public static String generateRandomPAN_Third_P() 
+	public  String generateRandomPAN_Third_P() 
 	{
         //Random random = new Random();
         StringBuilder pan = new StringBuilder();
@@ -431,7 +449,7 @@ public class Utility {
     }
 
  // Method to generate a random email ID based on the name
-    public static String generateRandomEmail() {
+    public  String generateRandomEmail() {
         String[] domains = {"example.com", "test.com", "demo.com"};
         String randomName = generateRandomName(); // Generate random name
        // Random random = new Random();
@@ -440,7 +458,7 @@ public class Utility {
     
  
  // Write the random name to a specific cell in an existing Excel file
-    public static void writeNameToExcel(int rowNum, int cellNum, String name) 
+    public void writeNameToExcel(int rowNum, int cellNum, String name) 
     {
     	String filePath = "D:\\Workspace\\SOR\\src\\main\\java\\SOR_resources\\Test_Data.xlsx";
     	
@@ -474,7 +492,7 @@ public class Utility {
     }
     
     // Method to generate alphanumeric codes that start with a letter and are 4 characters long
-        public static String generateCode() {
+        public  String generateCode() {
             String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Define uppercase letters
             String alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Define letters and digits
 
@@ -495,10 +513,10 @@ public class Utility {
         }
         
         // Define fixed values for population groups
-            private static final String[] POPULATION_GROUPS = {"Rural", "Urban", "Semi-Urban", "Metropolitan"};
+            private  final String[] POPULATION_GROUPS = {"Rural", "Urban", "Semi-Urban", "Metropolitan"};
 
             // Method to randomly select a population group
-            public static String getRandomPopulationGroup() {
+            public  String getRandomPopulationGroup() {
                // Random random = new Random();
                 
                 // Select a random index between 0 and the length of the POPULATION_GROUPS array
@@ -511,6 +529,7 @@ public class Utility {
             
             public class TextFileLogger 
             {
+
 
                 private static XWPFDocument document;
                 private static FileOutputStream out;
@@ -542,8 +561,9 @@ public class Utility {
                     document.write(out);
                     out.close();
                     document.close();
+                    }
                 }
-            }
+            
     
             public void testCasename(ITestResult result) 
             {

@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import SOR_Pages.SOR_Login_Page;
 import SOR_Pages.SOR_Switch_Configuration_Page;
+import SOR_resources.Utility.TextFileLogger;
 
 
 public class SOR_Switch_ConfigurationTestCase extends Base
@@ -22,6 +23,7 @@ public class SOR_Switch_ConfigurationTestCase extends Base
 		 launchBrowser();
 		 SORLp = new SOR_Login_Page(driver);
 		 SORwCp = new SOR_Switch_Configuration_Page(driver);
+		 TextFileLogger.initializeLogger("Switch_ConfigurationTestCase");
 	}
 	
 	
@@ -38,10 +40,11 @@ public class SOR_Switch_ConfigurationTestCase extends Base
 	}
 	
 	@AfterMethod
-	public void tearDown() 
+	public void tearDown() throws IOException 
 	{
 		driver.quit();
 		System.out.println("Webdriver Closed ");
+		TextFileLogger.closeLogger();
 	}
 	
 

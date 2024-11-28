@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
-  <listeners>
-    <listener class-name="SOR_resources.listeners"/>
-  </listeners>
-  <test thread-count="5" name="Test(failed)">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_LoginTestCase">
+      <class name="SOR_testcases.SOR_RuleCreationTest">
         <methods>
-          <include name="Initalization"/>
+          <include name="createRuleCombinations"/>
           <include name="tearDown"/>
-          <include name="Check_Valid_Credentials"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_LoginTestCase -->
+      </class> <!-- SOR_testcases.SOR_RuleCreationTest -->
     </classes>
-  </test> <!-- Test(failed) -->
-</suite> <!-- Failed suite [Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

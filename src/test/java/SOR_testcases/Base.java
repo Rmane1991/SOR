@@ -2,6 +2,7 @@ package SOR_testcases;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
@@ -17,9 +18,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+
+import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -51,7 +57,7 @@ public class Base {
 	{
 
 		ReadExcel();
-
+		
 		if (sheet.getRow(3).getCell(7).getStringCellValue().equalsIgnoreCase("firefox")) {
 
 			WebDriverManager.firefoxdriver().setup();
@@ -82,8 +88,8 @@ public class Base {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
+		driver.get(sheet.getRow(2).getCell(5).getStringCellValue());
 		
-		driver.get(sheet.getRow(3).getCell(5).getStringCellValue());
 		return driver;
 	}
 
@@ -197,4 +203,49 @@ public class Base {
     } 
 	
 	
+	public void writeToExcel(String filePath, String sheetName, Object[] headers, Object[] data) throws IOException {
+	    Workbook workbook;
+	    Sheet sheet;
+	    File file = new File(filePath);
+
+	    // Create or open workbook
+	    if (file.exists()) {
+	        try (FileInputStream fis = new FileInputStream(file)) {
+	            workbook = WorkbookFactory.create(fis);
+	        } catch (IOException | POIXMLException e) 
+	        {
+	            System.err.println("Error reading file. Creating a new workbook: " + e.getMessage());
+	            workbook = new XSSFWorkbook(); // Create new workbook if file is invalid
+	        }
+	    } else {
+	        workbook = new XSSFWorkbook();
+	    }
+
+	    // Get or create sheet
+	    sheet = workbook.getSheet(sheetName);
+	    if (sheet == null) {
+	        sheet = workbook.createSheet(sheetName);
+	        Row headerRow = sheet.createRow(0);
+	        for (int i = 0; i < headers.length; i++) {
+	            headerRow.createCell(i).setCellValue(headers[i].toString());
+	        }
+	    }
+
+	    // Write data to next empty row
+	    int rowCount = sheet.getLastRowNum() + 1;
+	    Row dataRow = sheet.createRow(rowCount);
+	    for (int i = 0; i < data.length; i++) {
+	        dataRow.createCell(i).setCellValue(data[i].toString());
+	    }
+
+	    // Write workbook to file
+	    try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+	        workbook.write(fileOut);
+	    } finally {
+	        workbook.close();
+	    }
+
+	
+	}
+
 }

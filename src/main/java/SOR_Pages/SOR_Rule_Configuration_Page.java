@@ -142,6 +142,9 @@ public class SOR_Rule_Configuration_Page extends Utility
 	
 	  @FindBy(xpath = "//select[@id='CPHMasterMain_ddlGroupName']")
 	  WebElement Click_TO_Select_GRPname;
+	  
+	  @FindBy(xpath = "//h5[@id='exampleModalLabelR']")
+	  WebElement formofaddrule;
 		
 		//@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlGroupName-results']")
 		//WebElement txt_search_area_GrpName;
@@ -292,6 +295,28 @@ public class SOR_Rule_Configuration_Page extends Utility
 	    }			
 	}
 
+	public void OpenRUlePage_First() throws InterruptedException 
+	{
+		Thread.sleep(500);
+		lblRuleManagement.click();
+		lblRunConfiguration.click();
+		Thread.sleep(500);
+	}
+	
+	public void OpenRUlePage() throws InterruptedException 
+	{
+		if (isDisaplyedW(Btnaddrule, 2) == false && isDisaplyedW(formofaddrule, 2) == false) 
+		{
+			toggle_Btn.click();
+			Thread.sleep(500);
+			Btnaddrule.click();
+		}
+		
+		driver.navigate().refresh();
+		Thread.sleep(3000);
+		
+	}
+	
 
 	public void addRule(String Count,String GRp_Name,String Switch_Name) throws InterruptedException, IOException 
 	{
@@ -316,9 +341,10 @@ public class SOR_Rule_Configuration_Page extends Utility
 		
 		//DD_Select_Group_Name.click();
 		//txtgrpname.click();
+		Thread.sleep(2000);
 		Dropdownbytxt(Click_TO_Select_GRPname, GRp_Name);
 	//	select_GRpName(GRp_Name);
-		
+		Thread.sleep(2000);
 		txtRule_Name.sendKeys(generateRandomName());
 		
 		txtRule_Desc.sendKeys("Done By Automation");
