@@ -1,14 +1,16 @@
 package SOR_Pages;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import SOR_resources.Utility;
 
@@ -27,8 +29,7 @@ public class SOR_Admin_Management_Page extends Utility
 	
 	public void selectFromDropdown(WebElement dropdownContainerElement, WebElement txtsercharea, String searchTerm) throws InterruptedException 
 	   {
-		
-		dropdownContainerElement.click();
+			dropdownContainerElement.click();
 		    Thread.sleep(500); 
 	        txtsercharea.sendKeys(searchTerm);
 	        Thread.sleep(500); 
@@ -121,8 +122,9 @@ public class SOR_Admin_Management_Page extends Utility
 	@FindBy(xpath = "//button[@id='CPHMasterMain_lbtnNewRole']")
 	WebElement btn_Submit_Add_Rule;
 	
-	
-	
+	@FindBy(xpath = "//table[@id='CPHMasterMain_gvRoleDetails']/tbody/tr")
+	List<WebElement> tableRows;
+
 	//Manage User
 	
 	@FindBy(xpath = "//li[@id='submm4']")
@@ -133,7 +135,108 @@ public class SOR_Admin_Management_Page extends Utility
 	@FindBy(xpath = "//li[@id='submm5']")
 	WebElement Click_Manage_Permission;
 	
+	@FindBy(xpath = "//select[@id='CPHMasterMain_ddlClient']")
+	WebElement dd_Client;
 	
+	
+	@FindBy(xpath = "//table[@id='CPHMasterMain_gvRoleDetails']/tbody/tr")
+	List<WebElement> rows;
+	
+	//Toggle Button of that Particular Menu
+	public WebElement Select_Menu(String menuName)
+	{
+		return driver.findElement(By.xpath("//span[text()='" + menuName + "']//ancestor::tr//td[2]//label[@class='switch']"));
+	}
+	
+	//Edit Button of that Particular Menu
+	public WebElement Exapand_Menu(String menuName)
+	{
+		return driver.findElement(By.xpath("//span[text()='" + menuName + "']/ancestor::tr//img"));
+	}
+	
+	
+	public void Click_Edit_Button(String R_Name) 
+	{
+		for (WebElement row : rows) 
+		{
+			WebElement roleNameCell = row.findElement(By.xpath("td[3]")); 
+			String roleName = roleNameCell.getText();
+			if (roleName.equals(R_Name)) 
+			{
+				WebElement editButton = row.findElement(By.xpath("td[1]/input[contains(@id,'lbtnEdit')]"));
+				editButton.click();
+				System.out.println("Clicked Edit button for role: " + roleName);
+				break;
+			}
+		}
+	}		
+	
+	
+	public void Assign_Permissin(String Role_Name) 
+	{
+		Click_Edit_Button(Role_Name);
+		Dropdownbytxt(dd_Client,"SBM");
+		Select_Menu("Dashboards");
+	}
+	
+	SoftAssert Assert= new SoftAssert();
+	
+	public void Create_Role(String RoleName) 
+	{
+		Click_Create_Manage_Role.click();
+		btn_Add_New_Rule.click();
+		txt_name_Add_Rule.sendKeys(RoleName);
+		
+		btn_Submit_Add_Rule.click();
+		if(add_Grp_Confirmation_Msg.getText().contains("Role is already exist."))
+				{
+					System.out.println("THis Name rule All ready Aded");
+					txt_name_Add_Rule.clear();
+					txt_name_Add_Rule.sendKeys(RoleName+1);
+					btn_Submit_Add_Rule.click();
+					if(add_Grp_Confirmation_Msg.getText().contains("Role added successfully."))
+					{
+						Assert.assertTrue(true);
+					}
+				}
+		else if(add_Grp_Confirmation_Msg.getText().contains("Role added successfully.")) 
+		{
+			System.out.println(RoleName+1+" :- "+add_Grp_Confirmation_Msg.getText());
+			Assert.assertTrue(true);
+		}
+		
+		else 
+		{
+			System.out.println(add_Grp_Confirmation_Msg.getText());
+			Assert.fail();
+		}
+		
+		if (isRolePresent(RoleName)) 
+		{
+		    Assert.assertTrue(true, "The role '" + RoleName + "' is found in the table.");
+		}
+		else 
+		{
+		    Assert.fail("The role '" + RoleName + "' is not found in the table.");
+		}
+
+		Assert.assertAll();
+		
+	}
+	
+	public boolean isRolePresent(String roleName)
+	{
+	    for (WebElement row : tableRows) 
+	    {
+	        String roleText = row.findElement(By.xpath(".//td[2]/span")).getText();
+	        if (roleText.equals(roleName)) 
+	        {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
 	public void Add_User() throws InterruptedException 
 	{
 		
@@ -184,11 +287,11 @@ public class SOR_Admin_Management_Page extends Utility
 		{
 		Assert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("User created successfully"), "Confirmation message not as expected.");
 
-        System.out.println("Group added successfully");
+        System.out.println("User created successfully");
 		} 
 		else 
 		{
-         System.out.println("Add Group button not visible");
+         System.out.println(add_Grp_Confirmation_Msg.getText());
         }	
 		
 		

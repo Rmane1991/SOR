@@ -76,7 +76,7 @@ public class SOR_Agent_Management_Testcase extends Base
 	}
 	
 	
-	@Test(priority = 3)
+	@Test(priority = 3,dependsOnMethods = "Add_Agent")
 	public void On_Board_Agent_Status() throws InterruptedException, IOException 
 	{
 		//Login InPortal

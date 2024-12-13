@@ -118,10 +118,10 @@ public class SOR_Rule_Configuration_Page extends Utility
 	  @FindBy(xpath = "(//*[text()='Switch Based'])[2]")
 	  WebElement txtgrpname;
 	  
-	  @FindBy(xpath = "//input[@value='BC000002']")
+	  @FindBy(xpath = "//input[@value='AG000002']")
 	  WebElement ChkAggselect;
 	  
-	  @FindBy(xpath = "//input[@value='12123']")
+	  @FindBy(xpath = "//input[@value='678900']")
 	  WebElement ChkIINselect;
 	  
 	  @FindBy(xpath = "(//*[text()='AEPS'])[2]")

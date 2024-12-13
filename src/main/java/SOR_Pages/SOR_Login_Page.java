@@ -2,11 +2,14 @@ package SOR_Pages;
 
 import java.io.IOException;
 
+//import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+//import static org.openqa.selenium.support.locators.RelativeLocator.with;
+
 
 import SOR_resources.Utility;
 
@@ -17,6 +20,7 @@ public class SOR_Login_Page extends Utility
 	
 	@FindBy(xpath = "//input[@id='txtUserName']")
 	WebElement txtusername;
+	
 	
 	@FindBy(xpath = "//input[@id='txtPassword']")
 	WebElement txtPWd;
@@ -40,6 +44,8 @@ public class SOR_Login_Page extends Utility
 		PageFactory.initElements(driver, this);
 	}
 
+	String className = this.getClass().getSimpleName();
+	
 	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException, IOException 
 	{
 		TextFileLogger.logMessage("Check_Valid_Credentials TestCase Start");
@@ -75,6 +81,14 @@ public class SOR_Login_Page extends Utility
 			loginSuccess = isDisaplyedW(LeftMenu, 2);
 			Assert.assertTrue(loginSuccess, "Login failed: LeftMenu is not displayed");
 			ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
+			checkUrl();
+			if (className.contains("SOR_LoginTestCase")) {
+				checkUrl();
+			}
+
+			else {
+				System.out.println("URL All Ready check with Login Test Case");
+			}
 			TextFileLogger.logMessage("Check_Valid_Credentials TestCase Pass");
 			//ExtentReportNG.logMessage("Login Successful With Username :- " + UserName);
 		} finally 

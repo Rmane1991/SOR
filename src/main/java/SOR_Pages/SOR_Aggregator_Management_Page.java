@@ -280,9 +280,9 @@ public class SOR_Aggregator_Management_Page extends Utility
 	    
 	    if (rowElement != null) 
 	    {
-	        String vireficationBy = rowElement.findElement(By.xpath("./td[15]")).getText();
-	        String vireficationOn = rowElement.findElement(By.xpath("./td[16]")).getText();
-	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[17]")).getText();
+	        String vireficationBy = rowElement.findElement(By.xpath("./td[13]")).getText();
+	        String vireficationOn = rowElement.findElement(By.xpath("./td[14]")).getText();
+	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[15]")).getText();
 
 	        ConsoleColor.printColored(">> BC Name: " + bcName, ConsoleColor.GREEN);
 	        //System.out.println(">> BC Name: " + bcName);
@@ -349,7 +349,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 	{
 		try {
 			WebElement rowElement = driver.findElement(By.xpath("//tr[td[text()='" + bcName + "']]"));
-			WebElement statusElement = rowElement.findElement(By.xpath("./td[14]"));
+			WebElement statusElement = rowElement.findElement(By.xpath("./td[12]"));
 			return statusElement.getText();
 		} catch (Exception e) 
 		{
@@ -385,7 +385,14 @@ public class SOR_Aggregator_Management_Page extends Utility
 		btnaddnew_Agg_Registration.click();
 		selectBC(BCName);
 		Thread.sleep(1000);
-		chk_AEPS.click();
+		if(chk_AEPS.isSelected()==true)
+		{
+		 System.out.println("Channel All ready Selected");	
+		}
+		else 
+		{
+			chk_AEPS.click();
+		}
 		txt_Agg_Name.sendKeys(Agg_Name_Randam);
 		writeNameToExcel(15,1,Agg_Name_Randam);
 		Thread.sleep(3000);
