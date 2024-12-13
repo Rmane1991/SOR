@@ -30,7 +30,7 @@ public class SOR_Delete_Details_TestCase extends Base
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 								     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
-		SORDDp.Edit_Switch();
+		SORDDp.Edit_Switch(sheet.getRow(3).getCell(7).getStringCellValue());
 		
 	}
 	

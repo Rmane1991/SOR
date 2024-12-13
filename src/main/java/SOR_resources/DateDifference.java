@@ -7,7 +7,7 @@ public class DateDifference
 {
 	public static void main(String[] args) 
 	{
-		//LocalDate startDate = LocalDate.of(2024, 11, 25);
+		//LocalDate startDate = LocalDate.of(2024, 12, 25);
 		LocalDate startDate = LocalDate.now();
 		LocalDate endDate = LocalDate.of(2025, 1, 9);
 

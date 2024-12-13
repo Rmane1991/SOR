@@ -26,8 +26,6 @@ public class SOR_Switch_ConfigurationTestCase extends Base
 		 TextFileLogger.initializeLogger("Switch_ConfigurationTestCase");
 	}
 	
-	
-	
 	@Test
 	public void AddSwitch() throws InterruptedException, IOException 
 	{

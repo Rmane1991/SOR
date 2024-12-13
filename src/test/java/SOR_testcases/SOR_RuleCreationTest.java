@@ -1,7 +1,9 @@
 package SOR_testcases;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,8 @@ import SOR_Pages.SOR_RuleCreationPage;
 import SOR_Pages.SOR_Rule_Configuration_Page;
 import SOR_resources.Utility.ConsoleColor;
 import SOR_resources.Utility.TextFileLogger;
+import atu.testrecorder.ATUTestRecorder;
+import atu.testrecorder.exceptions.ATUTestRecorderException;
 import SOR_Pages.SOR_Login_Page;
 
 public class SOR_RuleCreationTest extends Base {
@@ -21,6 +25,9 @@ public class SOR_RuleCreationTest extends Base {
     SOR_RuleCreationPage rulePage;
     SOR_Login_Page SORLp;
     SOR_Rule_Configuration_Page SORRcp;
+    ATUTestRecorder recorder;
+    String className = this.getClass().getSimpleName();
+	String timestamp = new SimpleDateFormat("yyyy_MM_dd__hh_mm_ss").format(new Date());
 
     @BeforeClass
     public void setUp() throws Exception 
@@ -30,6 +37,8 @@ public class SOR_RuleCreationTest extends Base {
         rulePage = new SOR_RuleCreationPage(driver);
         SORRcp = new SOR_Rule_Configuration_Page(driver);
         TextFileLogger.initializeLogger("LoginPage_TestCase");
+        recorder = new ATUTestRecorder("D:\\Recorder\\", "" + className + "" + timestamp + "", false);
+		recorder.start();
     }
 
     @Test
@@ -74,18 +83,31 @@ public class SOR_RuleCreationTest extends Base {
         // Fetch available IIN
         List<String> iins = rulePage.getIINs(driver).stream()
                 .collect(Collectors.toList());
+        
+        if (iins.contains("ALL")) 
+        {
+            iins.remove("ALL");
+            iins.add("ALL");
+        }
 
         // Fetch available Aggregators
         List<String> aggregators = rulePage.getDropdownOptions_A(rulePage.aggregatorDropdown, driver)
                 .stream()
+                .filter(name -> List.of("2902","702","All").contains(name))
                 .collect(Collectors.toList());
         
         
         // Fetch available txn-type
         List<String> txnTypes = rulePage.getDropdownOptions_T(rulePage.txytypeDropdown, driver)
                 .stream()
-                .filter(name -> List.of("Withdrawal", "BalanceEnquiry", "MiniStatement").contains(name))
+                .filter(name -> List.of("Withdrawal", "BalanceEnquiry", "MiniStatement","All").contains(name))
                 .collect(Collectors.toList());
+        
+        if (txnTypes.contains("All")) 
+        {
+            txnTypes.remove("All");
+            txnTypes.add("All");
+        }
         
         /*
         // Fetch available transaction types dynamically from the page
@@ -117,7 +139,7 @@ public class SOR_RuleCreationTest extends Base {
                                 String ruleName = rulePage.generateRandomRuleName(aggregator, iin, txnType);
                                 System.out.println("Generated Rule Name: " + ruleName);
                                 rulePage.enterRuleName(ruleName);
-                                rulePage.enterRuleDescription("Testing rule creation.");
+                                rulePage.enterRuleDescription(ruleName);
                                 rulePage.selectAggregators(driver, Collections.singletonList(aggregator));
                                 rulePage.selectIIN(driver, Collections.singletonList(iin));
                                 rulePage.selectChannel(channel);
@@ -160,9 +182,10 @@ public class SOR_RuleCreationTest extends Base {
     }
 
     @AfterClass
-    public void tearDown() throws IOException {
+    public void tearDown() throws IOException, ATUTestRecorderException {
         if (driver != null) {
             driver.quit();
+            recorder.stop();
         }
         TextFileLogger.closeLogger();
     }

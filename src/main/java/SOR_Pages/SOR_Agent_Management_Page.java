@@ -77,6 +77,11 @@ public class SOR_Agent_Management_Page extends Utility
 	WebElement txtSearch_On_Gender;
 	
 	
+	//(//span[@class='select2-selection select2-selection--single'])[4] click
+	//input[@aria-controls='select2-CPHMasterMain_ddlGender-results'] Serch area
+	
+	
+	
 	public void select_Gender(String gender) {
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	    int attempts = 0; 
@@ -321,9 +326,9 @@ public class SOR_Agent_Management_Page extends Utility
 	    
 	    if (rowElement != null) 
 	    {
-	        String vireficationBy = rowElement.findElement(By.xpath("./td[17]")).getText();
-	        String vireficationOn = rowElement.findElement(By.xpath("./td[18]")).getText();
-	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[19]")).getText();
+	        String vireficationBy = rowElement.findElement(By.xpath("./td[15]")).getText();
+	        String vireficationOn = rowElement.findElement(By.xpath("./td[16]")).getText();
+	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[17]")).getText();
 
 	        ConsoleColor.printColored(">> BC Name: " + Agent_Name, ConsoleColor.GREEN);
 	        //System.out.println(">> BC Name: " + bcName);
@@ -390,7 +395,7 @@ public class SOR_Agent_Management_Page extends Utility
 	{
 		try {
 			WebElement rowElement = driver.findElement(By.xpath("//tr[td[contains(text(),'" + Agent_Name + "')]]"));
-			WebElement statusElement = rowElement.findElement(By.xpath("./td[16]"));
+			WebElement statusElement = rowElement.findElement(By.xpath("./td[14]"));
 			return statusElement.getText();
 		} catch (Exception e) 
 		{
@@ -465,13 +470,13 @@ public class SOR_Agent_Management_Page extends Utility
 	
 	@FindBy(xpath = "//input[@id='CPHMasterMain_txtdob']")
 	WebElement datepikker;
-	/*
-	@FindBy(xpath = "//*[@id='collapseSummaryOne']/div/div[2]/div[5]/span")
+	
+	@FindBy(xpath = "(//span[@class='select2-selection select2-selection--single'])[4]")
 	WebElement click_dd_Gender;
 	
 	@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_ddlGender-results']")
 	WebElement txtsearch_dd_Gender;
-	*/
+	
 	
 
 	public static void selectDate(WebDriver driver, String DDMMYYYY)
@@ -510,12 +515,22 @@ public class SOR_Agent_Management_Page extends Utility
 	public void selectFromDropdown(WebElement dropdownContainerElement, WebElement txtsercharea, String searchTerm) throws InterruptedException 
 	   {
 	        dropdownContainerElement.click();
-	        Thread.sleep(2000); 
-	        txtsercharea.clear();
-	        txtsercharea.sendKeys(searchTerm);
-	        Thread.sleep(1000); 
-	        txtsercharea.sendKeys(Keys.ENTER);
-	        Thread.sleep(1000);
+	        Thread.sleep(3000); 
+			if (isDisaplyedW(txtsercharea, 10) == true) 
+			{
+				txtsercharea.clear();
+				txtsercharea.sendKeys(searchTerm);
+				Thread.sleep(1000); 
+		        txtsercharea.sendKeys(Keys.ENTER);
+		        Thread.sleep(1000);
+			}
+			
+			else
+			{
+				System.out.println("Serch Area Element not displayed");
+			}
+			
+			
 	    }
 	
 
@@ -564,8 +579,9 @@ public class SOR_Agent_Management_Page extends Utility
 			
 			//Thread.sleep(3000);
 			//selectGender("Female");
-			//selectFromDropdown(click_dd_Gender,txtsearch_dd_Gender,"Female");
-			select_Gender("Female");
+			selectFromDropdown(click_dd_Gender,txtsearch_dd_Gender,"Female");
+			
+			//select_Gender("Female");
 			Thread.sleep(2000);
 			txtAadharno_BCRegistration.clear();
 			txtAadharno_BCRegistration.sendKeys(generateRandomAadhar());
@@ -577,7 +593,7 @@ public class SOR_Agent_Management_Page extends Utility
 			txtIFSCcode_BCRegistration.sendKeys(IFSC);
 			txt_Agent_device_Code.sendKeys(generateCode());
 			select_Population_Grp(getRandomPopulationGroup());
-			txt_Agent_Code.sendKeys(generateCode());
+			//txt_Agent_Code.sendKeys(generateCode());
 			txt_terminal_id.sendKeys(generateCode());
 			txt_Latitude.sendKeys(Latitude);
 			txt_Longitude.sendKeys(Longitude);

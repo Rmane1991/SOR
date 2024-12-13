@@ -3,6 +3,7 @@ package SOR_Pages;
 import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -82,6 +83,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 	@FindBy(xpath = "//input[contains(@id, 'btnUpdate')]")
 	List<WebElement> updateButtons;
 	
+	//For Enter URL
 	
 	@FindBy(name = "input_AEPS_2")
 	WebElement authRequestInput;
@@ -103,6 +105,9 @@ public class SOR_Switch_Configuration_Page extends Utility
 
 	@FindBy(name = "input_AEPS_8")
 	WebElement withdrawalInput; 
+	
+	@FindBy(name = "input_AEPS_8")
+	WebElement reversalInput; 
 	
 	public void Blank_Switch_Name_Blank_Desc() throws InterruptedException 
 	{
@@ -134,12 +139,9 @@ public class SOR_Switch_Configuration_Page extends Utility
 				"Confirmation message for blank switch exceed % is not as expected.");
 		TextFileLogger.logMessage("Switch Percentage  more than 100 % TestCase pass");
 		Thread.sleep(3000);
-		
-		
-		
+
 		//For fetch percentage
 		
-
 		int highestValue = Integer.MIN_VALUE;
 		WebElement highestEditButton = null;
 		WebElement correspondingUpdateButton = null;
@@ -215,14 +217,9 @@ public class SOR_Switch_Configuration_Page extends Utility
 			}
 		}
 
-		//String Switch_Name="Maximus";//generateRandomName()
-		//txtSwitchname.sendKeys(Switch_Name);
-		//writeNameToExcel(9, 1, Switch_Name);
-		//txtSwitchDesc.sendKeys(Switch_Name);
 		String percent = Integer.toString(100 - totalPercentage);
 		txtpercentage.clear();
 		txtpercentage.sendKeys(percent);
-		//txtSwitchDesc.sendKeys("20");12
 		moveToElement(btnCancleSwitch);
 		moveToElementAndClick(btnSubmitSwitch);
 		Thread.sleep(1000);
@@ -255,88 +252,106 @@ public class SOR_Switch_Configuration_Page extends Utility
 	}
 	
 
-	public void addSwitch(String SwitchName, String SwitchDesc, String per) throws InterruptedException {
+	@SuppressWarnings("deprecation")
+	public void addSwitch(String SwitchName, String SwitchDesc, String per) throws InterruptedException 
+	{
 		lblRuleManagement.click();
 		lblSwitchConfiguration.click();
 		BtnAddSwitch.click();
-
+		
+		
 		int highestValue = Integer.MIN_VALUE;
-		WebElement highestEditButton = null;
-		WebElement correspondingUpdateButton = null;
-		int indexOfHighestValue = -1;
+	    WebElement highestEditButton = null;
+	    WebElement correspondingUpdateButton = null;
+	    int indexOfHighestValue = -1;
 
-		for (int i = 0; i < percentageFields.size(); i++) {
-			String value = percentageFields.get(i).getDomAttribute("value");
+	    // Find the highest percentage value and corresponding buttons
+	    for (int i = 0; i < percentageFields.size(); i++) {
+	        String value = percentageFields.get(i).getDomAttribute("value");
+	        int percentageValue = Integer.parseInt(value);
 
-			int percentageValue = Integer.parseInt(value);
+	        if (percentageValue > highestValue) {
+	            highestValue = percentageValue;
+	            highestEditButton = editButtons.get(i);
+	            correspondingUpdateButton = updateButtons.get(i);
+	            indexOfHighestValue = i;
+	        }
+	    }
 
-			if (percentageValue > highestValue) {
-				highestValue = percentageValue;
-				highestEditButton = editButtons.get(i);
-				correspondingUpdateButton = updateButtons.get(i);
-				indexOfHighestValue = i;
-			}
-		}
+	    if (highestEditButton != null) {
+	        highestEditButton.click();
 
-		if (highestEditButton != null) {
-			highestEditButton.click();
+	        if (highestValue > 30) {
+	            int perValue = Integer.parseInt(per);
+	            int newValue = highestValue - perValue;
 
-			if (highestValue > 30) 
-			{
-				int perValue = Integer.parseInt(per);
-				int newValue = highestValue - perValue;
-				WebElement highestInputField = percentageFields.get(indexOfHighestValue);
-				highestInputField.clear();
-				highestInputField.sendKeys(String.valueOf(newValue));
-			}
+	            WebElement highestInputField = percentageFields.get(indexOfHighestValue);
+	            highestInputField.clear();
+	            highestInputField.sendKeys(String.valueOf(newValue));
+	        }
 
-			final int MAX_RETRIES = 4;
-			int retries = 0;
-			boolean success = false;
+	        final int MAX_RETRIES = 4;
+	        int retries = 0;
+	        boolean success = false;
 
-			while (retries < MAX_RETRIES) {
-				try {
-					correspondingUpdateButton = updateButtons.get(indexOfHighestValue);
-					WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-					wait.until(ExpectedConditions.elementToBeClickable(correspondingUpdateButton));
+	        while (retries < MAX_RETRIES) {
+	            try {
+	                correspondingUpdateButton = updateButtons.get(indexOfHighestValue);
+	                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	                wait.until(ExpectedConditions.elementToBeClickable(correspondingUpdateButton));
 
-					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",
-							correspondingUpdateButton);
+	                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",
+	                        correspondingUpdateButton);
 
-					correspondingUpdateButton.click();
-					success = true;
-					break;
-				} catch (StaleElementReferenceException e)
+	                correspondingUpdateButton.click();
+	                success = true;
+	                break;
+	            } catch (StaleElementReferenceException e) {
+	                retries++;
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	                break;
+	            }
+	        }
 
-				{
-					retries++;
-				} catch (Exception e)
+	        if (!success) {
+	            System.out.println("Failed to click the Update button after " + MAX_RETRIES + " attempts.");
+	        }
+	    }
 
-				{
-					e.printStackTrace();
-					break;
-				}
-			}
+	    
+	    List<WebElement> percentageFields = driver.findElements(By.xpath("//input[@type='number']"));
 
-			if (!success) {
-				System.out.println("Failed to click the Update button after " + MAX_RETRIES + " attempts.");
-			}
-		}
+	    int totalPercentage = 0;
+	    
+	    for (WebElement field : percentageFields) {
+	        try {
+	            
+	            if (!field.isDisplayed()) {
+	                System.out.println("Hidden element skipped: " + field.getAttribute("id"));
+	                continue; 
+	            }
 
-		int totalPercentage = 0;
+	            String valueString = field.getDomAttribute("value");
+	            System.out.println("Visible element value: " + valueString);
 
-		for (WebElement field : percentageFields) {
-			try {
-				String valueString = field.getDomAttribute("value");
+	            if (valueString == null || valueString.trim().isEmpty()) 
+	            {
+	                System.out.println("Empty or null value found. Skipping...");
+	                continue;
+	            }
+	            
+	            int value = Integer.parseInt(valueString.trim());
+	            totalPercentage += value;
+	        } catch (Exception e) {
+	            System.out.println("Error processing field: " + e.getMessage());
+	        }
+	    }
 
-				int value = Integer.parseInt(valueString);
-				totalPercentage += value;
-			} catch (Exception e) {
-				System.out.println("Error while retrieving percentage value: " + e.getMessage());
-			}
-		}
+	    // Print the total percentage
+	    System.out.println("Total Percentage (Visible Elements Only): " + totalPercentage);
 
-		String Switch_Name=generateRandomName();//
+		String Switch_Name= generateRandomName();
 		txtSwitchname.sendKeys(Switch_Name);
 		writeNameToExcel(9, 1, Switch_Name);
 		txtSwitchDesc.sendKeys(Switch_Name);
@@ -346,32 +361,108 @@ public class SOR_Switch_Configuration_Page extends Utility
 		
 		if(Switch_Name.contains("Maximus"))
 		{
+			authRequestInput.clear();
 			authRequestInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+			balanceEnquiryInput.clear();
 	        balanceEnquiryInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+	        cashDepositInput.clear();
 	        cashDepositInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+	        fundTransferInput.clear();
 	        fundTransferInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
-	        moveToElement(withdrawalInput);
+	        moveToElement(reversalInput);
+	        miniStatementInput.clear();
 	        miniStatementInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+	        purchaseInput.clear();
 	        purchaseInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+	        withdrawalInput.clear();
 	        withdrawalInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
-			
+	        reversalInput.clear();
+	        reversalInput.sendKeys("http://172.19.10.32:8666/api/AEPS/ReversalRequest");
 		}
 		else
 		{
+		authRequestInput.clear();
 		authRequestInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+		balanceEnquiryInput.clear();
         balanceEnquiryInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+        cashDepositInput.clear();
         cashDepositInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+        fundTransferInput.clear();
         fundTransferInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
         moveToElement(withdrawalInput);
+        miniStatementInput.clear();
         miniStatementInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+        purchaseInput.clear();
         purchaseInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+        withdrawalInput.clear();
         withdrawalInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
 		}
         Thread.sleep(2000);
 		moveToElementAndClick(btnSubmitSwitch);
 
-		if (add_Grp_Confirmation_Msg.getText().contains("Insert Successful")) {
+		if (add_Grp_Confirmation_Msg.getText().contains("Insert Successful")) 
+		{
 			System.out.println("Switch Added Sucessfull");
+		}
+		
+		else if(add_Grp_Confirmation_Msg.getText().contains("Switch Name Already Exists. Try again"))
+		{
+			isInvisible(add_Grp_Confirmation_Msg,10);
+			System.out.println("This switch name all ready Present Trying second attempt");
+			moveToElement(txtSwitchname);
+			txtSwitchname.clear();
+			String Switch_Name1=generateRandomName();
+			txtSwitchname.sendKeys(Switch_Name1);
+			writeNameToExcel(9, 1, Switch_Name1);
+			txtSwitchDesc.clear();
+			txtSwitchDesc.sendKeys(Switch_Name1);
+			
+			if(Switch_Name.contains("Maximus"))
+			{
+				authRequestInput.clear();
+				authRequestInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+				balanceEnquiryInput.clear();
+		        balanceEnquiryInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+		        cashDepositInput.clear();
+		        cashDepositInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+		        fundTransferInput.clear();
+		        fundTransferInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+		        moveToElement(reversalInput);
+		        miniStatementInput.clear();
+		        miniStatementInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+		        purchaseInput.clear();
+		        purchaseInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+		        withdrawalInput.clear();
+		        withdrawalInput.sendKeys("http://172.25.52.170:4555/AEPS/MaxReqMiniState");
+		        reversalInput.clear();
+		        reversalInput.sendKeys("http://172.19.10.32:8666/api/AEPS/ReversalRequest");
+				
+			}
+			else
+			{
+				authRequestInput.clear();
+				authRequestInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				balanceEnquiryInput.clear();
+		        balanceEnquiryInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+		        cashDepositInput.clear();
+		        cashDepositInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+		        fundTransferInput.clear();
+		        fundTransferInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+		        moveToElement(withdrawalInput);
+		        miniStatementInput.clear();
+		        miniStatementInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+		        purchaseInput.clear();
+		        purchaseInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+		        withdrawalInput.clear();
+		        withdrawalInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+			}
+	        Thread.sleep(2000);
+			moveToElementAndClick(btnSubmitSwitch);
+			if (add_Grp_Confirmation_Msg.getText().contains("Insert Successful")) 
+			{
+				System.out.println("Switch Added Sucessfull");
+			}
+			
 		}
 	}
 

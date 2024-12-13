@@ -12,7 +12,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -199,6 +198,71 @@ public class Utility {
 	}
 
 	// URL Checking
+	
+	
+	
+	@SuppressWarnings("deprecation")
+	public void checkUrl() 
+	{
+
+        String url = "";
+        HttpURLConnection huc = null;
+        int respCode;
+
+        // Locate the specific div and fetch all anchor tags within it
+        List<WebElement> links = driver.findElements(By.xpath("//div[@class='sidebar-open']//a[@href]")); //div[@id='sidebar-nav']//a[@href] (For Esaf)
+
+        // Iterate through all the links
+        for (WebElement link : links) {
+            url = link.getAttribute("href");
+
+            // Filter URLs that end with .aspx
+            if (url != null && url.endsWith(".aspx")) {
+                //System.out.println("Checking URL: " + url);
+
+                try {
+                    // Open HTTP connection
+                    huc = (HttpURLConnection) (new URL(url).openConnection());
+                    huc.setRequestMethod("HEAD");
+                    huc.connect();
+
+                    // Get response code
+                    respCode = huc.getResponseCode();
+
+                    // Log result based on response code
+                    if (respCode >= 400) 
+                    {
+                    	ConsoleColor.printColored(url + " :-is a broken link", ConsoleColor.RED);
+                       // System.out.println(url + " is a broken link");
+                    } else 
+                    {
+                    	ConsoleColor.printColored(url + " :- is a valid link", ConsoleColor.GREEN);
+                       // System.out.println(url + " is a valid link");
+                    }
+
+                } catch (MalformedURLException e) {
+                    System.out.println("Invalid URL format: " + url);
+                } catch (IOException e) {
+                    System.out.println("IOException while checking URL: " + url);
+                } finally {
+                    if (huc != null) {
+                        huc.disconnect();
+                    }
+                }
+            }
+        }
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
 	@SuppressWarnings("deprecation")
 	public void checkUrl(WebDriver wd) {
 
@@ -241,7 +305,7 @@ public class Utility {
 		}
 
 	}
-
+*/
 	public boolean isVisible(WebElement WebElement, long tm) {
 		boolean isVisible = false;
 
@@ -330,25 +394,31 @@ public class Utility {
 	}
 	
 	public static class ConsoleColor {
-		// ANSI escape codes
-		public static final String RESET = "\033[0m"; // Text Reset
+	    // ANSI escape codes
+	    public static final String RESET = "\033[0m"; // Text Reset
 
-		// Regular Colors
-		public static final String BLACK = "\033[0;30m"; // BLACK
-		public static final String RED = "\033[0;31m"; // RED
-		public static final String GREEN = "\033[0;32m"; // GREEN
-		public static final String YELLOW = "\033[0;33m"; // YELLOW
-		public static final String BLUE = "\033[0;34m"; // BLUE
-		public static final String PURPLE = "\033[0;35m"; // PURPLE
-		public static final String CYAN = "\033[0;36m"; // CYAN
-		public static final String WHITE = "\033[0;37m"; // WHITE
+	    // Regular Colors
+	    public static final String BLACK = "\033[0;30m"; // BLACK
+	    public static final String RED = "\033[0;31m"; // RED
+	    public static final String GREEN = "\033[0;32m"; // GREEN
+	    public static final String YELLOW = "\033[0;33m"; // YELLOW
+	    public static final String BLUE = "\033[0;34m"; // BLUE
+	    public static final String PURPLE = "\033[0;35m"; // PURPLE
+	    public static final String CYAN = "\033[0;36m"; // CYAN
+	    public static final String WHITE = "\033[0;37m"; // WHITE
 
-		public static void printColored(String message, String color) 
-		{
-			System.out.println(color + message + RESET);
-			System.out.println(color +"-->>"+ RESET);
-		}
+	    // ANSI escape codes for text styling
+	    public static final String BOLD = "\033[1m"; // Bold text
+	    public static final String ITALIC = "\033[3m"; // Italic text
+
+	    // Method to print colored text with bold and italic formatting
+	    public static void printColored(String message, String color) {
+	        // Applying color, bold, and italic
+	        System.out.println(color + BOLD + ITALIC + message + RESET);
+	        System.out.println(color + BOLD + ITALIC + "-->>" + RESET);
+	    }
 	}
+
 	
 	 //For generate randam data
 	static Random random = new Random();
@@ -386,9 +456,10 @@ public class Utility {
     // Method to generate a random name
     public String generateRandomName() 
     {
-        String[] names = {"John", "Alice", "Bob", "Emma", "Raj", "Priya", "Alex", "Sara"};
+        String[] names = {"Vakrangi","Accupaydtech", "Spicemoney","Rapipay","Mobileware","Muthoot Fincorp Ltd","Quicksun Technologies Pvt Ltd"};
         //Random random = new Random();
-        return names[random.nextInt(names.length)] + "" + names[random.nextInt(names.length)];
+       // return names[random.nextInt(names.length)] + "" + names[random.nextInt(names.length)];
+        return names[random.nextInt(names.length)];
     }
 
     // Method to generate a random PAN number (format: ABCDE1234F)

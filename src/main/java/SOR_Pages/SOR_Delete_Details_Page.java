@@ -182,17 +182,17 @@ public class SOR_Delete_Details_Page extends Utility {
 		}
 	}
 
-	public void Edit_Switch() {
+	public void Edit_Switch(String SwitchName) {
 		lblRuleManagement.click();
 		lblSwitchConfiguration.click();
-		WebElement dropdownButton = getDropdownButtonByName("Test_Switch");
+		WebElement dropdownButton = getDropdownButtonByName(SwitchName);
 		dropdownButton.click();
-		WebElement editButton = getEditButtonByName("Test_Switch");
+		WebElement editButton = getEditButtonByName(SwitchName);
 		editButton.click();
 		txt_Switch_Name.clear();
-		txt_Switch_Name.sendKeys("Edited_New");
+		txt_Switch_Name.sendKeys(SwitchName+"_New");
 		txt_Switch_Desc.clear();
-		txt_Switch_Desc.sendKeys("Edited_New");
+		txt_Switch_Desc.sendKeys(SwitchName+"_New");
 		moveToElementAndClick(btn_Submit_Switch);
 
 		if (Confirmation_Msg.getText().contains("Update Successful")) {

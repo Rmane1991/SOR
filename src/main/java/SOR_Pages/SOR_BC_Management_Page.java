@@ -244,9 +244,9 @@ public class SOR_BC_Management_Page extends Utility
 	    
 	    if (rowElement != null) 
 	    {
-	        String vireficationBy = rowElement.findElement(By.xpath("./td[15]")).getText();
-	        String vireficationOn = rowElement.findElement(By.xpath("./td[16]")).getText();
-	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[17]")).getText();
+	        String vireficationBy = rowElement.findElement(By.xpath("./td[11]")).getText();
+	        String vireficationOn = rowElement.findElement(By.xpath("./td[12]")).getText();
+	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[13]")).getText();
 
 	        ConsoleColor.printColored(">> BC Name: " + bcName, ConsoleColor.GREEN);
 	        
@@ -308,7 +308,7 @@ public class SOR_BC_Management_Page extends Utility
 	{
 		try {
 			WebElement rowElement = driver.findElement(By.xpath("//tr[td[text()='" + bcName + "']]"));
-			WebElement statusElement = rowElement.findElement(By.xpath("./td[14]"));
+			WebElement statusElement = rowElement.findElement(By.xpath("./td[16]"));
 			return statusElement.getText();
 		} catch (Exception e) 
 		{
@@ -496,7 +496,7 @@ public class SOR_BC_Management_Page extends Utility
 			Thread.sleep(2000);
 			SelectSignatureProof("Pancard");
 			SelectFileSignatureProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 			BtnSubmitProof.click();
 			Thread.sleep(500);
 			if (isAlertPresent() == true) 
@@ -757,7 +757,7 @@ public class SOR_BC_Management_Page extends Utility
 		}
 
 		// When Enter Account No
-		txtAccountno_BCRegistration.sendKeys("223456987");
+		txtAccountno_BCRegistration.sendKeys("1254644223456987032");
 		btnsubmit.click();
 		Thread.sleep(1000);
 		if (isAlertPresent() == true) {
