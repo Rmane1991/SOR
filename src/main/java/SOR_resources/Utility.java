@@ -12,10 +12,15 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Dictionary;
 import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,6 +29,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.languagetool.JLanguageTool;
+import org.languagetool.language.BritishEnglish;
+import org.languagetool.rules.Rule;
+import org.languagetool.rules.RuleMatch;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
@@ -38,6 +47,19 @@ import org.testng.ITestResult;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
+
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v130.filesystem.model.Directory;
+
+import java.util.ArrayList;
+
+
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
+
+
+
 
 public class Utility {
 
@@ -257,8 +279,34 @@ public class Utility {
 	
 	
 	
-	
-	
+	public void SpellChecker () throws IOException
+	{
+	   // public static void main(String[] args) throws IOException {
+	        // Initialize LanguageTool for British English
+	        JLanguageTool langTool = new JLanguageTool(new BritishEnglish());
+
+	        // Disable all rules except for spell checking
+	        for (Rule rule : langTool.getAllRules()) {
+	            if (!rule.isDictionaryBasedSpellingRule()) {
+	                langTool.disableRule(rule.getId());
+	            }
+	        }
+
+	        // Example text to check
+	        String text = "This is a lable with a speling error.";
+
+	        // Check the text for spelling errors
+	        List<RuleMatch> matches = langTool.check(text);
+
+	        // Print the results
+	        for (RuleMatch match : matches) {
+	            System.out.println("Potential typo at characters " +
+	                    match.getFromPos() + "-" + match.getToPos() + ": " +
+	                    match.getMessage());
+	            System.out.println("Suggested correction(s): " +
+	                    match.getSuggestedReplacements());
+	       }
+	    }
 	
 	
 	

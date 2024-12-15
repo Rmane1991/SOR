@@ -81,7 +81,10 @@ public class SOR_Login_Page extends Utility
 			loginSuccess = isDisaplyedW(LeftMenu, 2);
 			Assert.assertTrue(loginSuccess, "Login failed: LeftMenu is not displayed");
 			ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
+			SpellChecker();
+			System.out.println("Done");
 			checkUrl();
+			
 			if (className.contains("SOR_LoginTestCase")) {
 				checkUrl();
 			}

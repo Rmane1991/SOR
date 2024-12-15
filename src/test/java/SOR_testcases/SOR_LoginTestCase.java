@@ -35,7 +35,7 @@ public class SOR_LoginTestCase extends Base
 										  ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
 		//ExtentReportNG.logMessage("Login TestCase End");
 		
-		
+		//SpellChecker();
 	}
 	
 	@Test(priority = 2)
