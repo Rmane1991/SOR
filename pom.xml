@@ -44,8 +44,17 @@
 			<version>5.3.0</version>
 		</dependency>
 
+		
+		<dependency>
+    <groupId>org.languagetool</groupId>
+    <artifactId>languagetool-core</artifactId>
+    <version>5.0</version> <!-- Change to a version that is available -->
+</dependency>
 
-		<!--
+
+		
+		
+				<!--
 		https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
