@@ -22,6 +22,7 @@ public class SOR_LoginTestCase extends Base
 	public void Initalization() throws Exception 
 	{
 		launchBrowser();
+		System.out.println("Done");
 		login_page = new SOR_Login_Page(driver);
 		TextFileLogger.initializeLogger("LoginPage_TestCase");
 	}

@@ -3,15 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SOR_testcases.SOR_Agent_Management_Testcase">
+      <class name="SOR_testcases.SOR_RuleCreationTest">
         <methods>
-          <include name="On_Board_Agent_Status"/>
-          <include name="Agent_Verification"/>
+          <include name="createRuleCombinations"/>
           <include name="tearDown"/>
-          <include name="Add_Agent"/>
-          <include name="initalization"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- SOR_testcases.SOR_Agent_Management_Testcase -->
+      </class> <!-- SOR_testcases.SOR_RuleCreationTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
