@@ -2,6 +2,7 @@ package SOR_resources;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -11,9 +12,13 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -643,4 +648,110 @@ public class Utility {
 				System.out.println(r);
 			}
             
-}
+            //16-12-2024
+            
+           
+            public void spellingCheck(String dictionaryFilePath) {
+                // Load the English dictionary from the provided file path
+                Set<String> englishDictionary = loadEnglishDictionary(dictionaryFilePath);
+
+                // Fetch all visible text from the page
+                List<String> allTextOnPage = fetchAllVisibleText();
+
+                // Fetch all dropdown options
+                List<String> dropdownOptions = fetchAllDropdownOptions();
+
+                // Combine all visible text and dropdown options into one list
+                List<String> allText = new ArrayList<>(allTextOnPage);
+                allText.addAll(dropdownOptions);
+
+                // Check for spelling errors
+                List<String> misspelledWords = checkSpelling(allText, englishDictionary);
+
+             // Display the results
+                if (misspelledWords.isEmpty()) {
+                    System.out.println("No spelling mistakes found on the page.");
+                } else {
+                    System.out.println("Misspelled Words Found:");
+                    for (String word : misspelledWords) {
+                        // Add the check here to find if the word is in the dictionary
+                        if (!englishDictionary.contains(word.toLowerCase())) {
+                            misspelledWords.add(word);  // Add misspelled word to the list
+                        }
+                        System.out.println(" - " + word);
+                    }
+                }
+
+            }
+
+            /**
+             * Fetches all visible text on the page (excluding hidden elements, script, and style tags).
+             */
+            private List<String> fetchAllVisibleText() {
+                List<WebElement> elements = driver.findElements(By.xpath("//*[not(self::script) and not(self::style)]")); // Avoid <script> and <style>
+                List<String> visibleText = new ArrayList<>();
+
+                for (WebElement element : elements) {
+                    String text = element.getText().trim();
+                    if (!text.isEmpty()) {
+                        visibleText.add(text); // Add non-empty text
+                    }
+                }
+                return visibleText;
+            }
+
+            /**
+             * Fetches all dropdown options on the page.
+             */
+            private List<String> fetchAllDropdownOptions() {
+                List<WebElement> dropdowns = driver.findElements(By.tagName("select")); // Locate all dropdowns
+                List<String> options = new ArrayList<>();
+
+                for (WebElement dropdown : dropdowns) {
+                    List<WebElement> dropdownOptions = dropdown.findElements(By.tagName("option"));
+                    for (WebElement option : dropdownOptions) {
+                        String optionText = option.getText().trim();
+                        if (!optionText.isEmpty()) {
+                            options.add(optionText); // Add non-empty dropdown options
+                        }
+                    }
+                }
+                return options;
+            }
+
+            /**
+             * Checks spelling for all fetched words using the provided English dictionary.
+             */
+            private List<String> checkSpelling(List<String> words, Set<String> dictionary) {
+                List<String> misspelledWords = new ArrayList<>();
+
+                for (String text : words) {
+                    String[] wordArray = text.split("\\s+"); // Split text into individual words
+                    for (String word : wordArray) {
+                        word = word.replaceAll("[^a-zA-Z]", "").toLowerCase(); // Clean punctuation and convert to lowercase
+                        if (!word.isEmpty() && !dictionary.contains(word)) {
+                            misspelledWords.add(word); // Add misspelled word
+                        }
+                    }
+                }
+                return misspelledWords;
+            }
+
+            /**
+             * Loads an English dictionary from the specified file path.
+             */
+            private Set<String> loadEnglishDictionary(String filePath) {
+                Set<String> dictionary = new HashSet<>();
+                try (Scanner scanner = new Scanner(new File(filePath))) {
+                    while (scanner.hasNext()) {
+                        dictionary.add(scanner.nextLine().trim().toLowerCase());
+                    }
+                } catch (FileNotFoundException e) {
+                    System.err.println("Dictionary file not found at path: " + filePath);
+                }
+                return dictionary;
+            }
+            
+            
+            }
+
