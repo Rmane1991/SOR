@@ -440,7 +440,7 @@ public class SOR_Aggregator_Management_Page extends Utility
 		}
 
 		chkbuttonforConfirmatiuon.click();
-		moveToElementAndClick(BtnSubmitFinal_BC);
+		scrollToElementAndClick(BtnSubmitFinal_BC);
 
 		Thread.sleep(500);
 		if (isAlertPresent() == true) 

@@ -42,7 +42,7 @@ public class SOR_RuleCreationTest extends Base {
     }
 
     @Test
-    public void createRuleCombinations() throws InterruptedException, IOException 
+    public void createRuleCombinations() throws Exception 
     {
     	
     	 String excelFilePath = "D:\\Workspace\\SOR\\src\\main\\java\\SOR_resources\\Test_DataCopy_New.xlsx";

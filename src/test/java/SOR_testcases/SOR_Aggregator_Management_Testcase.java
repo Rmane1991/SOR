@@ -26,7 +26,7 @@ public class SOR_Aggregator_Management_Testcase extends Base
 	}
 
 	@Test(priority = 1)
-	public void Add_Agg() throws InterruptedException, IOException 
+	public void Add_Agg() throws Exception 
 	{
 		//Login InPortal
 		SOR_Lp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 

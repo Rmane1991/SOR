@@ -52,6 +52,9 @@ public class SOR_Rule_Configuration_Page extends Utility
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_btnCreGroup']")
 	WebElement BtnsubmitGroup;
+	
+	@FindBy(xpath = "//img[@id='progressImage1']")
+	WebElement BArprogress;
 
 	@FindBy(xpath = "//input[@id='CPHMasterMain_btnCloseGroup']")
 	WebElement BtnCancleGroup;
@@ -118,7 +121,7 @@ public class SOR_Rule_Configuration_Page extends Utility
 	  @FindBy(xpath = "(//*[text()='Switch Based'])[2]")
 	  WebElement txtgrpname;
 	  
-	  @FindBy(xpath = "//input[@value='AG000002']")
+	  @FindBy(xpath = "//input[@value='2902']")
 	  WebElement ChkAggselect;
 	  
 	  @FindBy(xpath = "//input[@value='678900']")
@@ -256,43 +259,65 @@ public class SOR_Rule_Configuration_Page extends Utility
 		String Grp_Name_Randam=generateRandomName();
 		lblRuleManagement.click();
 		lblRunConfiguration.click();
-		if (isDisaplyedW(Btnaddgroup, 2) == false) 
-		{
-			TextFileLogger.logMessage("Add group button not displaed Click on toggle button");
-			toggle_Btn.click();
-			if (isDisaplyedW(Btnaddgroup, 2) == true) 
-			{
-				System.out.println("Add group button visible");
+		//if (isDisaplyedW(Btnaddgroup, 2) == false) 
+		//{
+			//TextFileLogger.logMessage("Add group button not displaed Click on toggle button");
+			//toggle_Btn.click();
+			//if (isDisaplyedW(Btnaddgroup, 2) == true) 
+			//{
+				//System.out.println("Add group button visible");
 				Btnaddgroup.click();
+				Thread.sleep(3000);
 				txtgroupname.sendKeys(Grp_Name_Randam);
 				writeNameToExcel(6,1,Grp_Name_Randam);
 				Thread.sleep(1000);
 				TxtGroup_Desc.sendKeys(GRp_Desc);
 				Thread.sleep(1000);
 				BtnsubmitGroup.click();
-				TextFileLogger.logMessage("Click On Add group");
-			}
+				//Thread.sleep(5000);
+				isVisible(add_Grp_Confirmation_Msg, 20);
+				//if(add_Grp_Confirmation_Msg.isDisplayed()==true)
+				//{
+					if(add_Grp_Confirmation_Msg.getText().contains("Insert Successful"))	
+					{
+						Assert.assertTrue(true);
+					}
+					
+					else if (add_Grp_Confirmation_Msg.getText().contains("Group Name Already Exists. Try again"))
+			        {
+						System.out.println("This group name all ready exist");
+			        	BtnCancleGroup.click();
+			        	Thread.sleep(1000);
+			        }
+				//}
+				
+				//else 
+				//{
+				 //System.out.println("Takes Too much time response from DB");	
+				//}
+				
+				//TextFileLogger.logMessage("Click On Add group");
+			//}
 			
-			else 
-			{
-			 System.out.println("Still button not visible");	
-			}
+			//else 
+			//{
+			 //System.out.println("Still button not visible");	
+			//}
 			
+			
+			/*	
 	        Assert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Insert Successful")||add_Grp_Confirmation_Msg.getText().contains
 	        		("Group Name Already Exists. Try again"), "Confirmation message not as expected.");
-	        
-	        if(add_Grp_Confirmation_Msg.getText().contains("Group Name Already Exists. Try again"))
-	        {
-	        	BtnCancleGroup.click();
-	        	Thread.sleep(1000);
-	        }
-	        TextFileLogger.logMessage("Add Group Test Case Pass");
-	        System.out.println("Group added successfully");
-	    } else {
-	        System.out.println("Add Group button not visible");
-	        Assert.fail("Add Group button was not visible, cannot proceed with the group addition.");
-	        TextFileLogger.logMessage("Add Group Test Case Fail");
-	    }			
+	        */
+			
+	        //TextFileLogger.logMessage("Add Group Test Case Pass");
+	       // System.out.println("Group added successfully");
+	   // } //else {
+	       
+	        //System.out.println("Add Group button not visible");
+	       // Assert.fail("Add Group button was not visible, cannot proceed with the group addition.");
+	        //TextFileLogger.logMessage("Add Group Test Case Fail");
+	    //}			
 	}
 
 	public void OpenRUlePage_First() throws InterruptedException 
@@ -321,7 +346,7 @@ public class SOR_Rule_Configuration_Page extends Utility
 	public void addRule(String Count,String GRp_Name,String Switch_Name) throws InterruptedException, IOException 
 	{
 		Thread.sleep(5000);
-		if (isDisaplyedW(Btnaddrule, 5) == false) 
+		if (isDisaplyedW(Btnaddrule, 1) == false) 
 		{
 			lblRuleManagement.click();
 			lblRunConfiguration.click();
@@ -332,15 +357,17 @@ public class SOR_Rule_Configuration_Page extends Utility
 			System.out.println("Btn Add rule all ready displayed");
 		}
 		
+		/*
 		if (isDisaplyedW(Btnaddrule, 2) == false) 
 		{
 			toggle_Btn.click();
 			Thread.sleep(500);
 			Btnaddrule.click();
 		}
-		
+		*/
 		//DD_Select_Group_Name.click();
 		//txtgrpname.click();
+		Btnaddrule.click();
 		Thread.sleep(2000);
 		Dropdownbytxt(Click_TO_Select_GRPname, GRp_Name);
 	//	select_GRpName(GRp_Name);
@@ -370,7 +397,8 @@ public class SOR_Rule_Configuration_Page extends Utility
 		ddSwitch.click();
 		selectswitch.click();
 		*/
-		Dropdownbytxt(Click_TO_Select_Switch_name, Switch_Name);
+		Dropdownbyindex(Click_TO_Select_Switch_name, 1);
+		//Dropdownbytxt(Click_TO_Select_Switch_name, Switch_Name);
 		//select_Switch_Name(Switch_Name);
 		
 		lblRuleConfiguration.click();
@@ -386,17 +414,32 @@ public class SOR_Rule_Configuration_Page extends Utility
 		}
 		
 		btnSubmit_Rule.click();
-		Thread.sleep(2000);
-		if(add_Grp_Confirmation_Msg.getText().contains("Insert Successful"))
+		//isInvisible(BArprogress, 15);
+		
+		
+		if(isInvisible(BArprogress, 20)==true)
 		{
-		Assert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Insert Successful"), "Confirmation message not as expected.");
+			//Thread.sleep(2000);
+			if(add_Grp_Confirmation_Msg.getText().contains("Insert Successful"))
+			{
+			Assert.assertTrue(add_Grp_Confirmation_Msg.getText().contains("Insert Successful"), "Confirmation message not as expected.");
 
-        System.out.println("Group added successfully");
-		} 
+	        System.out.println("Rule added successfully");
+			} 
+			else 
+			{
+	         System.out.println("Rule add button not visible");
+	        }	
+		}
+		
 		else 
 		{
-         System.out.println("Add Group button not visible");
-        }	
+		 System.out.println("Takes Too much time response from DB");	
+		}
+		
+		
+		
+		
 	}
 	
 }

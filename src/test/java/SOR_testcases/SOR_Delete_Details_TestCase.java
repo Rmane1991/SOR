@@ -26,7 +26,7 @@ public class SOR_Delete_Details_TestCase extends Base
 	}
 	
 	//@Test(priority = 2) //Done
-	public void Edit_Switch() throws InterruptedException, IOException 
+	public void Edit_Switch() throws Exception 
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 								     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
@@ -59,7 +59,7 @@ public class SOR_Delete_Details_TestCase extends Base
 	}
 	
 	@Test(priority = 4)
-	public void Edit_Rule() throws InterruptedException, IOException 
+	public void Edit_Rule() throws Exception 
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 								     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
@@ -68,7 +68,7 @@ public class SOR_Delete_Details_TestCase extends Base
 	}
 	
 	@Test(priority = 5)
-	public void Delete_Rule() throws InterruptedException, IOException 
+	public void Delete_Rule() throws Exception 
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 		     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password

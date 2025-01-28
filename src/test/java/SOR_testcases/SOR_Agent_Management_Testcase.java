@@ -27,7 +27,7 @@ public class SOR_Agent_Management_Testcase extends Base
 	
 	
 	@Test(priority = 1)
-	public void Add_Agent() throws InterruptedException, IOException 
+	public void Add_Agent() throws Exception 
 	{
 		//Login InPortal
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 

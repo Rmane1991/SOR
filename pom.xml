@@ -16,6 +16,15 @@
 			<version>5.9.2</version>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.5</version>
+		</dependency>
+
+
 		<!--
 		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
@@ -23,6 +32,14 @@
 			<artifactId>log4j-core</artifactId>
 			<version>3.0.0-beta2</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>5.0.0-alpha.14</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>io.appium</groupId>
@@ -44,17 +61,16 @@
 			<version>5.3.0</version>
 		</dependency>
 
-		
+		<!--
+		https://mvnrepository.com/artifact/org.languagetool/languagetool-core -->
 		<dependency>
-    <groupId>org.languagetool</groupId>
-    <artifactId>languagetool-core</artifactId>
-    <version>5.0</version> <!-- Change to a version that is available -->
-</dependency>
+			<groupId>org.languagetool</groupId>
+			<artifactId>languagetool-core</artifactId>
+			<version>5.9</version>
+		</dependency>
 
 
-		
-		
-				<!--
+		<!--
 		https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -90,8 +106,9 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.27.0</version>
+			<version>4.28.1</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.testng</groupId>

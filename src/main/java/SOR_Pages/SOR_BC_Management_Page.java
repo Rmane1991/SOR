@@ -318,7 +318,8 @@ public class SOR_BC_Management_Page extends Utility
 	
 	
 	
-	private WebElement getNextPageLink() {
+	private WebElement getNextPageLink() 
+	{
 	    try {
 	        // Locate the next page link that is not disabled
 	        WebElement nextPageLink = driver.findElement(By.xpath("//a[contains(@href, 'Page$') and not(contains(@class, 'disabled'))]"));
@@ -497,6 +498,7 @@ public class SOR_BC_Management_Page extends Utility
 			SelectSignatureProof("Pancard");
 			SelectFileSignatureProof.sendKeys("C:\\Users\\rajendra.mane\\Downloads\\NSDL1.png");
 			Thread.sleep(4000);
+			//moveToElementAndClick(BtnSubmitProof);
 			BtnSubmitProof.click();
 			Thread.sleep(500);
 			if (isAlertPresent() == true) 
@@ -506,7 +508,7 @@ public class SOR_BC_Management_Page extends Utility
 
 			chkbuttonforConfirmatiuon.click();
 			Thread.sleep(500);
-			moveToElementAndClick(BtnSubmitFinal_BC);
+			scrollToElementAndClick(BtnSubmitFinal_BC);
 
 			Thread.sleep(1000);
 			if (isAlertPresent() == true) 

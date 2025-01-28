@@ -395,7 +395,7 @@ public class SOR_Agent_Management_Page extends Utility
 	{
 		try {
 			WebElement rowElement = driver.findElement(By.xpath("//tr[td[contains(text(),'" + Agent_Name + "')]]"));
-			WebElement statusElement = rowElement.findElement(By.xpath("./td[14]"));
+			WebElement statusElement = rowElement.findElement(By.xpath("./td[13]"));
 			return statusElement.getText();
 		} catch (Exception e) 
 		{
@@ -642,11 +642,13 @@ public class SOR_Agent_Management_Page extends Utility
 				driver.switchTo().alert().accept();
 			}
 			Thread.sleep(1500);
-			moveToElementAndClick(chkbuttonforConfirmatiuon);
+			
+			scrollToElementAndClick(chkbuttonforConfirmatiuon);
 			moveToElementAndClick(BtnSubmitFinal_BC);
 
 			Thread.sleep(500);
-			if (isAlertPresent() == true) {
+			if (isAlertPresent() == true) 
+			{
 				driver.switchTo().alert().accept();
 			}
 			Thread.sleep(2000);

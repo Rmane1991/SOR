@@ -31,7 +31,7 @@ public class SOR_Negative_Testcase extends Base
 	}
 	
 	@Test(priority = 1)
-	public void Negative_Test_Case_Rule_Mgmt_Page() throws InterruptedException, IOException
+	public void Negative_Test_Case_Rule_Mgmt_Page() throws Exception
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 						     		 ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password

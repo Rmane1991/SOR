@@ -22,15 +22,15 @@ public class SOR_LoginTestCase extends Base
 	public void Initalization() throws Exception 
 	{
 		launchBrowser();
-		System.out.println("Done");
 		login_page = new SOR_Login_Page(driver);
 		TextFileLogger.initializeLogger("LoginPage_TestCase");
 	}
 	
 	@Test(priority = 5) // ,groups = "smoke"
-	public void Check_Valid_Credentials() throws InterruptedException, IOException
+	public void Check_Valid_Credentials() throws Exception
 
 	{
+		//login_page.Check_Valid_Credentials("MaximusInfoware","Admin@4321");
 		//ExtentReportNG.logMessage("Login TestCase Start");
 		login_page.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 										  ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password

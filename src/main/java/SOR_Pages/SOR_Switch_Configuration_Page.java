@@ -256,9 +256,11 @@ public class SOR_Switch_Configuration_Page extends Utility
 	public void addSwitch(String SwitchName, String SwitchDesc, String per) throws InterruptedException 
 	{
 		lblRuleManagement.click();
+		Thread.sleep(2000);
 		lblSwitchConfiguration.click();
+		Thread.sleep(2000);
 		BtnAddSwitch.click();
-		
+		Thread.sleep(3000);
 		
 		int highestValue = Integer.MIN_VALUE;
 	    WebElement highestEditButton = null;
@@ -286,6 +288,7 @@ public class SOR_Switch_Configuration_Page extends Utility
 	            int newValue = highestValue - perValue;
 
 	            WebElement highestInputField = percentageFields.get(indexOfHighestValue);
+	            Thread.sleep(2000);
 	            highestInputField.clear();
 	            highestInputField.sendKeys(String.valueOf(newValue));
 	        }
@@ -297,8 +300,8 @@ public class SOR_Switch_Configuration_Page extends Utility
 	        while (retries < MAX_RETRIES) {
 	            try {
 	                correspondingUpdateButton = updateButtons.get(indexOfHighestValue);
-	                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	                wait.until(ExpectedConditions.elementToBeClickable(correspondingUpdateButton));
+	               // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	                //wait.until(ExpectedConditions.elementToBeClickable(correspondingUpdateButton));
 
 	                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",
 	                        correspondingUpdateButton);
