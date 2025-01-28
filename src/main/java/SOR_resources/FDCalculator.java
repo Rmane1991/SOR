@@ -11,7 +11,7 @@ public class FDCalculator {
 		double principal = 950000;
 		double rate = 7.25 / 100;
 		int compoundsPerYear = 4;
-		LocalDate startDate = LocalDate.of(2022, 11, 24);
+		LocalDate startDate = LocalDate.of(2022, 11, 25);
 		int totalDays = 777;
 		LocalDate maturityDate = startDate.plusDays(totalDays);
 

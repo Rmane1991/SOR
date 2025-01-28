@@ -17,7 +17,6 @@ public class SOR_Rule_ConfigurationTestCase extends Base
 	SOR_Rule_Configuration_Page SORRCp;
 	
 	@BeforeClass
-	//@Test(priority = 1)
 	public void initalization() throws Exception
 	{
 		 launchBrowser();
@@ -27,7 +26,7 @@ public class SOR_Rule_ConfigurationTestCase extends Base
 	}
 	
 	@Test(priority = 2)
-	public void AddGroup() throws InterruptedException, IOException
+	public void AddGroup() throws Exception
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 						     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
@@ -41,7 +40,7 @@ public class SOR_Rule_ConfigurationTestCase extends Base
 		//SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 			//                     ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
 		ReadExcel();
-		SORRCp.addRule("Yes",getCellValueAsString(sheet.getRow(6).getCell(1)),getCellValueAsString(sheet.getRow(9).getCell(1)));
+		SORRCp.addRule("No",getCellValueAsString(sheet.getRow(6).getCell(1)),getCellValueAsString(sheet.getRow(9).getCell(1)));
 	}
 	
 	
@@ -55,13 +54,5 @@ public class SOR_Rule_ConfigurationTestCase extends Base
 	            TextFileLogger.closeLogger();
 	        }
 	    }
-	
-	/*
-	@Test(priority = 4)
-	public void tearDown() 
-	{
-		driver.quit();
-		System.out.println("Webdriver Closed ");
-	}
-	*/
+
 }

@@ -27,7 +27,7 @@ public class SOR_Switch_ConfigurationTestCase extends Base
 	}
 	
 	@Test
-	public void AddSwitch() throws InterruptedException, IOException 
+	public void AddSwitch() throws Exception 
 	{
 		SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
 			                         ,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
