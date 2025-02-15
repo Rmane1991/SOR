@@ -11,161 +11,154 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import SOR_resources.Utility;
 
-
-
-public class SOR_Login_Page extends Utility
-{
-	
+public class SOR_Login_Page extends Utility {
 
 	WebDriver driver;
-	
-	
+
 	@FindBy(xpath = "//input[@id='txtUserName']")
 	WebElement txtusername;
 	
+	//@FindBy(id = "userLogin")
 	
+
 	@FindBy(xpath = "//input[@id='txtPassword']")
 	WebElement txtPWd;
-	
+
 	@FindBy(xpath = "//input[@id='btnLogin']")
 	WebElement btnsubmit;
-	
+
 	@FindBy(xpath = "//div[@id='accordionExample']")
 	WebElement LeftMenu;
 
 	@FindBy(xpath = "//span[@id='RequiredFieldValidator5']")
-	WebElement lblblankUsername; //Please enter UserName 
-	
+	WebElement lblblankUsername; // Please enter UserName
+
 	@FindBy(xpath = "//label[@id='lblErrorMsg']")
-	WebElement lblblankPwd; //Login failed
-	
+	WebElement lblblankPwd; // Login failed
+
 	@FindBy(xpath = "//div[@class='toast-message']")
 	WebElement Alert_Toast_Msg; // Insert Successful
-	
-	@FindBy(xpath = "//span[@id='lblWelcome']")
-    WebElement lblWelcome;
 
-	public SOR_Login_Page(WebDriver driver ) 
-	{
+	@FindBy(xpath = "//span[@id='lblWelcome']")
+	WebElement lblWelcome;
+
+	public SOR_Login_Page(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		
+
 	}
 
 	String className = this.getClass().getSimpleName();
-	
-	public void Check_Valid_Credentials(String UserName, String Password) throws Exception 
-	{
+
+	public void Check_Valid_Credentials(String UserName, String Password) throws Exception {
 		TextFileLogger.logMessage("Check_Valid_Credentials TestCase Start");
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
 		txtPWd.sendKeys(Password);
-		btnsubmit.click();;
+		btnsubmit.click();
 		
-		try 
+
+		try {
+			Assert.assertEquals(lblWelcome.getText(), "Welcome " + UserName, "Welcome message validation failed!");
+			//checkUrl();
+			//String llmResponse = getLLMResponse("Login successful for user: " + UserName);
+			//System.out.println(llmResponse);
+			//Assert.assertTrue(llmResponse.contains( "Welcome " + UserName), "LLM response did not indicate success!");
+			//Check_Spelling();
+			
+			writeResultToExcel("Pass", 2, 5);
+
+			// String dbURL = "jdbc:postgresql://172.25.52.70:5432/Proxima";
+			// String dbUser = "postgres";
+			// String dbPassword = "P@ss1234";
+			String query = "select count(1) from aepsbanktransactiondetail;";
+
+			String dbValue = getValueFromDB(query);
+			System.out.println(dbValue);
+			// getValueFromDB();
+			ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
+		} catch (AssertionError e)
+
 		{
-		  Assert.assertEquals(lblWelcome.getText(), "Welcome " + UserName, "Welcome message validation failed!");
-		    writeResultToExcel("Pass", 2, 5);
-		    
-		    String dbURL = "jdbc:postgresql://172.25.52.70:5432/Proxima";
-	        String dbUser = "postgres";
-	        String dbPassword = "P@ss1234";
-	        String query = "select count(1) from aepsbanktransactiondetail;";
-		    
-	        String dbValue = getValueFromDB(dbURL, dbUser, dbPassword, query);
-	        System.out.println(dbValue);
-		    //getValueFromDB();
-		    ConsoleColor.printColored("Login Successful With Username :- " + UserName, ConsoleColor.GREEN);
-		} catch (AssertionError e) 
-		
-		{
-		    System.out.println("Test failed! The displayed message is: " + lblWelcome.getText());
-		    writeResultToExcel("Fail", 2, 5);
-		    ConsoleColor.printColored("Login Failed With Username :- " + UserName, ConsoleColor.RED);
+			System.out.println("Test failed! The displayed message is: " + lblWelcome.getText());
+			writeResultToExcel("Fail", 2, 5);
+			ConsoleColor.printColored("Login Failed With Username :- " + UserName, ConsoleColor.RED);
 		}
 
-}
-	
-	public void Blank_UserName(String Password) throws InterruptedException, IOException
-	{
+	}
+
+	public void Blank_UserName(String Password) throws InterruptedException, IOException {
 		txtusername.clear();
 		txtPWd.clear();
 		txtPWd.sendKeys(Password);
 		btnsubmit.click();
 		Thread.sleep(2000);
-		//System.out.println(lblblankUsername.getText());
-		if ((lblblankPwd.getText()).contains("Please Enter Username")) 
-		{
+		// System.out.println(lblblankUsername.getText());
+		if ((lblblankPwd.getText()).contains("Please Enter Username")) {
 			Assert.assertTrue(true);
 			writeResultToExcel("Pass", 5, 5);
-		} else 
-			
+		} else
+
 		{
 			writeResultToExcel("Fail", 5, 5);
 			Assert.assertFalse(true);
 		}
 	}
-	
-	public void Blank_Password(String UserName) throws InterruptedException, IOException
-	{
+
+	public void Blank_Password(String UserName) throws InterruptedException, IOException {
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
 		btnsubmit.click();
 		Thread.sleep(2000);
-		//System.out.println(lblblankPwd.getText());
-		if ((lblblankPwd.getText()).contains("Please Enter Password")) 
-		{
+		// System.out.println(lblblankPwd.getText());
+		if ((lblblankPwd.getText()).contains("Please Enter Password")) {
 			Assert.assertTrue(true);
 			writeResultToExcel("Pass", 5, 5);
-		} else 
-			
+		} else
+
 		{
 			Assert.assertTrue(false);
 			writeResultToExcel("Fail", 5, 5);
 		}
 	}
 
-	public void Invalid_Password(String UserName, String password) throws InterruptedException, IOException 
-	{
+	public void Invalid_Password(String UserName, String password) throws InterruptedException, IOException {
 		txtusername.clear();
 		txtusername.sendKeys(UserName);
 		txtPWd.clear();
-		txtPWd.sendKeys(password+"1");
+		txtPWd.sendKeys(password + "1");
 		btnsubmit.click();
 		Thread.sleep(2000);
-		if(lblblankPwd.getText().contains("Incorrect Username or Password"))
-		{
+		if (lblblankPwd.getText().contains("Incorrect Username or Password")) {
 			Assert.assertTrue(true);
 			writeResultToExcel("Pass", 4, 5);
-		} else 
-		
+		} else
+
 		{
 			Assert.assertTrue(false);
 		}
 	}
-		public void Invalid_Username(String UserName, String password) throws InterruptedException, IOException 
+
+	public void Invalid_Username(String UserName, String password) throws InterruptedException, IOException {
+		txtusername.clear();
+		txtusername.sendKeys(UserName + "1");
+		txtPWd.clear();
+		txtPWd.sendKeys(password);
+		btnsubmit.click();
+		Thread.sleep(2000);
+
+		if (lblblankPwd.getText().contains("Incorrect Username or Password")) {
+			Assert.assertTrue(true);
+			writeResultToExcel("Pass", 3, 5);
+		} else
+
 		{
-			txtusername.clear();
-			txtusername.sendKeys(UserName+"1");
-			txtPWd.clear();
-			txtPWd.sendKeys(password);
-			btnsubmit.click();
-			Thread.sleep(2000);
-			
-			if(lblblankPwd.getText().contains("Incorrect Username or Password"))
-			{
-				Assert.assertTrue(true);
-				writeResultToExcel("Pass", 3, 5);
-			} else 
-				
-			{
-				Assert.assertTrue(false);
-			}
+			Assert.assertTrue(false);
+		}
 	}
-	
-	
+
 }

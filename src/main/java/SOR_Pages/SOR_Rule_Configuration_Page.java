@@ -3,6 +3,7 @@ package SOR_Pages;
 import java.io.IOException;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -82,20 +83,10 @@ public class SOR_Rule_Configuration_Page extends Utility
 	@FindBy(xpath = "//div[@class='toast-message']")
 	WebElement add_Grp_Confirmation_Msg; // Insert Successful
 
-	
-	  @FindBy(xpath = "//div[@id='selectedItems']") 
-	  WebElement DdAggregator;
-	  
-	  @FindBy(xpath = "//div[@id='selectedSecondItems']") 
-	  WebElement ddIIN;
-	  
 	  
 
 	  @FindBy(xpath = "//select[@id='CPHMasterMain_ddlChannel']") 
 	  WebElement ddChannel;
-
-	  @FindBy(xpath = "//div[@id='selectedTItems']") 
-	  WebElement ddTxn_TYpe;
 
 	  @FindBy(xpath = "//label[@class='switchh']//input[@id='ddlTxn']") 
 	  WebElement Switch_Txn_Type;
@@ -342,6 +333,50 @@ public class SOR_Rule_Configuration_Page extends Utility
 		
 	}
 	
+	// For Aggregator
+
+	@FindBy(xpath = "//div[@id='selectedItems']")
+	WebElement DdAggregator;
+
+	@FindBy(xpath = "//input[@id='searchBox']")
+	WebElement txt_SerchArea_Aggregator;
+
+	// IIn
+
+	@FindBy(xpath = "//div[@id='selectedSecondItems']")
+	WebElement ddIIN;
+
+	@FindBy(xpath = "//input[@id='secondSearchBox']")
+	WebElement txt_SerchArea_IIN;
+
+	// Txn-Type
+
+	@FindBy(xpath = "//div[@id='selectedTItems']")
+	WebElement ddTxn_TYpe;
+
+	@FindBy(xpath = "//input[@id='TSearchBox']")
+	WebElement txt_Txn_TYpe;
+	
+	public void selectCheckboxFromDropdown(WebElement dropdownContainerElement, WebElement txtSearchArea, String valueToSelect) throws InterruptedException 
+	{
+	    // Click to open the dropdown
+	    dropdownContainerElement.click();
+	    Thread.sleep(2000); // Wait for dropdown to expand
+
+	    // Clear and enter the search term
+	    txtSearchArea.clear();
+	    txtSearchArea.sendKeys(valueToSelect);
+	    Thread.sleep(1000); // Wait for filtering
+
+	    // Locate the checkbox based on the value and click it
+	    WebElement checkbox = driver.findElement(By.xpath(".//input[@type='checkbox' and @value='" + valueToSelect + "']"));
+	    if (!checkbox.isSelected()) {
+	        checkbox.click();
+	    }
+	    Thread.sleep(1000); // Ensure the selection registers
+	}
+	
+	
 
 	public void addRule(String Count,String GRp_Name,String Switch_Name) throws InterruptedException, IOException 
 	{
@@ -376,12 +411,15 @@ public class SOR_Rule_Configuration_Page extends Utility
 		
 		txtRule_Desc.sendKeys("Done By Automation");
 		
-		DdAggregator.click();
-		ChkAggselect.click();
+		selectCheckboxFromDropdown(DdAggregator,txt_SerchArea_Aggregator,"2822");
+		
+		//DdAggregator.click();
+		//ChkAggselect.click();
 		lblRuleConfiguration.click();
 		
-		ddIIN.click();
-		ChkIINselect.click();
+		selectCheckboxFromDropdown(ddIIN,txt_SerchArea_IIN,"121233");
+		//ddIIN.click();
+		//ChkIINselect.click();
 		lblRuleConfiguration.click();
 		
 		//ddChannel.click();
@@ -389,6 +427,8 @@ public class SOR_Rule_Configuration_Page extends Utility
 		
 		Dropdownbytxt(ddChannel,"DMT");
 		lblRuleConfiguration.click();
+		
+		//selectCheckboxFromDropdown(ddTxn_TYpe,txt_Txn_TYpe,"AuthRequest");
 		
 		ddTxn_TYpe.click();
 		chkSelectTXnType.click();

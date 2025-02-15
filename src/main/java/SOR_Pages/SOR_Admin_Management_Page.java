@@ -21,15 +21,26 @@ public class SOR_Admin_Management_Page extends Utility {
 
 	WebDriver driver;
 
-	public SOR_Admin_Management_Page(WebDriver driver) {
+	public SOR_Admin_Management_Page(WebDriver driver) 
+	{
 		super(driver);
 		this.driver = driver;
 		this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		PageFactory.initElements(driver, this);
 	}
 
+	@FindBy(id = "select2-CPHMasterMain_DDlOrg-container")
+	WebElement dd_BC;
+	
+	@FindBy(xpath = "//input[@aria-controls='select2-CPHMasterMain_DDlOrg-results']")
+	WebElement txt_bc;
+	
+	
+	
+	
 	public void selectFromDropdown(WebElement dropdownContainerElement, WebElement txtsercharea, String searchTerm)
-			throws InterruptedException {
+			throws InterruptedException 
+	{
 		dropdownContainerElement.click();
 		Thread.sleep(500);
 		txtsercharea.sendKeys(searchTerm);
@@ -203,6 +214,42 @@ public class SOR_Admin_Management_Page extends Utility {
 	
 	//For Edit button if not found on first page then revisit on next page so on
 	
+	
+	
+	public WebElement Click_Edit_Button(String roleName) {
+		
+	    WebElement editButton = null;
+
+	    while (true) {
+	        try {
+	            // Try to locate the Edit button for the given role
+	            editButton = driver.findElement(By.xpath("//td[text()='" + roleName + "']/ancestor::tr//input[contains(@title, 'Edit role')]"));
+	            return editButton; // Return immediately if found
+	        } catch (NoSuchElementException e) {
+	            // Locate the next page link dynamically
+	            List<WebElement> nextPageLinks = driver.findElements(By.xpath("//td/a[contains(@href, '__doPostBack')]"));
+
+	            // If next page exists, click on it
+	            if (!nextPageLinks.isEmpty()) {
+	                nextPageLinks.get(0).click();
+	                try {
+	                    Thread.sleep(2000); // Wait for page to load
+	                } catch (InterruptedException ex) {
+	                    ex.printStackTrace();
+	                }
+	            } else {
+	                break; // No more pages, exit loop
+	            }
+	        }
+	    }
+
+	    throw new NoSuchElementException("Role with name '" + roleName + "' not found on any page.");
+	}
+
+	
+	
+	
+	/*
 	public WebElement Click_Edit_Button(String roleName) 
 	{
 		WebElement editButton = null;
@@ -238,7 +285,7 @@ public class SOR_Admin_Management_Page extends Utility {
 
 		return editButton;
 	}
-	
+	*/
 	List<String> selectedPermissions;
 
 	public void assignRandomPermissions(String Role_Name, String BC_Name) throws InterruptedException {
@@ -331,7 +378,8 @@ public class SOR_Admin_Management_Page extends Utility {
 
 	SoftAssert Assert = new SoftAssert();
 
-	public void Create_Role() throws InterruptedException {
+	public void Create_Role() throws InterruptedException 
+	{
 		String RoleName = generateRandomRoleName();
 
 		Click_Admin_Management.click();
@@ -390,7 +438,7 @@ public class SOR_Admin_Management_Page extends Utility {
 		return false;
 	}*/
 	
-	
+	/*
 	public boolean isRolePresent(String roleName) throws InterruptedException {
 	    while (true) {
 	        // Wait and get the list of roles on the current page
@@ -417,7 +465,52 @@ public class SOR_Admin_Management_Page extends Utility {
 
 	    return false; // Role not found on any page
 	}
+*/
+	
+	
+	
+	
+	public boolean isRolePresent(String roleName) throws InterruptedException {
+	    while (true) {
+	        // Wait for elements to load
+	        Thread.sleep(1000);
 
+	        // Get the list of roles on the current page
+	        List<WebElement> roleElements = driver.findElements(By.xpath(".//td[2]/span"));
+
+	        // Check if the role exists on the current page
+	        for (WebElement roleElement : roleElements) {
+	            if (roleElement.getText().trim().equalsIgnoreCase(roleName)) {
+	                return true; // Role found
+	            }
+	        }
+
+	        // Locate the "Next" page link dynamically
+	        List<WebElement> nextPageButton = driver.findElements(By.xpath("//td/a[contains(@href, '__doPostBack')]"));
+
+	        // If there's no next page button, exit the loop
+	        if (nextPageButton.isEmpty()) {
+	            break;
+	        }
+
+	        // Click the last available page link (assuming it's the next page)
+	        WebElement lastPageButton = nextPageButton.get(nextPageButton.size() - 1);
+	        lastPageButton.click();
+	        
+	        // Allow time for the next page to load
+	        Thread.sleep(1000);
+	    }
+
+	    return false; // Role not found on any page
+	}
+
+
+	
+	
+	
+	
+	
+	
 
 	public boolean isUser(String UserName) {
 		List<WebElement> roleElements = driver.findElements(By.xpath(".//td[2]"));
@@ -553,7 +646,28 @@ public class SOR_Admin_Management_Page extends Utility {
 		}
 
 		// For verify Permission
+		
+		
+		List<WebElement> menuItems = List_Menu.findElements(By.xpath(".//h5"));
+		List<String> displayedPermissions = new ArrayList<>();
 
+		for (WebElement item : menuItems) {
+		    displayedPermissions.add(item.getText().trim());
+		}
+
+		System.out.println("Selected Permissions: " + selectedPermissions);
+		System.out.println("Displayed Permissions: " + displayedPermissions);
+
+		// Verify if both lists are exactly equal (order & content)
+		if (!selectedPermissions.equals(displayedPermissions)) {
+		    System.out.println("Mismatch Found!");
+		    System.out.println("Expected: " + selectedPermissions);
+		    System.out.println("Actual: " + displayedPermissions);
+		    Assert.fail("Selected permissions do not match the displayed permissions.");
+		}
+
+		
+		/*
 		List<WebElement> menuItems = List_Menu.findElements(By.xpath(".//h5"));
 		List<String> displayedPermissions = new ArrayList<>();
 		for (WebElement item : menuItems) {
@@ -569,6 +683,6 @@ public class SOR_Admin_Management_Page extends Utility {
 				Assert.fail("Permission '" + permission + "' is not visible in the menu.");
 			}
 		}
-
+		*/
 	}
 }

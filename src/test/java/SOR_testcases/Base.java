@@ -30,7 +30,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -41,7 +40,7 @@ public class Base {
 
 	Sheet sheet;
 	public WebDriver driver;
-
+	 WebDriver delegate;
 	
 	public void ReadExcel() throws IOException 
 	{
@@ -70,8 +69,11 @@ public class Base {
 
 			driver = new FirefoxDriver(options);
 
-		} else if (sheet.getRow(3).getCell(7).getStringCellValue().equalsIgnoreCase("chrome")) {
+		} 
+		else if (sheet.getRow(3).getCell(7).getStringCellValue().equalsIgnoreCase("chrome")) 
+		{
 
+			
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
 			HashMap<String, Object> prefs = new HashMap<String, Object>();
@@ -80,11 +82,26 @@ public class Base {
 			options.setExperimentalOption("prefs", prefs);
 			options.addArguments("--disable-features=InsecureDownloadWarnings");
 			driver = new ChromeDriver(options);
-
-		} else if (sheet.getRow(3).getCell(7).getStringCellValue().equalsIgnoreCase("edge")) {
-			driver = new EdgeDriver();
+			
+			/*
+			WebDriverManager.chromedriver().setup();
+            ChromeOptions chromeOptions = new ChromeOptions();
+            HashMap<String, Object> prefs = new HashMap<>();
+            prefs.put("download.default_directory", System.getProperty("user.dir") + "\\downloadFiles\\");
+            prefs.put("browser.download.manager.closeWhenDone", true);
+            chromeOptions.setExperimentalOption("prefs", prefs);
+            chromeOptions.addArguments("--disable-features=InsecureDownloadWarnings");
+           // chromeOptions.setProxy(null);
+            Proxy proxy = new Proxy();
+    		proxy.setProxyType(Proxy.ProxyType.DIRECT);
+    		chromeOptions.setProxy(proxy);
+            delegate = new ChromeDriver(chromeOptions);
+            */
+		//} 
+		
+		
 		}
-
+		//driver = SelfHealingDriver.create(delegate);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
@@ -92,7 +109,7 @@ public class Base {
 		
 		return driver;
 	}
-
+	
 	
 	public void sendEmailWithReport() {
         // Your Gmail credentials
