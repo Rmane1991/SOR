@@ -55,11 +55,6 @@ public class SOR_BC_Management_TestCase extends Base
 	@Test(priority = 2)//,dependsOnMethods = "Add_BC"
 	public void BC_Verification() throws InterruptedException, IOException 
 	{
-		//Login InPortal
-		//SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-							 //,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
-		Thread.sleep(5000);
-		//BC Verification
 		ReadExcel();
 		Sbmp.BC_Verification(getCellValueAsString(sheet.getRow(12).getCell(1)));
 	}
@@ -68,15 +63,10 @@ public class SOR_BC_Management_TestCase extends Base
 	@Test(priority = 3,dependsOnMethods = "Add_BC")
 	public void On_Board_BC_Status() throws InterruptedException, IOException 
 	{
-		//Login InPortal
-		//SORLp.Check_Valid_Credentials(getCellValueAsString(sheet.getRow(3).getCell(1)) //UserName 
-									 //,getCellValueAsString(sheet.getRow(3).getCell(3)));// Password
-	Thread.sleep(5000);
 		Sbmp.On_Board_BC_Status(getCellValueAsString(sheet.getRow(12).getCell(1)));
 	}
 	
 	@AfterClass
-	//@Test(priority = 4)
 	public void tearDown() throws IOException 
 	{
 		 if (driver != null) {

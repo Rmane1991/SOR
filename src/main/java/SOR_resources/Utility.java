@@ -1,10 +1,14 @@
 package SOR_resources;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -67,14 +71,53 @@ public class Utility {
 	Actions act;
 	WebDriverWait wait;
 
-	@FindBy(xpath = "//div[@class='toast-message']") // Replace with the correct XPath
+	@FindBy(xpath = "//div[@class='toast-message']") 
 	WebElement Alert_Toast_Msg;
+	
+	
+	
+	private final String ollamaPath = "C:\\Users\\rajendra.mane\\AppData\\Local\\Programs\\Ollama\\ollama.exe";  // Path to Ollama executable
+
+	public String getLLMResponse(String prompt) throws IOException, InterruptedException {
+	    ProcessBuilder builder = new ProcessBuilder(ollamaPath, "run", "mistral");
+	    builder.redirectErrorStream(true); // Redirect errors to output stream
+	    Process process = builder.start();
+
+	    // Send input prompt to Ollama
+	    try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()))) {
+	        writer.write(prompt + "\n");
+	        writer.flush();
+	    }
+
+	    // Capture response from Ollama
+	    StringBuilder response = new StringBuilder();
+	    try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            response.append(line).append("\n");
+	        }
+	    }
+
+	    // Wait for process to finish
+	    int exitCode = process.waitFor();
+	    if (exitCode != 0) {
+	        throw new IOException("Ollama process exited with code " + exitCode);
+	    }
+
+	    return response.toString().trim();
+	}
+
+	
+	
+	
+	
+	
 
 	public Utility(WebDriver driver) {
 		super();
 		this.driver = driver;
 		act = new Actions(driver);
-		this.wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // Set a timeout for waiting
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		PageFactory.initElements(driver, this);
 	}
 
@@ -107,6 +150,7 @@ public class Utility {
 	
 	
 	
+	
 	public void scrollToElementAndClick(WebElement element) 
 	{
 	    try {
@@ -133,10 +177,10 @@ public class Utility {
 
 	
 	
-	public static String getValueFromDB(String dbURL, String dbUser, String dbPassword, String query) 
+	public static String getValueFromDB(String query) 
 	{
         String dbValue = null;
-        try (Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.25.52.70:5432/Proxima", "postgres", "P@ss1234");
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -210,17 +254,9 @@ public class Utility {
 		return isDisplayed;
 	}
 
-	// For check Error
-
-	// Method to check for the toast message dynamically
+	
 	private void checkForToastMessage() {
 
-		/*
-		 * if(Alert_Toast_Msg.isDisplayed()) { System.out.println("Message Displyed:-"+
-		 * Alert_Toast_Msg.getText());
-		 * 
-		 * }
-		 */
 
 		try {
 
@@ -1141,8 +1177,70 @@ public class Utility {
 	        }
 
 	    }
-	
+	    
+		public void Check_Spelling() {
+
+			List<WebElement> elements = driver.findElements(By.xpath("//*[not(self::script) and not(self::style)]"));
+
+			// Extract text content
+			Set<String> extractedWords = new HashSet<>();
+			for (WebElement element : elements) {
+				String text = element.getText().trim();
+				if (!text.isEmpty()) {
+					String[] words = text.split("\\s+"); // Split into words
+					for (String word : words) {
+						word = word.replaceAll("[^a-zA-Z]", ""); // Remove punctuation
+						if (!word.isEmpty()) {
+							extractedWords.add(word);
+						}
+					}
+				}
+			}
+
+			// Check spelling using an API
+			Set<String> spellingMistakes = new HashSet<>();
+			for (String word : extractedWords) {
+				if (!isCorrectWord(word)) {
+					spellingMistakes.add(word);
+				}
+			}
+
+			// Print results
+			if (spellingMistakes.isEmpty()) {
+				System.out.println("No spelling mistakes found.");
+			} else {
+				System.out.println("Spelling mistakes found:");
+				for (String mistake : spellingMistakes) {
+					System.out.println(" - " + mistake);
+
+				}
+			}
+
+		}
+
+		@SuppressWarnings("deprecation")
+		private static boolean isCorrectWord(String word) {
+			try {
+				// Free dictionary API (adjust if necessary)
+				String apiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
+
+				URL url = new URL(apiUrl);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("GET");
+
+				// Read response
+				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String response = in.readLine();
+				in.close();
+
+				return response != null && !response.contains("No Definitions Found");
+			} catch (Exception e) {
+				return false; // If API fails, assume it's incorrect
+			}
+
+		}
 }
+
 	
 	
 	

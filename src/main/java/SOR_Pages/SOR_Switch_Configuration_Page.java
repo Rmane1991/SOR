@@ -443,21 +443,22 @@ public class SOR_Switch_Configuration_Page extends Utility
 			}
 			else
 			{
-				authRequestInput.clear();
-				authRequestInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
-				balanceEnquiryInput.clear();
-		        balanceEnquiryInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
-		        cashDepositInput.clear();
-		        cashDepositInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
-		        fundTransferInput.clear();
-		        fundTransferInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
-		        moveToElement(withdrawalInput);
-		        miniStatementInput.clear();
-		        miniStatementInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
-		        purchaseInput.clear();
-		        purchaseInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
-		        withdrawalInput.clear();
-		        withdrawalInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				
+				  authRequestInput.clear();
+				  authRequestInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				  balanceEnquiryInput.clear();
+				  balanceEnquiryInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				  cashDepositInput.clear();
+				  cashDepositInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				  fundTransferInput.clear();
+				  fundTransferInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				  moveToElement(withdrawalInput); miniStatementInput.clear();
+				  miniStatementInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				  purchaseInput.clear();
+				  purchaseInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				  withdrawalInput.clear();
+				  withdrawalInput.sendKeys("http://172.25.52.170:4555/AEPS/ReqBalEnq");
+				 
 			}
 	        Thread.sleep(2000);
 			moveToElementAndClick(btnSubmitSwitch);

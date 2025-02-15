@@ -22,11 +22,14 @@ public class SOR_BC_Management_Page extends Utility
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		
 		if (driver.manage().timeouts().getImplicitWaitTimeout().isZero()) 
 		{
 	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); 
 	    }
 	}
+	
+	
 
 	@FindBy(xpath = "//button[@id='BtnSubb4']")
 	WebElement btnBCManagement;
@@ -96,7 +99,8 @@ public class SOR_BC_Management_Page extends Utility
 	@FindBy(xpath = "//span[@id='select2-CPHMasterMain_ddlDistrict-container']")
 	WebElement ClickDistrict;
 
-	public void selectDistrict(String DistrictName) throws InterruptedException {
+	public void selectDistrict(String DistrictName) throws InterruptedException 
+	{
 		Thread.sleep(500);
 		ClickDistrict.click();
 		Thread.sleep(500);
@@ -345,7 +349,6 @@ public class SOR_BC_Management_Page extends Utility
 	
 	
 	
-	
 	/*
 	private WebElement getNextPageLink() 
 	{
@@ -442,7 +445,8 @@ public class SOR_BC_Management_Page extends Utility
 			
 			BtnBCRegistration.click();
 			Thread.sleep(2000);
-			//BtnAddNewBC.click();
+			BtnAddNewBC.click();
+			/*
 			if(isClicked(BtnAddNewBC)==true)
 			{
 				ConsoleColor.printColored("Ad new BC button Click", ConsoleColor.GREEN);
@@ -452,6 +456,10 @@ public class SOR_BC_Management_Page extends Utility
 			{
 				ConsoleColor.printColored("Ad new BC button not Click", ConsoleColor.RED);
 			}
+			*/
+			
+			//Check_Spelling();
+			
 			ChkAEPS.click();
 			txtFirstname_BCRegistration.sendKeys(BC_Name_Randam);
 			writeNameToExcel(12,1,BC_Name_Randam);

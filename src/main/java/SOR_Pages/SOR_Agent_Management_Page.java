@@ -329,18 +329,10 @@ public class SOR_Agent_Management_Page extends Utility
 	        String vireficationBy = rowElement.findElement(By.xpath("./td[15]")).getText();
 	        String vireficationOn = rowElement.findElement(By.xpath("./td[16]")).getText();
 	        String vireficationRemarks = rowElement.findElement(By.xpath("./td[17]")).getText();
-
 	        ConsoleColor.printColored(">> BC Name: " + Agent_Name, ConsoleColor.GREEN);
-	        //System.out.println(">> BC Name: " + bcName);
-	        
 	        ConsoleColor.printColored(">> Virefication By: " + vireficationBy, ConsoleColor.GREEN);
-	        // System.out.println(">> Virefication By: " + vireficationBy);
-	        
 	        ConsoleColor.printColored(">> Virefication On: " + vireficationOn, ConsoleColor.GREEN);
-	        // System.out.println(">> Virefication On: " + vireficationOn);
-	      
 	        ConsoleColor.printColored(">> Virefication Remarks: " + vireficationRemarks, ConsoleColor.GREEN);
-	       // System.out.println(">> Virefication Remarks: " + vireficationRemarks);
 	    } else 
 	    {
 	        System.out.println("BC Name: " + Agent_Name + " not found on this page or any other pages.");
@@ -480,7 +472,7 @@ public class SOR_Agent_Management_Page extends Utility
 	
 
 	public static void selectDate(WebDriver driver, String DDMMYYYY)
-{
+	{
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         DateTimeFormatter webFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(DDMMYYYY, inputFormat);
